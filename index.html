@@ -8,14 +8,38 @@
   </head>
   <body>
     <main class="app-shell">
+      <section class="setup-view is-hidden" id="setupView" aria-labelledby="setupTitle">
+        <div class="setup-content">
+          <p class="eyebrow">Configurar rutina</p>
+          <h1 id="setupTitle">Training App</h1>
+          <p class="intro">
+            Elegi cuantos dias de entrenamiento tiene tu semana. Despues podes cambiarlo.
+          </p>
+          <form class="setup-form" id="setupForm">
+            <label>
+              <span>Dias de entrenamiento</span>
+              <input id="setupDaysInput" type="number" min="1" max="7" step="1" required value="4" />
+            </label>
+            <button class="primary-action" type="submit">Guardar configuracion</button>
+          </form>
+        </div>
+      </section>
+
       <section class="home-view" id="homeView" aria-labelledby="appTitle">
         <div class="home-content">
           <p class="eyebrow" id="selectedDayLabel">Entrenamiento de hoy</p>
           <h1 id="appTitle">Training App</h1>
           <p class="intro">
-            Elegi el dia, carga tu rutina y completa cada serie registrando el peso usado.
+            Elegi el dia de entrenamiento, carga tu rutina y completa cada serie registrando el peso usado.
           </p>
           <div class="day-selector" aria-label="Seleccionar dia de rutina" id="daySelector"></div>
+          <form class="training-days-form" id="trainingDaysForm">
+            <label>
+              <span>Dias por semana</span>
+              <input id="trainingDaysInput" type="number" min="1" max="7" step="1" required />
+            </label>
+            <button class="secondary-action" type="submit">Actualizar</button>
+          </form>
           <button class="primary-action" id="startButton" type="button">
             Comenzar entrenamiento
           </button>
