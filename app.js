@@ -1,35 +1,30 @@
 const STORAGE_KEY = "training-app-routines";
 const HISTORY_STORAGE_KEY = "training-app-history";
+const CONFIG_STORAGE_KEY = "training-app-config";
+const DEFAULT_TRAINING_DAY_COUNT = 4;
+const MAX_TRAINING_DAYS = 7;
+const legacyDayOrder = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"];
 
 const defaultRoutines = {
-  lunes: [
+  day1: [
     { name: "Sentadilla", sets: 4, reps: 8 },
     { name: "Press de banca", sets: 4, reps: 10 },
     { name: "Remo con barra", sets: 3, reps: 10 },
     { name: "Peso muerto rumano", sets: 3, reps: 12 },
   ],
-  martes: [],
-  miercoles: [],
-  jueves: [],
-  viernes: [],
-  sabado: [],
-  domingo: [],
+  day2: [],
+  day3: [],
+  day4: [],
 };
 
-const dayNames = {
-  lunes: "Lunes",
-  martes: "Martes",
-  miercoles: "Miercoles",
-  jueves: "Jueves",
-  viernes: "Viernes",
-  sabado: "Sabado",
-  domingo: "Domingo",
-};
+const savedConfig = loadConfig();
 
 const state = {
-  selectedDay: "lunes",
-  routines: loadRoutines(),
-  sessions: loadSessions(),
+  hasConfiguredTrainingDays: Boolean(savedConfig),
+  trainingDayCount: savedConfig?.trainingDayCount ?? DEFAULT_TRAINING_DAY_COUNT,
+  selectedDay: "day1",
+  routines: loadRoutines(savedConfig?.trainingDayCount ?? DEFAULT_TRAINING_DAY_COUNT),
+  sessions: loadSessions(savedConfig?.trainingDayCount ?? DEFAULT_TRAINING_DAY_COUNT),
   workoutPlan: [],
   exerciseIndex: 0,
   setIndex: 0,
@@ -37,6 +32,9 @@ const state = {
   currentSessionSaved: false,
 };
 
+const setupView = document.querySelector("#setupView");
+const setupForm = document.querySelector("#setupForm");
+const setupDaysInput = document.querySelector("#setupDaysInput");
 const homeView = document.querySelector("#homeView");
 const workoutView = document.querySelector("#workoutView");
 const summaryView = document.querySelector("#summaryView");
@@ -45,6 +43,8 @@ const daySelector = document.querySelector("#daySelector");
 const routineTitle = document.querySelector("#routineTitle");
 const planList = document.querySelector("#planList");
 const startButton = document.querySelector("#startButton");
+const trainingDaysForm = document.querySelector("#trainingDaysForm");
+const trainingDaysInput = document.querySelector("#trainingDaysInput");
 const backButton = document.querySelector("#backButton");
 const restartButton = document.querySelector("#restartButton");
 const completeSetButton = document.querySelector("#completeSetButton");
@@ -69,17 +69,53 @@ const summaryText = document.querySelector("#summaryText");
 const summaryLog = document.querySelector("#summaryLog");
 const savedSessionsList = document.querySelector("#savedSessionsList");
 
-function loadRoutines() {
-  const saved = localStorage.getItem(STORAGE_KEY);
+function loadConfig() {
+  const saved = localStorage.getItem(CONFIG_STORAGE_KEY);
 
   if (!saved) {
-    return cloneRoutines(defaultRoutines);
+    return null;
   }
 
   try {
-    return { ...cloneRoutines(defaultRoutines), ...JSON.parse(saved) };
+    const config = JSON.parse(saved);
+    const trainingDayCount = clampTrainingDayCount(config.trainingDayCount);
+    return { trainingDayCount };
   } catch {
-    return cloneRoutines(defaultRoutines);
+    return null;
+  }
+}
+
+function saveConfig() {
+  localStorage.setItem(
+    CONFIG_STORAGE_KEY,
+    JSON.stringify({ trainingDayCount: state.trainingDayCount }),
+  );
+}
+
+function clampTrainingDayCount(value) {
+  const number = Number(value);
+
+  if (!Number.isFinite(number)) {
+    return DEFAULT_TRAINING_DAY_COUNT;
+  }
+
+  return Math.min(Math.max(Math.round(number), 1), MAX_TRAINING_DAYS);
+}
+
+function loadRoutines(trainingDayCount) {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  const emptyRoutines = createEmptyRoutines(trainingDayCount);
+
+  if (!saved) {
+    return ensureRoutinesForTrainingDays(cloneRoutines(defaultRoutines), trainingDayCount);
+  }
+
+  try {
+    const parsed = JSON.parse(saved);
+    const migrated = hasLegacyRoutineKeys(parsed) ? migrateLegacyRoutines(parsed) : parsed;
+    return ensureRoutinesForTrainingDays({ ...emptyRoutines, ...migrated }, trainingDayCount);
+  } catch {
+    return ensureRoutinesForTrainingDays(cloneRoutines(defaultRoutines), trainingDayCount);
   }
 }
 
@@ -87,11 +123,44 @@ function cloneRoutines(routines) {
   return JSON.parse(JSON.stringify(routines));
 }
 
+function createEmptyRoutines(trainingDayCount) {
+  return Array.from({ length: trainingDayCount }, (_, index) => [`day${index + 1}`, []]).reduce(
+    (routines, [key, value]) => ({ ...routines, [key]: value }),
+    {},
+  );
+}
+
+function ensureRoutinesForTrainingDays(routines, trainingDayCount) {
+  const nextRoutines = { ...routines };
+
+  for (let index = 1; index <= trainingDayCount; index += 1) {
+    nextRoutines[`day${index}`] = Array.isArray(routines[`day${index}`]) ? routines[`day${index}`] : [];
+  }
+
+  return nextRoutines;
+}
+
+function hasLegacyRoutineKeys(routines) {
+  return legacyDayOrder.some((day) => Object.prototype.hasOwnProperty.call(routines, day));
+}
+
+function migrateLegacyRoutines(routines) {
+  const migrated = {};
+
+  legacyDayOrder.forEach((legacyDay, index) => {
+    if (Array.isArray(routines[legacyDay])) {
+      migrated[`day${index + 1}`] = routines[legacyDay];
+    }
+  });
+
+  return { ...routines, ...migrated };
+}
+
 function saveRoutines() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state.routines));
 }
 
-function loadSessions() {
+function loadSessions(trainingDayCount) {
   const saved = localStorage.getItem(HISTORY_STORAGE_KEY);
 
   if (!saved) {
@@ -100,7 +169,7 @@ function loadSessions() {
 
   try {
     const sessions = JSON.parse(saved);
-    return Array.isArray(sessions) ? sessions : [];
+    return Array.isArray(sessions) ? migrateLegacySessions(sessions, trainingDayCount) : [];
   } catch {
     return [];
   }
@@ -114,12 +183,24 @@ function getSelectedRoutine() {
   return state.routines[state.selectedDay] ?? [];
 }
 
+function getDayLabel(dayKey) {
+  return `Dia ${getDayNumber(dayKey)}`;
+}
+
+function getDayNumber(dayKey) {
+  return Number(String(dayKey).replace("day", "")) || 1;
+}
+
+function getTrainingDayKeys() {
+  return Array.from({ length: state.trainingDayCount }, (_, index) => `day${index + 1}`);
+}
+
 function renderDaySelector() {
-  daySelector.innerHTML = Object.entries(dayNames)
+  daySelector.innerHTML = getTrainingDayKeys()
     .map(
-      ([dayKey, dayLabel]) => `
+      (dayKey) => `
         <button class="day-button${state.selectedDay === dayKey ? " is-active" : ""}" type="button" data-day="${dayKey}">
-          ${dayLabel.slice(0, 3)}
+          ${getDayLabel(dayKey)}
         </button>
       `,
     )
@@ -128,8 +209,10 @@ function renderDaySelector() {
 
 function renderPlan() {
   const routine = getSelectedRoutine();
-  selectedDayLabel.textContent = `Entrenamiento de ${dayNames[state.selectedDay]}`;
-  routineTitle.textContent = dayNames[state.selectedDay];
+  selectedDayLabel.textContent = `Entrenamiento - ${getDayLabel(state.selectedDay)}`;
+  routineTitle.textContent = getDayLabel(state.selectedDay);
+  trainingDaysInput.value = state.trainingDayCount;
+  setupDaysInput.value = state.trainingDayCount;
   clearDayButton.disabled = routine.length === 0;
   startButton.disabled = routine.length === 0;
   renderSavedSessions();
@@ -158,10 +241,12 @@ function renderPlan() {
 
 function getExerciseRepsLabel(exercise) {
   if (Array.isArray(exercise.repsBySet) && exercise.repsBySet.length > 0) {
-    return exercise.repsBySet.map((reps, index) => `S${index + 1}: ${reps} reps`).join(" - ");
+    return exercise.repsBySet
+      .map((reps, index) => `S${index + 1}: ${escapeHtml(reps)} reps`)
+      .join(" - ");
   }
 
-  return `${exercise.sets} series x ${exercise.reps} repeticiones`;
+  return `${escapeHtml(exercise.sets)} series x ${escapeHtml(exercise.reps)} repeticiones`;
 }
 
 function getRepsForSet(exercise, setIndex) {
@@ -238,6 +323,7 @@ function formatSessionDate(value) {
 }
 
 function showView(view) {
+  setupView.classList.toggle("is-hidden", view !== "setup");
   homeView.classList.toggle("is-hidden", view !== "home");
   workoutView.classList.toggle("is-hidden", view !== "workout");
   summaryView.classList.toggle("is-hidden", view !== "summary");
@@ -269,7 +355,7 @@ function renderWorkout() {
   const completedForExercise = state.log[state.exerciseIndex].sets;
   const currentSet = state.setIndex + 1;
 
-  exerciseCounter.textContent = `${dayNames[state.selectedDay]} - ejercicio ${state.exerciseIndex + 1} de ${state.workoutPlan.length}`;
+  exerciseCounter.textContent = `${getDayLabel(state.selectedDay)} - ejercicio ${state.exerciseIndex + 1} de ${state.workoutPlan.length}`;
   exerciseName.textContent = exercise.name;
   setCounter.textContent = `${currentSet} / ${exercise.sets}`;
   repTarget.textContent = getRepsForSet(exercise, state.setIndex);
@@ -287,12 +373,18 @@ function formatWeight(weight) {
     return "sin peso";
   }
 
-  return `${Number(weight).toLocaleString("es-AR")} kg`;
+  const numericWeight = Number(weight);
+
+  if (!Number.isFinite(numericWeight)) {
+    return escapeHtml(weight);
+  }
+
+  return `${numericWeight.toLocaleString("es-AR")} kg`;
 }
 
 function formatLoggedSet(set, index) {
   if (set && typeof set === "object") {
-    return `S${index + 1}: ${set.reps} reps - ${formatWeight(set.weight)}`;
+    return `S${index + 1}: ${escapeHtml(set.reps)} reps - ${formatWeight(set.weight)}`;
   }
 
   return `S${index + 1}: ${formatWeight(set)}`;
@@ -325,7 +417,7 @@ function completeSet() {
 function renderSummary() {
   saveCompletedSession();
   progressFill.style.width = "100%";
-  summaryText.textContent = `Completaste ${getTotalSets()} series en ${state.workoutPlan.length} ejercicios de ${dayNames[state.selectedDay]}.`;
+  summaryText.textContent = `Completaste ${getTotalSets()} series en ${state.workoutPlan.length} ejercicios de ${getDayLabel(state.selectedDay)}.`;
   summaryLog.innerHTML = state.log
     .map(
       (exercise) => `
@@ -350,7 +442,7 @@ function saveCompletedSession() {
   const session = {
     id: typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}`,
     day: state.selectedDay,
-    dayName: dayNames[state.selectedDay],
+    dayName: getDayLabel(state.selectedDay),
     completedAt: new Date().toISOString(),
     totalSets: getTotalSets(),
     totalExercises: state.workoutPlan.length,
@@ -441,9 +533,54 @@ function renderSetRepsFields() {
   }).join("");
 }
 
+function migrateLegacySessions(sessions, trainingDayCount) {
+  return sessions
+    .map((session) => {
+      const legacyIndex = legacyDayOrder.indexOf(session.day);
+
+      if (legacyIndex === -1) {
+        return session;
+      }
+
+      const dayNumber = legacyIndex + 1;
+
+      return {
+        ...session,
+        day: `day${dayNumber}`,
+        dayName: `Dia ${dayNumber}`,
+      };
+    });
+}
+
+function applyTrainingDayCount(value) {
+  const trainingDayCount = clampTrainingDayCount(value);
+  state.trainingDayCount = trainingDayCount;
+  state.hasConfiguredTrainingDays = true;
+  state.routines = ensureRoutinesForTrainingDays(state.routines, trainingDayCount);
+
+  if (getDayNumber(state.selectedDay) > trainingDayCount) {
+    state.selectedDay = "day1";
+  }
+
+  saveConfig();
+  saveRoutines();
+  saveSessions();
+  renderDaySelector();
+  renderPlan();
+  showView("home");
+}
+
 startButton.addEventListener("click", startWorkout);
 completeSetButton.addEventListener("click", completeSet);
 exerciseForm.addEventListener("submit", addExercise);
+setupForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  applyTrainingDayCount(setupDaysInput.value);
+});
+trainingDaysForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  applyTrainingDayCount(trainingDaysInput.value);
+});
 setsInput.addEventListener("input", () => {
   if (variableRepsToggle.checked) {
     renderSetRepsFields();
@@ -451,11 +588,23 @@ setsInput.addEventListener("input", () => {
 });
 variableRepsToggle.addEventListener("change", renderExerciseFormMode);
 clearDayButton.addEventListener("click", () => {
+  const confirmed = window.confirm(`Seguro que queres vaciar ${getDayLabel(state.selectedDay)}?`);
+
+  if (!confirmed) {
+    return;
+  }
+
   state.routines[state.selectedDay] = [];
   saveRoutines();
   renderPlan();
 });
 clearHistoryButton.addEventListener("click", () => {
+  const confirmed = window.confirm(`Seguro que queres borrar el historial de ${getDayLabel(state.selectedDay)}?`);
+
+  if (!confirmed) {
+    return;
+  }
+
   state.sessions = state.sessions.filter((session) => session.day !== state.selectedDay);
   saveSessions();
   renderSavedSessions();
@@ -478,11 +627,27 @@ planList.addEventListener("click", (event) => {
     return;
   }
 
+  const exercise = state.routines[state.selectedDay][Number(removeIndex)];
+  const exerciseName = exercise?.name ? ` "${exercise.name}"` : "";
+  const confirmed = window.confirm(`Seguro que queres quitar${exerciseName}?`);
+
+  if (!confirmed) {
+    return;
+  }
+
   state.routines[state.selectedDay].splice(Number(removeIndex), 1);
   saveRoutines();
   renderPlan();
 });
 backButton.addEventListener("click", () => {
+  if (getCompletedSets() > 0) {
+    const confirmed = window.confirm("Seguro que queres salir? Se va a descartar el progreso de este entrenamiento.");
+
+    if (!confirmed) {
+      return;
+    }
+  }
+
   renderPlan();
   showView("home");
 });
@@ -499,3 +664,4 @@ weightInput.addEventListener("keydown", (event) => {
 renderDaySelector();
 renderExerciseFormMode();
 renderPlan();
+showView(state.hasConfiguredTrainingDays ? "home" : "setup");

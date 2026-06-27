@@ -44,6 +44,7 @@ button:disabled {
   min-height: 100vh;
 }
 
+.setup-view,
 .home-view,
 .summary-view {
   display: grid;
@@ -56,6 +57,7 @@ button:disabled {
   padding: 48px 0;
 }
 
+.setup-content,
 .home-content,
 .summary-content,
 .today-plan,
@@ -67,6 +69,7 @@ button:disabled {
   box-shadow: var(--shadow);
 }
 
+.setup-content,
 .home-content,
 .summary-content {
   display: flex;
@@ -75,6 +78,62 @@ button:disabled {
   min-height: 520px;
   padding: 42px;
   border-radius: 8px;
+}
+
+.setup-view {
+  grid-template-columns: minmax(0, 720px);
+  justify-content: center;
+}
+
+.setup-content {
+  min-height: 560px;
+}
+
+.setup-form,
+.training-days-form {
+  display: grid;
+  gap: 12px;
+}
+
+.setup-form {
+  max-width: 360px;
+  margin-top: 22px;
+}
+
+.training-days-form {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  margin-top: 16px;
+}
+
+.setup-form label,
+.training-days-form label {
+  display: grid;
+  gap: 7px;
+}
+
+.setup-form span,
+.training-days-form span {
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.setup-form input,
+.training-days-form input {
+  min-height: 46px;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  outline: 0;
+  padding: 0 12px;
+  background: var(--surface-strong);
+  color: var(--text);
+}
+
+.setup-form input:focus,
+.training-days-form input:focus {
+  border-color: var(--accent);
 }
 
 .eyebrow {
@@ -569,6 +628,7 @@ h3 {
 }
 
 @media (max-width: 760px) {
+  .setup-view,
   .home-view,
   .summary-view {
     grid-template-columns: 1fr;
@@ -577,6 +637,7 @@ h3 {
     padding: 12px 0;
   }
 
+  .setup-content,
   .home-content,
   .summary-content,
   .today-plan,
@@ -587,6 +648,14 @@ h3 {
 
   .home-content {
     min-height: 58vh;
+  }
+
+  .setup-content {
+    min-height: calc(100vh - 24px);
+  }
+
+  .training-days-form {
+    grid-template-columns: 1fr;
   }
 
   .panel-heading,
