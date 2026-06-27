@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Training App</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="home-view" id="homeView" aria-labelledby="appTitle">
+        <div class="home-content">
+          <p class="eyebrow" id="selectedDayLabel">Entrenamiento de hoy</p>
+          <h1 id="appTitle">Training App</h1>
+          <p class="intro">
+            Elegi el dia, carga tu rutina y completa cada serie registrando el peso usado.
+          </p>
+          <div class="day-selector" aria-label="Seleccionar dia de rutina" id="daySelector"></div>
+          <button class="primary-action" id="startButton" type="button">
+            Comenzar entrenamiento
+          </button>
+        </div>
+
+        <div class="today-plan" aria-label="Plan de entrenamiento">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Rutina seleccionada</p>
+              <h2 id="routineTitle">Rutina</h2>
+            </div>
+            <button class="secondary-action" id="clearDayButton" type="button">Vaciar dia</button>
+          </div>
+          <ul id="planList"></ul>
+          <form class="exercise-form" id="exerciseForm">
+            <h3>Cargar ejercicio</h3>
+            <label>
+              <span>Nombre</span>
+              <input id="exerciseInput" type="text" required placeholder="Ej: Dominadas" />
+            </label>
+            <label class="toggle-row">
+              <input id="variableRepsToggle" type="checkbox" />
+              <span>Diferentes reps por serie</span>
+            </label>
+            <div class="form-grid">
+              <label>
+                <span>Series</span>
+                <input id="setsInput" type="number" min="1" step="1" required value="3" />
+              </label>
+              <label id="singleRepsField">
+                <span>Reps</span>
+                <input id="repsInput" type="number" min="1" step="1" required value="10" />
+              </label>
+            </div>
+            <div class="set-reps-fields is-hidden" id="setRepsFields"></div>
+            <button class="secondary-action form-action" type="submit">Agregar ejercicio</button>
+          </form>
+          <section class="saved-sessions" aria-label="Entrenamientos guardados">
+            <div class="history-heading">
+              <h3>Ultimos entrenamientos</h3>
+              <button class="secondary-action" id="clearHistoryButton" type="button">Borrar historial</button>
+            </div>
+            <div id="savedSessionsList"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="workout-view is-hidden" id="workoutView" aria-live="polite">
+        <header class="session-header">
+          <button class="icon-button" id="backButton" type="button" aria-label="Salir del entrenamiento">
+            x
+          </button>
+          <div>
+            <p class="eyebrow" id="exerciseCounter">Ejercicio 1 de 4</p>
+            <h2 id="exerciseName">Ejercicio</h2>
+          </div>
+        </header>
+
+        <div class="progress-wrap" aria-label="Progreso del entrenamiento">
+          <div class="progress-bar">
+            <span id="progressFill"></span>
+          </div>
+        </div>
+
+        <section class="exercise-panel">
+          <div class="set-focus">
+            <p>Serie actual</p>
+            <strong id="setCounter">1 / 4</strong>
+          </div>
+
+          <div class="exercise-details">
+            <div>
+              <span>Repeticiones</span>
+              <strong id="repTarget">10</strong>
+            </div>
+            <div>
+              <span>Series restantes</span>
+              <strong id="setsRemaining">3</strong>
+            </div>
+          </div>
+
+          <label class="weight-input">
+            <span>Peso utilizado</span>
+            <div class="input-row">
+              <input id="weightInput" type="number" min="0" step="0.5" inputmode="decimal" placeholder="0" />
+              <span>kg</span>
+            </div>
+          </label>
+
+          <button class="primary-action complete-button" id="completeSetButton" type="button">
+            Aceptar peso y continuar
+          </button>
+        </section>
+
+        <section class="history-panel" aria-label="Series completadas">
+          <h3>Completado</h3>
+          <ol id="setHistory"></ol>
+        </section>
+      </section>
+
+      <section class="summary-view is-hidden" id="summaryView" aria-labelledby="summaryTitle">
+        <div class="summary-content">
+          <p class="eyebrow">Sesion completa</p>
+          <h2 id="summaryTitle">Buen entrenamiento</h2>
+          <p id="summaryText">Registraste todas las series de la rutina.</p>
+          <button class="primary-action" id="restartButton" type="button">Volver al inicio</button>
+        </div>
+        <div class="summary-log">
+          <h3>Registro</h3>
+          <div id="summaryLog"></div>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
