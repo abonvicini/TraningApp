@@ -1,6 +1,6 @@
 # Roadmap
 
-## Version actual
+## Version actual: `v0.1.0-beta`
 
 - Soporte para pesos decimales.
 - Documentacion modular base en `docs/`.

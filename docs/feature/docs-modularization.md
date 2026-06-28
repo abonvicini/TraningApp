@@ -6,6 +6,8 @@ Se agrego una estructura modular de documentacion bajo `docs/` para organizar el
 
 La mejora busca que el repositorio tenga documentacion navegable y mantenible para futuras iteraciones.
 
+Version asignada: `v0.1.0-beta`.
+
 ## Archivos agregados
 
 - `docs/01-Product-Vision.md`
