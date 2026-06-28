@@ -1,0 +1,69 @@
+# Development Decisions
+
+## Usar aplicacion estatica
+
+La app se mantiene como HTML, CSS y JavaScript plano para reducir friccion.
+
+Motivos:
+
+- No requiere build.
+- Es facil de correr localmente.
+- Es suficiente para el alcance actual.
+
+## Usar `localStorage`
+
+La persistencia local simplifica el producto inicial.
+
+Motivos:
+
+- No requiere backend.
+- Mantiene los datos privados en el navegador.
+- Permite iterar rapido.
+
+Trade-off:
+
+- No hay sincronizacion entre dispositivos.
+- El usuario puede perder datos si limpia el navegador.
+
+## Rechazar pesos con mas de 1 decimal
+
+La app rechaza pesos como `7.55` en lugar de redondearlos.
+
+Motivo:
+
+- Redondear podria guardar un peso distinto al ingresado por el usuario.
+
+## Documentar cada mejora
+
+Cada mejora debe incluir un informe en `docs/feature/{mejora}.md`.
+
+Motivo:
+
+- Mantener contexto historico junto al codigo.
+- Facilitar futuras iteraciones.
+- Reducir perdida de decisiones de producto y tecnica.
+
+## Mantener codigo y documentacion sincronizados en cada Pull Request
+
+Contexto:
+
+Cada cambio puede afectar requisitos, roadmap, backlog, decisiones o changelog. Si esa actualizacion queda fuera del flujo de implementacion o queda para otro Pull Request, el repositorio pierde contexto y la documentacion se desactualiza.
+
+Decision:
+
+Toda nueva funcionalidad, refactorizacion importante o cambio de comportamiento debe incluir la documentacion afectada dentro del mismo Pull Request. Al finalizar cualquier implementacion, se debe revisar si corresponde actualizar `README.md`, `docs/02-Functional-Requirements.md`, `docs/06-Roadmap.md`, `docs/07-Backlog.md`, `docs/08-Development-Decisions.md` y `CHANGELOG.md`.
+
+Motivo:
+
+- Evitar funcionalidades implementadas sin documentar.
+- Evitar Pull Requests que separen codigo y contexto tecnico.
+- Mantener el backlog y roadmap alineados con el estado real.
+- Registrar decisiones tecnicas importantes cerca del codigo.
+- Facilitar revisiones y futuras iteraciones.
+
+Consecuencias:
+
+- Cada implementacion tiene una pequena etapa de cierre documental.
+- Se actualizan solo los documentos afectados para evitar ruido.
+- Las ideas futuras detectadas durante el trabajo quedan en backlog, no en memoria de chat.
+- Ningun Pull Request se considera terminado hasta que codigo y documentacion esten sincronizados.
