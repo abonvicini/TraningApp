@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.3.0-beta` - 2026-06-28
+
+### 2026-06-28 - Auditoria documental del proyecto
+
+- Version: `v0.3.0-beta`.
+- Funcionalidad: limpieza y sincronizacion general de documentacion.
+- Resumen: se definio `CHANGELOG.md` como fuente principal, se convirtio `docs/09-Changelog.md` en referencia, se alinearon backlog y roadmap, y se documento el estado actual del proyecto.
+- Pull Request: pendiente.
+
 ## `v0.2.0-beta` - 2026-06-28
 
 ### 2026-06-28 - Revision de backlog
@@ -7,7 +16,7 @@
 - Version: `v0.2.0-beta`.
 - Funcionalidad: reorganizacion del backlog por prioridad.
 - Resumen: se actualizo el backlog con secciones de alta prioridad, prioridad media y completadas, y se definio que cada mejora incrementa la version beta del proyecto.
-- Pull Request: pendiente.
+- Pull Request: #6.
 
 ## `v0.1.0-beta` - 2026-06-28
 
@@ -23,7 +32,7 @@
 - Version: `v0.1.0-beta`.
 - Funcionalidad: estructura modular de documentacion del proyecto.
 - Resumen: se agregaron documentos base en `docs/`, carpeta `docs/images/`, regla de informes por mejora, regla de actualizacion documental al finalizar implementaciones y criterio de PR terminado solo cuando codigo y documentacion estan sincronizados.
-- Pull Request: pendiente.
+- Pull Request: #5.
 
 ### 2026-06-28 - Soporte para pesos decimales
 

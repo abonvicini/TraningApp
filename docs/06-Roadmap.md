@@ -1,33 +1,30 @@
 # Roadmap
 
-## Version actual: `v0.2.0-beta`
+## Version actual: `v0.3.0-beta`
 
 - Soporte para pesos decimales.
 - Edicion de fecha y hora de entrenamientos guardados en historial.
-- Revision de backlog por prioridad.
 - Documentacion modular base en `docs/`.
-- Regla de informe por mejora en `docs/feature/{mejora}.md`.
-- Regla de actualizacion documental al finalizar implementaciones.
-- Regla de incremento de version beta por cada mejora.
+- Revision de backlog por prioridad.
+- Auditoria y sincronizacion general de documentacion.
 
 ## Corto plazo
 
-- Mejorar gestion del historial.
-- Mantener compatibilidad con datos existentes.
+- Volver a la serie anterior durante el entrenamiento para corregir el peso.
+- Editar el nombre de ejercicios.
+- Reordenar ejercicios dentro de un dia de entrenamiento.
+- Modificar repeticiones realizadas durante el entrenamiento sin alterar la rutina base.
+- Historial completo con filtros, busqueda y ordenamiento.
 
 ## Mediano plazo
 
-- Agregar vista de historial completo.
-- Incorporar filtros por ejercicio y rango de fechas.
-- Mostrar progresion de pesos por ejercicio.
-- Mejorar accesibilidad y navegacion con teclado.
+- Migracion a React.
+- Backend.
+- Base de datos.
 
 ## Largo plazo
 
-- Exportar e importar datos.
-- Soportar backup manual.
-- Agregar estadisticas de volumen.
-- Evaluar sincronizacion opcional si el producto lo requiere.
+- Sistema de autenticacion.
 
 ## Criterios de priorizacion
 
