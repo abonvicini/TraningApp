@@ -30,6 +30,7 @@ const state = {
   setIndex: 0,
   log: [],
   currentSessionSaved: false,
+  editingSessionIndex: null,
 };
 
 const setupView = document.querySelector("#setupView");
@@ -268,7 +269,8 @@ function escapeHtml(value) {
 
 function renderSavedSessions() {
   const sessionsForDay = state.sessions
-    .filter((session) => session.day === state.selectedDay)
+    .map((session, index) => ({ session, index }))
+    .filter(({ session }) => session.day === state.selectedDay)
     .slice(0, 5);
 
   clearHistoryButton.disabled = sessionsForDay.length === 0;
@@ -280,12 +282,16 @@ function renderSavedSessions() {
 
   savedSessionsList.innerHTML = sessionsForDay
     .map(
-      (session) => `
+      ({ session, index }) => `
         <article class="saved-session">
           <div class="saved-session-header">
-            <strong>${formatSessionDate(session.completedAt)}</strong>
-            <span>${session.totalSets} series</span>
+            <div>
+              <strong>${formatSessionDate(session.completedAt)}</strong>
+              <span>${session.totalSets} series</span>
+            </div>
+            <button class="secondary-action" type="button" data-edit-session-index="${index}">Editar</button>
           </div>
+          ${state.editingSessionIndex === index ? renderSessionDateTimeForm(session, index) : ""}
           <ul>
             ${session.exercises
               .map(
@@ -304,6 +310,68 @@ function renderSavedSessions() {
       `,
     )
     .join("");
+}
+
+function renderSessionDateTimeForm(session, index) {
+  return `
+    <form class="session-edit-form" data-session-edit-index="${index}">
+      <label>
+        <span>Fecha</span>
+        <input type="date" name="sessionDate" required value="${getSessionDateInputValue(session.completedAt)}" />
+      </label>
+      <label>
+        <span>Hora</span>
+        <input type="time" name="sessionTime" required value="${getSessionTimeInputValue(session.completedAt)}" />
+      </label>
+      <div class="session-edit-actions">
+        <button class="secondary-action" type="button" data-cancel-session-edit>Cancelar</button>
+        <button class="primary-action" type="submit">Guardar</button>
+      </div>
+    </form>
+  `;
+}
+
+function getValidSessionDate(value) {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? new Date() : date;
+}
+
+function getSessionDateInputValue(value) {
+  const date = getValidSessionDate(value);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function getSessionTimeInputValue(value) {
+  const date = getValidSessionDate(value);
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  return `${hours}:${minutes}`;
+}
+
+function updateSessionDateTime(index, dateValue, timeValue) {
+  const session = state.sessions[index];
+
+  if (!session || !dateValue || !timeValue) {
+    return false;
+  }
+
+  const nextCompletedAt = new Date(`${dateValue}T${timeValue}`);
+
+  if (Number.isNaN(nextCompletedAt.getTime())) {
+    return false;
+  }
+
+  state.sessions[index] = {
+    ...session,
+    completedAt: nextCompletedAt.toISOString(),
+  };
+  state.editingSessionIndex = null;
+  saveSessions();
+  renderSavedSessions();
+  return true;
 }
 
 function formatSessionDate(value) {
@@ -636,6 +704,7 @@ clearHistoryButton.addEventListener("click", () => {
   }
 
   state.sessions = state.sessions.filter((session) => session.day !== state.selectedDay);
+  state.editingSessionIndex = null;
   saveSessions();
   renderSavedSessions();
 });
@@ -647,8 +716,42 @@ daySelector.addEventListener("click", (event) => {
   }
 
   state.selectedDay = day;
+  state.editingSessionIndex = null;
   renderDaySelector();
   renderPlan();
+});
+savedSessionsList.addEventListener("click", (event) => {
+  const editSessionIndex = event.target.dataset.editSessionIndex;
+
+  if (editSessionIndex !== undefined) {
+    state.editingSessionIndex = Number(editSessionIndex);
+    renderSavedSessions();
+    return;
+  }
+
+  if (event.target.dataset.cancelSessionEdit !== undefined) {
+    state.editingSessionIndex = null;
+    renderSavedSessions();
+  }
+});
+savedSessionsList.addEventListener("submit", (event) => {
+  const form = event.target;
+
+  if (!form.matches("[data-session-edit-index]")) {
+    return;
+  }
+
+  event.preventDefault();
+
+  const saved = updateSessionDateTime(
+    Number(form.dataset.sessionEditIndex),
+    form.elements.sessionDate.value,
+    form.elements.sessionTime.value,
+  );
+
+  if (!saved) {
+    form.reportValidity();
+  }
 });
 planList.addEventListener("click", (event) => {
   const removeIndex = event.target.dataset.removeIndex;
