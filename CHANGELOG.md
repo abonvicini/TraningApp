@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.2.0-beta` - 2026-06-28
+
+### 2026-06-28 - Revision de backlog
+
+- Version: `v0.2.0-beta`.
+- Funcionalidad: reorganizacion del backlog por prioridad.
+- Resumen: se actualizo el backlog con secciones de alta prioridad, prioridad media y completadas, y se definio que cada mejora incrementa la version beta del proyecto.
+- Pull Request: pendiente.
+
 ## `v0.1.0-beta` - 2026-06-28
 
 ### 2026-06-28 - Edicion de fecha y hora en historial

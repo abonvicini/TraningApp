@@ -1,12 +1,14 @@
 # Roadmap
 
-## Version actual: `v0.1.0-beta`
+## Version actual: `v0.2.0-beta`
 
 - Soporte para pesos decimales.
 - Edicion de fecha y hora de entrenamientos guardados en historial.
+- Revision de backlog por prioridad.
 - Documentacion modular base en `docs/`.
 - Regla de informe por mejora en `docs/feature/{mejora}.md`.
 - Regla de actualizacion documental al finalizar implementaciones.
+- Regla de incremento de version beta por cada mejora.
 
 ## Corto plazo
 
