@@ -67,3 +67,25 @@ Consecuencias:
 - Se actualizan solo los documentos afectados para evitar ruido.
 - Las ideas futuras detectadas durante el trabajo quedan en backlog, no en memoria de chat.
 - Ningun Pull Request se considera terminado hasta que codigo y documentacion esten sincronizados.
+
+## Incrementar la version beta por cada mejora
+
+Contexto:
+
+El proyecto se encuentra en etapa beta y cada mejora debe poder identificarse en la documentacion y el changelog.
+
+Decision:
+
+Cada mejora incrementa la version beta del proyecto. La version actual debe reflejarse en `README.md`, `docs/01-Product-Vision.md`, `docs/06-Roadmap.md`, `CHANGELOG.md`, `docs/09-Changelog.md` y el informe de la mejora cuando corresponda.
+
+Motivo:
+
+- Dar trazabilidad a cada mejora.
+- Evitar que cambios documentales o funcionales queden sin version asociada.
+- Facilitar seguimiento de releases beta.
+
+Consecuencias:
+
+- Cada Pull Request de mejora debe incluir revision de version.
+- El changelog debe agrupar correctamente los cambios bajo la beta correspondiente.
+- Las mejoras sin cambio de version no se consideran listas.

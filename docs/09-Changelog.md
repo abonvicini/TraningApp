@@ -1,5 +1,12 @@
 # Changelog
 
+## `v0.2.0-beta` - 2026-06-28
+
+### Added
+
+- Revision del backlog por prioridad.
+- Regla de incremento de version beta por cada mejora.
+
 ## `v0.1.0-beta` - 2026-06-28
 
 ### Added
