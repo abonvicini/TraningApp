@@ -369,8 +369,8 @@ function renderWorkout() {
 }
 
 function formatWeight(weight) {
-  if (weight === "") {
-    return "sin peso";
+  if (weight === "" || weight === null || weight === undefined) {
+    return "Sin peso";
   }
 
   const numericWeight = Number(weight);
@@ -379,7 +379,7 @@ function formatWeight(weight) {
     return escapeHtml(weight);
   }
 
-  return `${numericWeight.toLocaleString("es-AR")} kg`;
+  return `${numericWeight.toLocaleString("es-AR", { maximumFractionDigits: 1 })} kg`;
 }
 
 function formatLoggedSet(set, index) {
@@ -392,7 +392,12 @@ function formatLoggedSet(set, index) {
 
 function completeSet() {
   const exercise = state.workoutPlan[state.exerciseIndex];
-  const weight = weightInput.value.trim();
+  const weight = parseWeightInput(weightInput.value);
+
+  if (weight === null) {
+    weightInput.reportValidity();
+    return;
+  }
 
   state.log[state.exerciseIndex].sets.push({
     reps: getRepsForSet(exercise, state.setIndex),
@@ -412,6 +417,31 @@ function completeSet() {
   }
 
   renderWorkout();
+}
+
+function parseWeightInput(value) {
+  const normalizedValue = value.trim().replace(",", ".");
+
+  weightInput.setCustomValidity("");
+
+  if (normalizedValue === "") {
+    return "";
+  }
+
+  // Rechazamos mas de 1 decimal en vez de redondear para no guardar un peso distinto al que ingreso el usuario.
+  if (!/^\d+(\.\d{1})?$/.test(normalizedValue)) {
+    weightInput.setCustomValidity("Ingresa un peso positivo con hasta 1 decimal.");
+    return null;
+  }
+
+  const weight = Number(normalizedValue);
+
+  if (!Number.isFinite(weight) || weight < 0) {
+    weightInput.setCustomValidity("Ingresa un peso positivo con hasta 1 decimal.");
+    return null;
+  }
+
+  return weight;
 }
 
 function renderSummary() {
@@ -659,6 +689,9 @@ weightInput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     completeSet();
   }
+});
+weightInput.addEventListener("input", () => {
+  weightInput.setCustomValidity("");
 });
 
 renderDaySelector();
