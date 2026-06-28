@@ -6,6 +6,8 @@ Se implemento la edicion de fecha y hora para entrenamientos ya registrados en e
 
 La mejora permite corregir el momento real de un entrenamiento sin modificar ejercicios, series, repeticiones, pesos ni ningun otro dato de la sesion.
 
+Version asignada: `v0.1.0-beta`.
+
 ## Archivos modificados
 
 ### `app.js`
@@ -29,6 +31,16 @@ Tambien se agregaron helpers para:
 ### `styles.css`
 
 Se agregaron estilos para el formulario inline de edicion del historial.
+
+### Documentacion sincronizada
+
+Se actualizaron los documentos afectados por la mejora:
+
+- `docs/02-Functional-Requirements.md`
+- `docs/06-Roadmap.md`
+- `docs/07-Backlog.md`
+- `docs/09-Changelog.md`
+- `CHANGELOG.md`
 
 ## Estructura de datos
 
@@ -91,6 +103,6 @@ Los registros existentes continuan funcionando porque:
 
 ## Mejora adicional detectada
 
-El historial actualmente muestra solo los ultimos 5 entrenamientos por dia y no tiene una vista completa ni filtros avanzados.
+El historial actualmente muestra solo los ultimos 5 entrenamientos por dia y no tiene una vista completa ni filtros avanzados. Tambien podria ser util ordenar explicitamente el historial por la fecha editada.
 
-Una mejora futura seria agregar una pantalla de historial completo con busqueda por ejercicio, rango de fechas y ordenamiento.
+Estas mejoras futuras quedaron registradas en `docs/07-Backlog.md`.

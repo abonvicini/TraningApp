@@ -4,6 +4,7 @@
 
 ### Added
 
+- Edicion de fecha y hora de entrenamientos guardados en historial.
 - Estructura documental modular en `docs/`.
 - Documentacion base de vision, requisitos, arquitectura, datos, UI/UX, roadmap, backlog, decisiones y API.
 - Regla de actualizacion documental al finalizar implementaciones.

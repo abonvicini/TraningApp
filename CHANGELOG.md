@@ -2,6 +2,13 @@
 
 ## `v0.1.0-beta` - 2026-06-28
 
+### 2026-06-28 - Edicion de fecha y hora en historial
+
+- Version: `v0.1.0-beta`.
+- Funcionalidad: edicion de fecha y hora de entrenamientos guardados.
+- Resumen: se agrego una accion `Editar` en el historial para modificar fecha y hora, persistiendo solo el campo `completedAt` sin alterar ejercicios, series, pesos ni repeticiones.
+- Pull Request: #4.
+
 ### 2026-06-28 - Documentacion modular
 
 - Version: `v0.1.0-beta`.
