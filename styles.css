@@ -418,9 +418,61 @@ h3 {
 }
 
 .saved-session-header span {
+  display: block;
+  margin-top: 4px;
   color: var(--green);
   font-size: 0.85rem;
   font-weight: 800;
+}
+
+.session-edit-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
+  gap: 10px;
+  align-items: end;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-strong);
+}
+
+.session-edit-form label {
+  display: grid;
+  gap: 7px;
+}
+
+.session-edit-form label span {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.session-edit-form input {
+  min-height: 40px;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  outline: 0;
+  padding: 0 10px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.session-edit-form input:focus {
+  border-color: var(--accent);
+}
+
+.session-edit-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.session-edit-actions .primary-action {
+  min-width: auto;
+  min-height: 40px;
+  margin-top: 0;
+  padding: 0 14px;
 }
 
 .saved-session ul {
@@ -661,7 +713,13 @@ h3 {
   .panel-heading,
   .today-plan li,
   .history-heading,
-  .saved-session-header {
+  .saved-session-header,
+  .session-edit-form {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .session-edit-actions {
     display: grid;
     grid-template-columns: 1fr;
   }

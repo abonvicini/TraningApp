@@ -3,6 +3,7 @@
 ## Version actual: `v0.1.0-beta`
 
 - Soporte para pesos decimales.
+- Edicion de fecha y hora de entrenamientos guardados en historial.
 - Documentacion modular base en `docs/`.
 - Regla de informe por mejora en `docs/feature/{mejora}.md`.
 - Regla de actualizacion documental al finalizar implementaciones.
@@ -10,7 +11,6 @@
 ## Corto plazo
 
 - Mejorar gestion del historial.
-- Permitir editar datos puntuales de sesiones guardadas.
 - Mantener compatibilidad con datos existentes.
 
 ## Mediano plazo

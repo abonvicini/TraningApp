@@ -3,6 +3,7 @@
 ## Completadas
 
 - Soporte para pesos decimales con hasta 1 decimal.
+- Edicion de fecha y hora de entrenamientos guardados en historial.
 - Estructura documental modular en `docs/`.
 - Regla de informes por mejora en `docs/feature/{mejora}.md`.
 - Regla de actualizacion documental al finalizar implementaciones.
@@ -14,6 +15,7 @@
 - Busqueda por ejercicio.
 - Edicion de notas por sesion.
 - Exportacion de historial.
+- Ordenar historial por fecha editada.
 
 ## Rutinas
 
