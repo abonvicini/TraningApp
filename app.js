@@ -232,9 +232,17 @@ function renderPlan() {
             <strong>${escapeHtml(exercise.name)}</strong>
             <span>${getExerciseRepsLabel(exercise)}</span>
           </div>
-          <button class="remove-action" type="button" data-remove-index="${index}" aria-label="Quitar ${escapeHtml(exercise.name)}">
-            Quitar
-          </button>
+          <div class="plan-actions" role="group" aria-label="Acciones para ${escapeHtml(exercise.name)}">
+            <button class="reorder-action" type="button" data-move-index="${index}" data-move-direction="up" ${index === 0 ? "disabled" : ""} aria-label="Subir ${escapeHtml(exercise.name)}">
+              Subir
+            </button>
+            <button class="reorder-action" type="button" data-move-index="${index}" data-move-direction="down" ${index === routine.length - 1 ? "disabled" : ""} aria-label="Bajar ${escapeHtml(exercise.name)}">
+              Bajar
+            </button>
+            <button class="remove-action" type="button" data-remove-index="${index}" aria-label="Quitar ${escapeHtml(exercise.name)}">
+              Quitar
+            </button>
+          </div>
         </li>
       `,
     )
@@ -630,6 +638,20 @@ function addExercise(event) {
   renderPlan();
 }
 
+function moveExercise(index, direction) {
+  const routine = state.routines[state.selectedDay];
+  const nextIndex = direction === "up" ? index - 1 : index + 1;
+
+  if (!routine || nextIndex < 0 || nextIndex >= routine.length) {
+    return;
+  }
+
+  const [exercise] = routine.splice(index, 1);
+  routine.splice(nextIndex, 0, exercise);
+  saveRoutines();
+  renderPlan();
+}
+
 function getRepsBySetFromForm() {
   const inputs = [...setRepsFields.querySelectorAll("input")];
   const reps = inputs.map((input) => Number(input.value));
@@ -794,6 +816,13 @@ savedSessionsList.addEventListener("submit", (event) => {
   }
 });
 planList.addEventListener("click", (event) => {
+  const moveIndex = event.target.dataset.moveIndex;
+
+  if (moveIndex !== undefined) {
+    moveExercise(Number(moveIndex), event.target.dataset.moveDirection);
+    return;
+  }
+
   const removeIndex = event.target.dataset.removeIndex;
 
   if (removeIndex === undefined) {

@@ -13,6 +13,7 @@
 - Cada ejercicio puede tener una cantidad fija de series y repeticiones.
 - Cada ejercicio puede usar repeticiones diferentes por serie.
 - El usuario puede quitar ejercicios de un dia.
+- El usuario puede reordenar ejercicios dentro de un dia.
 - El usuario puede vaciar la rutina de un dia.
 
 ## Ejecucion de entrenamiento

@@ -20,6 +20,7 @@ Permite:
 - Seleccionar dia.
 - Ver rutina cargada.
 - Agregar ejercicios.
+- Reordenar ejercicios de la rutina cargada.
 - Ver historial reciente.
 - Iniciar entrenamiento.
 

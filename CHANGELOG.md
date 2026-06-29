@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.5.0-beta` - 2026-06-28
+
+### 2026-06-28 - Reordenar ejercicios dentro de un dia
+
+- Version: `v0.5.0-beta`.
+- Funcionalidad: reordenar ejercicios dentro de un dia de entrenamiento.
+- Resumen: se agregaron acciones para subir o bajar ejercicios en la rutina seleccionada, persistiendo el nuevo orden en `localStorage` sin cambiar el modelo de datos.
+- Pull Request: pendiente.
+
 ## `v0.4.0-beta` - 2026-06-28
 
 ### 2026-06-28 - Volver a la serie anterior
@@ -7,7 +16,7 @@
 - Version: `v0.4.0-beta`.
 - Funcionalidad: volver a la serie anterior durante el entrenamiento para corregir el peso.
 - Resumen: se agrego una accion secundaria en el entrenamiento que permite quitar el ultimo set registrado, volver a esa serie y precargar el peso anterior para corregirlo sin modificar la rutina base.
-- Pull Request: pendiente.
+- Pull Request: #8.
 
 ## `v0.3.0-beta` - 2026-06-28
 

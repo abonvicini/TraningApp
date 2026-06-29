@@ -132,3 +132,26 @@ Consecuencias:
 - La accion solo aplica durante el entrenamiento activo.
 - La correccion modifica solo el log temporal de la sesion actual.
 - El resumen y el historial reciben una unica version corregida de la serie.
+
+## Reordenar ejercicios modificando el array del dia seleccionado
+
+Contexto:
+
+El usuario necesita cambiar el orden de los ejercicios cargados dentro de un dia de entrenamiento sin recrear la rutina.
+
+Decision:
+
+La app reordena ejercicios moviendo el item dentro del array de `state.routines[state.selectedDay]` y guarda inmediatamente el resultado con `saveRoutines()`.
+
+Motivo:
+
+- Mantiene el modelo de datos existente.
+- Evita migraciones innecesarias en `localStorage`.
+- Conserva todos los datos del ejercicio sin recrearlo.
+- Hace que el nuevo orden sea el que se usa al iniciar el proximo entrenamiento.
+
+Consecuencias:
+
+- La mejora no afecta historiales ya guardados.
+- El orden se persiste por dia de entrenamiento.
+- Los controles de subir y bajar se deshabilitan en los extremos de la lista.
