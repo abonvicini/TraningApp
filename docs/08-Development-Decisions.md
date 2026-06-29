@@ -89,3 +89,24 @@ Consecuencias:
 - Cada Pull Request de mejora debe incluir revision de version.
 - El changelog debe agrupar correctamente los cambios bajo la beta correspondiente.
 - Las mejoras sin cambio de version no se consideran listas.
+
+## Usar `CHANGELOG.md` como fuente principal
+
+Contexto:
+
+El proyecto tiene documentacion modular en `docs/` y tambien un changelog raiz. Mantener dos changelogs completos puede generar duplicacion y contradicciones.
+
+Decision:
+
+`CHANGELOG.md` es la fuente principal de cambios. `docs/09-Changelog.md` debe funcionar como referencia o indice hacia el changelog raiz, no como changelog paralelo.
+
+Motivo:
+
+- Evitar duplicacion de entradas.
+- Mantener una unica fuente de verdad para versiones, mejoras y referencias a Pull Requests.
+- Reducir el riesgo de contradicciones entre documentos.
+
+Consecuencias:
+
+- Toda entrada nueva de changelog se agrega en `CHANGELOG.md`.
+- `docs/09-Changelog.md` debe mantenerse breve y apuntar al archivo raiz.
