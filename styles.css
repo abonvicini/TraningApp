@@ -639,6 +639,10 @@ h3 {
   margin-top: 0;
 }
 
+.previous-set-button {
+  width: 100%;
+}
+
 .history-panel {
   min-height: 116px;
   padding: 16px;

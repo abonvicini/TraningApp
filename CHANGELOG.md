@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.4.0-beta` - 2026-06-28
+
+### 2026-06-28 - Volver a la serie anterior
+
+- Version: `v0.4.0-beta`.
+- Funcionalidad: volver a la serie anterior durante el entrenamiento para corregir el peso.
+- Resumen: se agrego una accion secundaria en el entrenamiento que permite quitar el ultimo set registrado, volver a esa serie y precargar el peso anterior para corregirlo sin modificar la rutina base.
+- Pull Request: pendiente.
+
 ## `v0.3.0-beta` - 2026-06-28
 
 ### 2026-06-28 - Auditoria documental del proyecto
@@ -7,7 +16,7 @@
 - Version: `v0.3.0-beta`.
 - Funcionalidad: limpieza y sincronizacion general de documentacion.
 - Resumen: se definio `CHANGELOG.md` como fuente principal, se convirtio `docs/09-Changelog.md` en referencia, se alinearon backlog y roadmap, y se documento el estado actual del proyecto.
-- Pull Request: pendiente.
+- Pull Request: #7.
 
 ## `v0.2.0-beta` - 2026-06-28
 
