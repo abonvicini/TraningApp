@@ -34,6 +34,8 @@ Debe concentrar la atencion en:
 - Peso utilizado.
 - Avance de la sesion.
 
+El titulo del ejercicio debe mantenerse compacto para no competir visualmente con la serie actual.
+
 ### Resumen
 
 Muestra el registro final del entrenamiento y permite volver al inicio.

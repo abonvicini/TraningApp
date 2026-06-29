@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.7.0-beta` - 2026-06-29
+
+### 2026-06-29 - Titulo de ejercicio compacto en entrenamiento
+
+- Version: `v0.7.0-beta`.
+- Funcionalidad: reducir el tamano visual del titulo del ejercicio en modo entrenamiento.
+- Resumen: se agrego un estilo especifico para el titulo dentro de `session-header`, evitando modificar otros titulos de la app.
+- Pull Request: pendiente.
+
 ## `v0.6.0-beta` - 2026-06-28
 
 ### 2026-06-28 - Modo Editar para acciones de rutina
@@ -7,7 +16,7 @@
 - Version: `v0.6.0-beta`.
 - Funcionalidad: habilitar las acciones Subir, Bajar y Quitar mediante un boton general `Editar`.
 - Resumen: se agrego un modo de edicion para la rutina seleccionada, dejando las acciones de cada ejercicio deshabilitadas hasta que el usuario active `Editar`.
-- Pull Request: pendiente.
+- Pull Request: #10.
 
 ## `v0.5.0-beta` - 2026-06-28
 
