@@ -110,3 +110,25 @@ Consecuencias:
 
 - Toda entrada nueva de changelog se agrega en `CHANGELOG.md`.
 - `docs/09-Changelog.md` debe mantenerse breve y apuntar al archivo raiz.
+
+## Corregir la serie anterior removiendo el ultimo registro
+
+Contexto:
+
+Durante un entrenamiento, el usuario puede registrar un peso incorrecto y necesitar volver a la serie anterior para corregirlo.
+
+Decision:
+
+La correccion vuelve al ultimo set registrado quitandolo temporalmente de `state.log`, reposiciona `exerciseIndex` y `setIndex`, y precarga el peso anterior en el input para que el usuario lo confirme nuevamente.
+
+Motivo:
+
+- Evita duplicar series en el registro de la sesion.
+- Mantiene intacta la rutina base.
+- Reutiliza el flujo existente de validacion y guardado de peso.
+
+Consecuencias:
+
+- La accion solo aplica durante el entrenamiento activo.
+- La correccion modifica solo el log temporal de la sesion actual.
+- El resumen y el historial reciben una unica version corregida de la serie.

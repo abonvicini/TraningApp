@@ -49,6 +49,7 @@ const trainingDaysInput = document.querySelector("#trainingDaysInput");
 const backButton = document.querySelector("#backButton");
 const restartButton = document.querySelector("#restartButton");
 const completeSetButton = document.querySelector("#completeSetButton");
+const previousSetButton = document.querySelector("#previousSetButton");
 const clearDayButton = document.querySelector("#clearDayButton");
 const clearHistoryButton = document.querySelector("#clearHistoryButton");
 const exerciseForm = document.querySelector("#exerciseForm");
@@ -418,7 +419,7 @@ function getCompletedSets() {
   return state.log.reduce((total, exercise) => total + exercise.sets.length, 0);
 }
 
-function renderWorkout() {
+function renderWorkout(weightValue = "") {
   const exercise = state.workoutPlan[state.exerciseIndex];
   const completedForExercise = state.log[state.exerciseIndex].sets;
   const currentSet = state.setIndex + 1;
@@ -432,7 +433,8 @@ function renderWorkout() {
   setHistory.innerHTML = completedForExercise
     .map((set, index) => `<li>${formatLoggedSet(set, index)}</li>`)
     .join("");
-  weightInput.value = "";
+  previousSetButton.disabled = getCompletedSets() === 0;
+  weightInput.value = weightValue;
   weightInput.focus();
 }
 
@@ -485,6 +487,43 @@ function completeSet() {
   }
 
   renderWorkout();
+}
+
+function getWeightInputValue(weight) {
+  if (weight === "" || weight === null || weight === undefined) {
+    return "";
+  }
+
+  return String(weight).replace(",", ".");
+}
+
+function getLastCompletedSetPosition() {
+  for (let exerciseIndex = state.log.length - 1; exerciseIndex >= 0; exerciseIndex -= 1) {
+    const completedSets = state.log[exerciseIndex].sets;
+
+    if (completedSets.length > 0) {
+      return {
+        exerciseIndex,
+        setIndex: completedSets.length - 1,
+      };
+    }
+  }
+
+  return null;
+}
+
+function goToPreviousSet() {
+  const previousSetPosition = getLastCompletedSetPosition();
+
+  if (!previousSetPosition) {
+    return;
+  }
+
+  const completedSets = state.log[previousSetPosition.exerciseIndex].sets;
+  const previousSet = completedSets.pop();
+  state.exerciseIndex = previousSetPosition.exerciseIndex;
+  state.setIndex = previousSetPosition.setIndex;
+  renderWorkout(getWeightInputValue(previousSet?.weight));
 }
 
 function parseWeightInput(value) {
@@ -670,6 +709,7 @@ function applyTrainingDayCount(value) {
 
 startButton.addEventListener("click", startWorkout);
 completeSetButton.addEventListener("click", completeSet);
+previousSetButton.addEventListener("click", goToPreviousSet);
 exerciseForm.addEventListener("submit", addExercise);
 setupForm.addEventListener("submit", (event) => {
   event.preventDefault();
