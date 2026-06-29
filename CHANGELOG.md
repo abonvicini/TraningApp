@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.6.0-beta` - 2026-06-28
+
+### 2026-06-28 - Modo Editar para acciones de rutina
+
+- Version: `v0.6.0-beta`.
+- Funcionalidad: habilitar las acciones Subir, Bajar y Quitar mediante un boton general `Editar`.
+- Resumen: se agrego un modo de edicion para la rutina seleccionada, dejando las acciones de cada ejercicio deshabilitadas hasta que el usuario active `Editar`.
+- Pull Request: pendiente.
+
 ## `v0.5.0-beta` - 2026-06-28
 
 ### 2026-06-28 - Reordenar ejercicios dentro de un dia
@@ -7,7 +16,7 @@
 - Version: `v0.5.0-beta`.
 - Funcionalidad: reordenar ejercicios dentro de un dia de entrenamiento.
 - Resumen: se agregaron acciones para subir o bajar ejercicios en la rutina seleccionada, persistiendo el nuevo orden en `localStorage` sin cambiar el modelo de datos.
-- Pull Request: pendiente.
+- Pull Request: #9.
 
 ## `v0.4.0-beta` - 2026-06-28
 

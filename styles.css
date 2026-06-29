@@ -258,6 +258,13 @@ h3 {
   margin-bottom: 0;
 }
 
+.panel-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
 .today-plan ul,
 .summary-log ul {
   display: grid;
@@ -325,6 +332,11 @@ h3 {
 
 .reorder-action:hover {
   border-color: var(--green);
+}
+
+.reorder-action:disabled:hover,
+.remove-action:disabled:hover {
+  border-color: var(--line);
 }
 
 .exercise-form {
@@ -736,6 +748,7 @@ h3 {
   }
 
   .panel-heading,
+  .panel-actions,
   .today-plan li,
   .history-heading,
   .saved-session-header,
