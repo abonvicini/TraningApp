@@ -306,6 +306,27 @@ h3 {
   color: var(--muted);
 }
 
+.plan-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.reorder-action {
+  min-height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0 10px;
+  background: var(--surface);
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.reorder-action:hover {
+  border-color: var(--green);
+}
+
 .exercise-form {
   display: grid;
   gap: 12px;
