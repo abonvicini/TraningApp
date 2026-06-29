@@ -155,3 +155,26 @@ Consecuencias:
 - La mejora no afecta historiales ya guardados.
 - El orden se persiste por dia de entrenamiento.
 - Los controles de subir y bajar se deshabilitan en los extremos de la lista.
+
+## Usar un modo de edicion local para acciones de rutina
+
+Contexto:
+
+Las acciones `Subir`, `Bajar` y `Quitar` modifican la rutina del dia seleccionado. Tenerlas activas todo el tiempo aumenta el riesgo de cambios accidentales.
+
+Decision:
+
+La app usa `state.isEditingRoutine` para controlar un modo de edicion de interfaz. El boton `Editar` alterna ese modo y las acciones de cada ejercicio solo se habilitan cuando esta activo.
+
+Motivo:
+
+- Reduce acciones accidentales sobre la rutina.
+- Mantiene visibles las opciones disponibles sin permitirlas fuera del modo edicion.
+- No agrega cambios al modelo persistido.
+- Permite volver automaticamente al modo normal al cambiar de dia o vaciar la rutina.
+
+Consecuencias:
+
+- El estado de edicion no se guarda en `localStorage`.
+- La rutina sigue usando la misma estructura de datos.
+- Las acciones destructivas conservan confirmacion antes de eliminar ejercicios.

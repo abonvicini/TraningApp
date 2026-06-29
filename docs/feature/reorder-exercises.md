@@ -77,6 +77,6 @@ Motivos:
 
 En una futura iteracion podria agregarse reordenamiento por arrastrar y soltar como alternativa avanzada.
 
-Tambien queda pendiente evaluar un modo de edicion general para habilitar las acciones `Subir`, `Bajar` y `Quitar` solo cuando el usuario active `Editar`.
+El modo de edicion general para habilitar las acciones `Subir`, `Bajar` y `Quitar` se implemento posteriormente en `v0.6.0-beta`.
 
-No se implementaron en esta version para mantener el cambio simple, accesible y sin dependencias.
+No se implemento el reordenamiento por arrastrar y soltar en esta version para mantener el cambio simple, accesible y sin dependencias.

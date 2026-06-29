@@ -31,6 +31,7 @@ const state = {
   log: [],
   currentSessionSaved: false,
   editingSessionIndex: null,
+  isEditingRoutine: false,
 };
 
 const setupView = document.querySelector("#setupView");
@@ -50,6 +51,7 @@ const backButton = document.querySelector("#backButton");
 const restartButton = document.querySelector("#restartButton");
 const completeSetButton = document.querySelector("#completeSetButton");
 const previousSetButton = document.querySelector("#previousSetButton");
+const editRoutineButton = document.querySelector("#editRoutineButton");
 const clearDayButton = document.querySelector("#clearDayButton");
 const clearHistoryButton = document.querySelector("#clearHistoryButton");
 const exerciseForm = document.querySelector("#exerciseForm");
@@ -215,6 +217,10 @@ function renderPlan() {
   routineTitle.textContent = getDayLabel(state.selectedDay);
   trainingDaysInput.value = state.trainingDayCount;
   setupDaysInput.value = state.trainingDayCount;
+  state.isEditingRoutine = routine.length > 0 && state.isEditingRoutine;
+  editRoutineButton.disabled = routine.length === 0;
+  editRoutineButton.textContent = state.isEditingRoutine ? "Listo" : "Editar";
+  editRoutineButton.setAttribute("aria-pressed", String(state.isEditingRoutine));
   clearDayButton.disabled = routine.length === 0;
   startButton.disabled = routine.length === 0;
   renderSavedSessions();
@@ -233,13 +239,13 @@ function renderPlan() {
             <span>${getExerciseRepsLabel(exercise)}</span>
           </div>
           <div class="plan-actions" role="group" aria-label="Acciones para ${escapeHtml(exercise.name)}">
-            <button class="reorder-action" type="button" data-move-index="${index}" data-move-direction="up" ${index === 0 ? "disabled" : ""} aria-label="Subir ${escapeHtml(exercise.name)}">
+            <button class="reorder-action" type="button" data-move-index="${index}" data-move-direction="up" ${!state.isEditingRoutine || index === 0 ? "disabled" : ""} aria-label="Subir ${escapeHtml(exercise.name)}">
               Subir
             </button>
-            <button class="reorder-action" type="button" data-move-index="${index}" data-move-direction="down" ${index === routine.length - 1 ? "disabled" : ""} aria-label="Bajar ${escapeHtml(exercise.name)}">
+            <button class="reorder-action" type="button" data-move-index="${index}" data-move-direction="down" ${!state.isEditingRoutine || index === routine.length - 1 ? "disabled" : ""} aria-label="Bajar ${escapeHtml(exercise.name)}">
               Bajar
             </button>
-            <button class="remove-action" type="button" data-remove-index="${index}" aria-label="Quitar ${escapeHtml(exercise.name)}">
+            <button class="remove-action" type="button" data-remove-index="${index}" ${!state.isEditingRoutine ? "disabled" : ""} aria-label="Quitar ${escapeHtml(exercise.name)}">
               Quitar
             </button>
           </div>
@@ -639,6 +645,10 @@ function addExercise(event) {
 }
 
 function moveExercise(index, direction) {
+  if (!state.isEditingRoutine) {
+    return;
+  }
+
   const routine = state.routines[state.selectedDay];
   const nextIndex = direction === "up" ? index - 1 : index + 1;
 
@@ -716,6 +726,7 @@ function applyTrainingDayCount(value) {
   state.trainingDayCount = trainingDayCount;
   state.hasConfiguredTrainingDays = true;
   state.routines = ensureRoutinesForTrainingDays(state.routines, trainingDayCount);
+  state.isEditingRoutine = false;
 
   if (getDayNumber(state.selectedDay) > trainingDayCount) {
     state.selectedDay = "day1";
@@ -732,6 +743,14 @@ function applyTrainingDayCount(value) {
 startButton.addEventListener("click", startWorkout);
 completeSetButton.addEventListener("click", completeSet);
 previousSetButton.addEventListener("click", goToPreviousSet);
+editRoutineButton.addEventListener("click", () => {
+  if (getSelectedRoutine().length === 0) {
+    return;
+  }
+
+  state.isEditingRoutine = !state.isEditingRoutine;
+  renderPlan();
+});
 exerciseForm.addEventListener("submit", addExercise);
 setupForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -755,6 +774,7 @@ clearDayButton.addEventListener("click", () => {
   }
 
   state.routines[state.selectedDay] = [];
+  state.isEditingRoutine = false;
   saveRoutines();
   renderPlan();
 });
@@ -779,6 +799,7 @@ daySelector.addEventListener("click", (event) => {
 
   state.selectedDay = day;
   state.editingSessionIndex = null;
+  state.isEditingRoutine = false;
   renderDaySelector();
   renderPlan();
 });
@@ -826,6 +847,10 @@ planList.addEventListener("click", (event) => {
   const removeIndex = event.target.dataset.removeIndex;
 
   if (removeIndex === undefined) {
+    return;
+  }
+
+  if (!state.isEditingRoutine) {
     return;
   }
 

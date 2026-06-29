@@ -14,6 +14,7 @@
 - Cada ejercicio puede usar repeticiones diferentes por serie.
 - El usuario puede quitar ejercicios de un dia.
 - El usuario puede reordenar ejercicios dentro de un dia.
+- El usuario puede habilitar las acciones de edicion de rutina mediante un boton general `Editar`.
 - El usuario puede vaciar la rutina de un dia.
 
 ## Ejecucion de entrenamiento
