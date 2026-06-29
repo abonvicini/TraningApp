@@ -1,12 +1,13 @@
 # Roadmap
 
-## Version actual: `v0.6.0-beta`
+## Version actual: `v0.7.0-beta`
 
 - Soporte para pesos decimales.
 - Edicion de fecha y hora de entrenamientos guardados en historial.
 - Volver a la serie anterior durante el entrenamiento para corregir el peso.
 - Reordenar ejercicios dentro de un dia de entrenamiento.
 - Modo `Editar` para habilitar acciones Subir, Bajar y Quitar en la rutina.
+- Titulo de ejercicio mas compacto en modo entrenamiento.
 - Documentacion modular base en `docs/`.
 - Revision de backlog por prioridad.
 - Auditoria y sincronizacion general de documentacion.
