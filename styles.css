@@ -643,31 +643,49 @@ h3 {
   gap: 10px;
 }
 
-.input-row {
+.weight-display {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 54px;
-  align-items: center;
+  place-items: center;
   min-height: 68px;
+  padding: 0 18px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--surface-strong);
 }
 
-.input-row input {
-  width: 100%;
-  min-width: 0;
-  border: 0;
-  outline: 0;
-  padding: 0 18px;
-  background: transparent;
+.weight-display strong {
   color: var(--text);
   font-size: 2rem;
   font-weight: 800;
+  text-align: center;
 }
 
-.input-row span {
-  justify-self: center;
+.weight-controls {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.weight-step-button,
+.weight-clear-button {
+  min-height: 46px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-strong);
+  color: var(--text);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.weight-clear-button {
   color: var(--muted);
+}
+
+.weight-step-button:disabled,
+.weight-clear-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
 }
 
 .complete-button {
@@ -796,6 +814,15 @@ h3 {
 
   .exercise-details {
     grid-template-columns: 1fr;
+  }
+
+  .weight-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .weight-clear-button {
+    grid-column: 1 / -1;
+    grid-row: 2;
   }
 
   .set-reps-fields {

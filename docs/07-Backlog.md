@@ -11,6 +11,7 @@
 
 - Migracion a React.
 - Reordenamiento de ejercicios por arrastrar y soltar.
+- Configurar incrementos personalizados para el selector de peso.
 - Backend.
 - Base de datos.
 - Sistema de autenticacion.
@@ -22,5 +23,6 @@
 - Volver a la serie anterior durante el entrenamiento para corregir el peso.
 - Reordenar ejercicios dentro de un dia de entrenamiento.
 - Habilitar las acciones Subir, Bajar y Quitar del menu de entrenamiento mediante un boton general Editar.
+- Selector tactil de peso en modo entrenamiento para evitar el teclado del telefono.
 - Documentacion modular base.
 - Revision de backlog por prioridad.

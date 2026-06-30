@@ -36,13 +36,16 @@ Debe concentrar la atencion en:
 
 El titulo del ejercicio y el indicador de serie en curso deben mantenerse compactos para no saturar visualmente el entrenamiento.
 
+La carga de peso en modo entrenamiento debe priorizar controles tactiles para evitar que el teclado del telefono interrumpa el flujo.
+
 ### Resumen
 
 Muestra el registro final del entrenamiento y permite volver al inicio.
 
 ## Formularios
 
-- Usar inputs numericos para series, reps y pesos.
+- Usar inputs numericos para series y reps.
+- Usar controles tactiles para el peso durante el entrenamiento.
 - Usar `date` y `time` cuando se editen fechas.
 - Mantener labels visibles.
 - Evitar flujos largos para acciones frecuentes.

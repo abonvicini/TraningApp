@@ -1,6 +1,6 @@
 # Roadmap
 
-## Version actual: `v0.8.0-beta`
+## Version actual: `v0.9.0-beta`
 
 - Soporte para pesos decimales.
 - Edicion de fecha y hora de entrenamientos guardados en historial.
@@ -9,6 +9,7 @@
 - Modo `Editar` para habilitar acciones Subir, Bajar y Quitar en la rutina.
 - Titulo de ejercicio mas compacto en modo entrenamiento.
 - Indicador de serie en curso mas compacto en modo entrenamiento.
+- Selector tactil de peso en modo entrenamiento para evitar el teclado del telefono.
 - Documentacion modular base en `docs/`.
 - Revision de backlog por prioridad.
 - Auditoria y sincronizacion general de documentacion.
@@ -23,6 +24,7 @@
 
 - Migracion a React.
 - Reordenamiento de ejercicios por arrastrar y soltar.
+- Configurar incrementos personalizados para el selector de peso.
 - Backend.
 - Base de datos.
 
