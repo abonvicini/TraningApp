@@ -67,6 +67,9 @@ const setCounter = document.querySelector("#setCounter");
 const repTarget = document.querySelector("#repTarget");
 const setsRemaining = document.querySelector("#setsRemaining");
 const weightInput = document.querySelector("#weightInput");
+const weightDisplay = document.querySelector("#weightDisplay");
+const weightControls = document.querySelector(".weight-controls");
+const clearWeightButton = document.querySelector("#clearWeightButton");
 const setHistory = document.querySelector("#setHistory");
 const progressFill = document.querySelector("#progressFill");
 const summaryText = document.querySelector("#summaryText");
@@ -448,8 +451,7 @@ function renderWorkout(weightValue = "") {
     .map((set, index) => `<li>${formatLoggedSet(set, index)}</li>`)
     .join("");
   previousSetButton.disabled = getCompletedSets() === 0;
-  weightInput.value = weightValue;
-  weightInput.focus();
+  setWeightInputValue(weightValue);
 }
 
 function formatWeight(weight) {
@@ -509,6 +511,42 @@ function getWeightInputValue(weight) {
   }
 
   return String(weight).replace(",", ".");
+}
+
+function formatWeightInputValue(weight) {
+  const numericWeight = Number(String(weight).replace(",", "."));
+
+  if (!Number.isFinite(numericWeight)) {
+    return "";
+  }
+
+  return numericWeight.toFixed(1).replace(/\.0$/, "");
+}
+
+function setWeightInputValue(weight) {
+  weightInput.value = weight === "" || weight === null || weight === undefined ? "" : formatWeightInputValue(weight);
+  weightInput.setCustomValidity("");
+  renderWeightSelector();
+}
+
+function renderWeightSelector() {
+  const hasWeight = weightInput.value !== "";
+  const currentWeight = hasWeight ? Number(weightInput.value) : 0;
+
+  weightDisplay.textContent = hasWeight ? formatWeight(weightInput.value) : "Sin peso";
+  clearWeightButton.disabled = !hasWeight;
+
+  weightControls.querySelectorAll("[data-weight-step]").forEach((button) => {
+    const step = Number(button.dataset.weightStep);
+    button.disabled = step < 0 && currentWeight <= 0;
+  });
+}
+
+function adjustWeight(step) {
+  const currentWeight = weightInput.value === "" ? 0 : Number(weightInput.value);
+  const nextWeight = Math.max(0, Math.round((currentWeight + step) * 10) / 10);
+
+  setWeightInputValue(nextWeight);
 }
 
 function getLastCompletedSetPosition() {
@@ -882,13 +920,18 @@ restartButton.addEventListener("click", () => {
   renderPlan();
   showView("home");
 });
-weightInput.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-    completeSet();
+weightControls.addEventListener("click", (event) => {
+  const clickedElement = event.target instanceof Element ? event.target : event.target.parentElement;
+  const stepButton = clickedElement?.closest("[data-weight-step]");
+
+  if (stepButton) {
+    adjustWeight(Number(stepButton.dataset.weightStep));
+    return;
   }
-});
-weightInput.addEventListener("input", () => {
-  weightInput.setCustomValidity("");
+
+  if (clickedElement === clearWeightButton) {
+    setWeightInputValue("");
+  }
 });
 
 renderDaySelector();

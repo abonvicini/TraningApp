@@ -133,6 +133,29 @@ Consecuencias:
 - La correccion modifica solo el log temporal de la sesion actual.
 - El resumen y el historial reciben una unica version corregida de la serie.
 
+## Reemplazar la entrada libre de peso por controles tactiles
+
+Contexto:
+
+Durante el entrenamiento en telefono, tocar el campo numerico de peso abre el teclado del dispositivo y agrega friccion al registro de series.
+
+Decision:
+
+La app usa un display de peso y botones tactiles para ajustar el valor con incrementos de `0.5` y `2.5`, ademas de una accion `Sin peso`. El input de peso queda oculto como almacenamiento interno del valor antes de confirmar la serie.
+
+Motivo:
+
+- Evita abrir el teclado del telefono durante el flujo principal de entrenamiento.
+- Mantiene la compatibilidad con el guardado existente de pesos enteros, decimales y `Sin peso`.
+- Genera valores validos con hasta 1 decimal sin depender de correcciones posteriores.
+
+Consecuencias:
+
+- El usuario ya no escribe el peso manualmente durante el entrenamiento.
+- Los valores `7.5`, `22.5` y otros incrementos de medio kilo se pueden registrar con los botones.
+- La validacion existente sigue actuando como respaldo antes de guardar.
+- El HTML referencia los assets con la version beta para reducir riesgo de cache en la app estatica.
+
 ## Reordenar ejercicios modificando el array del dia seleccionado
 
 Contexto:

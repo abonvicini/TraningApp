@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.9.0-beta` - 2026-06-30
+
+### 2026-06-30 - Selector tactil de peso en entrenamiento
+
+- Version: `v0.9.0-beta`.
+- Funcionalidad: ajustar el peso usado en cada serie con botones tactiles durante el entrenamiento.
+- Resumen: se reemplazo el input numerico visible por un display de peso y controles `-2.5`, `-0.5`, `Sin peso`, `+0.5` y `+2.5`, evitando que el teclado del telefono interrumpa el registro.
+- Pull Request: pendiente.
+
 ## `v0.8.0-beta` - 2026-06-29
 
 ### 2026-06-29 - Indicador de serie compacto en entrenamiento
@@ -7,7 +16,7 @@
 - Version: `v0.8.0-beta`.
 - Funcionalidad: reducir el tamano visual del indicador de serie en curso en modo entrenamiento.
 - Resumen: se ajusto el estilo de `.set-focus strong` para que el contador `1 / 4`, `2 / 4` y similares ocupe menos espacio sin afectar otros textos.
-- Pull Request: pendiente.
+- Pull Request: #12.
 
 ## `v0.7.0-beta` - 2026-06-29
 
