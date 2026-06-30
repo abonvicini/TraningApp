@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.8.0-beta` - 2026-06-29
+
+### 2026-06-29 - Indicador de serie compacto en entrenamiento
+
+- Version: `v0.8.0-beta`.
+- Funcionalidad: reducir el tamano visual del indicador de serie en curso en modo entrenamiento.
+- Resumen: se ajusto el estilo de `.set-focus strong` para que el contador `1 / 4`, `2 / 4` y similares ocupe menos espacio sin afectar otros textos.
+- Pull Request: pendiente.
+
 ## `v0.7.0-beta` - 2026-06-29
 
 ### 2026-06-29 - Titulo de ejercicio compacto en entrenamiento
@@ -7,7 +16,7 @@
 - Version: `v0.7.0-beta`.
 - Funcionalidad: reducir el tamano visual del titulo del ejercicio en modo entrenamiento.
 - Resumen: se agrego un estilo especifico para el titulo dentro de `session-header`, evitando modificar otros titulos de la app.
-- Pull Request: pendiente.
+- Pull Request: #11.
 
 ## `v0.6.0-beta` - 2026-06-28
 

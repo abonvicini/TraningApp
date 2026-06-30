@@ -612,8 +612,8 @@ h3 {
 }
 
 .set-focus strong {
-  font-size: 11rem;
-  line-height: 0.9;
+  font-size: 7rem;
+  line-height: 0.95;
   letter-spacing: 0;
 }
 
@@ -791,7 +791,7 @@ h3 {
   }
 
   .set-focus strong {
-    font-size: 5.5rem;
+    font-size: 4rem;
   }
 
   .exercise-details {

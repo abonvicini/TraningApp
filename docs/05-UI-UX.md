@@ -34,7 +34,7 @@ Debe concentrar la atencion en:
 - Peso utilizado.
 - Avance de la sesion.
 
-El titulo del ejercicio debe mantenerse compacto para no competir visualmente con la serie actual.
+El titulo del ejercicio y el indicador de serie en curso deben mantenerse compactos para no saturar visualmente el entrenamiento.
 
 ### Resumen
 
