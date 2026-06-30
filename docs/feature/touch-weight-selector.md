@@ -4,6 +4,8 @@ Fecha: 2026-06-30
 
 Version asignada: `v0.9.0-beta`
 
+Pull Request: #13
+
 ## Objetivo
 
 Mejorar la experiencia de carga de peso en modo entrenamiento evitando que el teclado del telefono se abra al registrar cada serie.

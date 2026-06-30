@@ -7,7 +7,7 @@
 - Version: `v0.9.0-beta`.
 - Funcionalidad: ajustar el peso usado en cada serie con botones tactiles durante el entrenamiento.
 - Resumen: se reemplazo el input numerico visible por un display de peso y controles `-2.5`, `-0.5`, `Sin peso`, `+0.5` y `+2.5`, evitando que el teclado del telefono interrumpa el registro.
-- Pull Request: pendiente.
+- Pull Request: #13.
 
 ## `v0.8.0-beta` - 2026-06-29
 
