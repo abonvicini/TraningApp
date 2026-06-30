@@ -6,6 +6,8 @@
 - Modificar repeticiones realizadas durante el entrenamiento sin alterar la rutina base.
 - Editar cualquier serie completada desde la lista de `Completado`.
 - Historial completo con filtros, busqueda y ordenamiento.
+- Importar rutina e historial desde la pantalla inicial cuando la app se usa por primera vez.
+- Exportar rutina e historial cuando ya existen datos guardados.
 
 ## Prioridad media
 
