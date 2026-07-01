@@ -40,6 +40,8 @@ La carga de peso en modo entrenamiento debe priorizar controles tactiles para ev
 
 Los taps repetidos sobre controles de peso no deben generar zoom accidental del navegador ni saltos visuales.
 
+Al avanzar entre series del mismo ejercicio, el peso anterior debe mantenerse precargado para reducir interacciones repetitivas.
+
 ### Resumen
 
 Muestra el registro final del entrenamiento y permite volver al inicio.
