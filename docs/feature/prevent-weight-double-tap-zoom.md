@@ -4,6 +4,8 @@ Fecha: 2026-06-30
 
 Version asignada: `v0.10.0-beta`
 
+Pull Request: #15
+
 ## Objetivo
 
 Evitar que el navegador haga zoom accidental cuando el usuario toca repetidamente los botones `+/-` del selector de peso durante el entrenamiento.
