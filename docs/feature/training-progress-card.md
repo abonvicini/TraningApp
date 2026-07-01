@@ -4,6 +4,8 @@ Fecha: 2026-07-01
 
 Version asignada: `v0.12.0-beta`
 
+Pull Request: #17
+
 ## Objetivo
 
 Crear una tarjeta principal para modo entrenamiento que permita identificar rapidamente:
