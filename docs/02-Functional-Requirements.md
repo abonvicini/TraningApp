@@ -26,6 +26,7 @@
 - El peso puede ser entero o decimal con hasta 1 decimal.
 - El usuario puede ajustar el peso durante el entrenamiento con controles tactiles sin abrir el teclado del telefono.
 - Los controles tactiles de peso deben evitar zoom accidental por doble tap o taps repetidos.
+- Al iniciar una nueva serie del mismo ejercicio, el peso debe precargarse con el valor usado en la serie anterior.
 - El usuario puede volver a la serie anterior durante el entrenamiento para corregir el peso registrado.
 - Al volver a la serie anterior, la app debe corregir el registro de la sesion actual sin alterar la rutina base.
 

@@ -178,6 +178,28 @@ Consecuencias:
 - El resto de la app conserva el comportamiento normal de zoom del navegador.
 - La solucion depende de soporte moderno de `touch-action`, con respaldo parcial mediante `dblclick`.
 
+## Precargar peso solo entre series del mismo ejercicio
+
+Contexto:
+
+Durante un entrenamiento, la mayoria de las series consecutivas de un mismo ejercicio usan el mismo peso o un peso cercano. Volver a cargarlo en cada serie genera interacciones repetitivas.
+
+Decision:
+
+Al confirmar una serie, la siguiente serie del mismo ejercicio se renderiza con el peso recien registrado. Cuando la app avanza a otro ejercicio, el selector vuelve a `Sin peso`.
+
+Motivo:
+
+- Reduce taps durante el entrenamiento sin asumir pesos entre ejercicios distintos.
+- Mantiene el comportamiento existente para la primera serie de cada ejercicio.
+- Reutiliza el valor ya validado por `parseWeightInput()`.
+
+Consecuencias:
+
+- El usuario puede confirmar rapidamente series consecutivas con el mismo peso.
+- Si la serie anterior fue `Sin peso`, la siguiente serie del mismo ejercicio tambien inicia como `Sin peso`.
+- No se modifica el modelo de datos ni el historial guardado.
+
 ## Reordenar ejercicios modificando el array del dia seleccionado
 
 Contexto:

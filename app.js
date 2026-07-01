@@ -502,7 +502,7 @@ function completeSet() {
     return;
   }
 
-  renderWorkout();
+  renderWorkout(state.setIndex === 0 ? "" : getWeightInputValue(weight));
 }
 
 function getWeightInputValue(weight) {
