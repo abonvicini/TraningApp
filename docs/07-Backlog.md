@@ -26,5 +26,6 @@
 - Reordenar ejercicios dentro de un dia de entrenamiento.
 - Habilitar las acciones Subir, Bajar y Quitar del menu de entrenamiento mediante un boton general Editar.
 - Selector tactil de peso en modo entrenamiento para evitar el teclado del telefono.
+- Evitar zoom del navegador al hacer taps repetidos en los botones `+/-` de peso, sin afectar accesibilidad ni experiencia de uso.
 - Documentacion modular base.
 - Revision de backlog por prioridad.

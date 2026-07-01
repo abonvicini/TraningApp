@@ -38,6 +38,8 @@ El titulo del ejercicio y el indicador de serie en curso deben mantenerse compac
 
 La carga de peso en modo entrenamiento debe priorizar controles tactiles para evitar que el teclado del telefono interrumpa el flujo.
 
+Los taps repetidos sobre controles de peso no deben generar zoom accidental del navegador ni saltos visuales.
+
 ### Resumen
 
 Muestra el registro final del entrenamiento y permite volver al inicio.

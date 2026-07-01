@@ -933,6 +933,9 @@ weightControls.addEventListener("click", (event) => {
     setWeightInputValue("");
   }
 });
+weightControls.addEventListener("dblclick", (event) => {
+  event.preventDefault();
+});
 
 renderDaySelector();
 renderExerciseFormMode();
