@@ -65,7 +65,7 @@ const exerciseCounter = document.querySelector("#exerciseCounter");
 const exerciseName = document.querySelector("#exerciseName");
 const setCounter = document.querySelector("#setCounter");
 const repTarget = document.querySelector("#repTarget");
-const setsRemaining = document.querySelector("#setsRemaining");
+const previousWeightDisplay = document.querySelector("#previousWeightDisplay");
 const weightInput = document.querySelector("#weightInput");
 const weightDisplay = document.querySelector("#weightDisplay");
 const weightControls = document.querySelector(".weight-controls");
@@ -436,6 +436,13 @@ function getCompletedSets() {
   return state.log.reduce((total, exercise) => total + exercise.sets.length, 0);
 }
 
+function renderTrainingProgressCard({ currentSet, totalSets, previousWeight, currentWeight, targetReps }) {
+  setCounter.textContent = `${currentSet} / ${totalSets}`;
+  previousWeightDisplay.textContent = formatPreviousWeight(previousWeight);
+  repTarget.textContent = targetReps;
+  setWeightInputValue(currentWeight);
+}
+
 function renderWorkout(weightValue = "") {
   const exercise = state.workoutPlan[state.exerciseIndex];
   const completedForExercise = state.log[state.exerciseIndex].sets;
@@ -443,15 +450,18 @@ function renderWorkout(weightValue = "") {
 
   exerciseCounter.textContent = `${getDayLabel(state.selectedDay)} - ejercicio ${state.exerciseIndex + 1} de ${state.workoutPlan.length}`;
   exerciseName.textContent = exercise.name;
-  setCounter.textContent = `${currentSet} / ${exercise.sets}`;
-  repTarget.textContent = getRepsForSet(exercise, state.setIndex);
-  setsRemaining.textContent = Math.max(exercise.sets - currentSet, 0);
   progressFill.style.width = `${(getCompletedSets() / getTotalSets()) * 100}%`;
   setHistory.innerHTML = completedForExercise
     .map((set, index) => `<li>${formatLoggedSet(set, index)}</li>`)
     .join("");
   previousSetButton.disabled = getCompletedSets() === 0;
-  setWeightInputValue(weightValue);
+  renderTrainingProgressCard({
+    currentSet,
+    totalSets: exercise.sets,
+    previousWeight: completedForExercise[completedForExercise.length - 1]?.weight,
+    currentWeight: weightValue,
+    targetReps: getRepsForSet(exercise, state.setIndex),
+  });
 }
 
 function formatWeight(weight) {
@@ -466,6 +476,14 @@ function formatWeight(weight) {
   }
 
   return `${numericWeight.toLocaleString("es-AR", { maximumFractionDigits: 1 })} kg`;
+}
+
+function formatPreviousWeight(weight) {
+  if (weight === "" || weight === null || weight === undefined) {
+    return "—";
+  }
+
+  return formatWeight(weight);
 }
 
 function formatLoggedSet(set, index) {

@@ -30,11 +30,14 @@ Debe concentrar la atencion en:
 
 - Ejercicio actual.
 - Serie actual.
+- Peso anterior.
 - Repeticiones objetivo.
 - Peso utilizado.
 - Avance de la sesion.
 
 El titulo del ejercicio y el indicador de serie en curso deben mantenerse compactos para no saturar visualmente el entrenamiento.
+
+La serie actual, las repeticiones y los pesos deben poder leerse en una tarjeta principal de alto contraste, con jerarquia clara y sin cards internas.
 
 La carga de peso en modo entrenamiento debe priorizar controles tactiles para evitar que el teclado del telefono interrumpa el flujo.
 

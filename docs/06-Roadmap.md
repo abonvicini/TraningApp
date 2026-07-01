@@ -1,6 +1,6 @@
 # Roadmap
 
-## Version actual: `v0.11.0-beta`
+## Version actual: `v0.12.0-beta`
 
 - Soporte para pesos decimales.
 - Edicion de fecha y hora de entrenamientos guardados en historial.
@@ -12,6 +12,7 @@
 - Selector tactil de peso en modo entrenamiento para evitar el teclado del telefono.
 - Prevencion de zoom accidental por taps repetidos en los botones de peso.
 - Precarga del peso de la serie anterior al iniciar una nueva serie del mismo ejercicio.
+- Componente `TrainingProgressCard` para mostrar serie, peso anterior, reps y peso actual en modo entrenamiento.
 - Documentacion modular base en `docs/`.
 - Revision de backlog por prioridad.
 - Auditoria y sincronizacion general de documentacion.

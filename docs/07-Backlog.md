@@ -28,5 +28,6 @@
 - Selector tactil de peso en modo entrenamiento para evitar el teclado del telefono.
 - Evitar zoom del navegador al hacer taps repetidos en los botones `+/-` de peso, sin afectar accesibilidad ni experiencia de uso.
 - Precargar el peso de la serie anterior al iniciar una nueva serie del mismo ejercicio.
+- Componente `TrainingProgressCard` para priorizar serie, peso anterior, reps y peso actual en modo entrenamiento.
 - Documentacion modular base.
 - Revision de backlog por prioridad.
