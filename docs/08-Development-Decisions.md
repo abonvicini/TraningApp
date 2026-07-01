@@ -156,6 +156,28 @@ Consecuencias:
 - La validacion existente sigue actuando como respaldo antes de guardar.
 - El HTML referencia los assets con la version beta para reducir riesgo de cache en la app estatica.
 
+## Prevenir zoom accidental solo en controles tactiles de peso
+
+Contexto:
+
+Al tocar repetidamente los botones `+/-` del selector de peso en navegadores moviles, el navegador puede interpretar la accion como doble tap y aplicar zoom accidental.
+
+Decision:
+
+La app aplica `touch-action: manipulation` y `user-select: none` solo sobre el contenedor y botones del selector de peso. Ademas, previene el comportamiento por defecto del evento `dblclick` dentro de ese control.
+
+Motivo:
+
+- Evita zoom accidental durante una accion repetitiva del entrenamiento.
+- Mantiene el zoom accesible general del navegador porque no se usa `user-scalable=no` en el viewport.
+- Limita el cambio al area donde aparece el problema.
+
+Consecuencias:
+
+- Los taps repetidos en los botones de peso no deberian disparar zoom accidental.
+- El resto de la app conserva el comportamiento normal de zoom del navegador.
+- La solucion depende de soporte moderno de `touch-action`, con respaldo parcial mediante `dblclick`.
+
 ## Reordenar ejercicios modificando el array del dia seleccionado
 
 Contexto:

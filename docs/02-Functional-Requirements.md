@@ -25,6 +25,7 @@
 - El peso puede quedar vacio y registrarse como `Sin peso`.
 - El peso puede ser entero o decimal con hasta 1 decimal.
 - El usuario puede ajustar el peso durante el entrenamiento con controles tactiles sin abrir el teclado del telefono.
+- Los controles tactiles de peso deben evitar zoom accidental por doble tap o taps repetidos.
 - El usuario puede volver a la serie anterior durante el entrenamiento para corregir el peso registrado.
 - Al volver a la serie anterior, la app debe corregir el registro de la sesion actual sin alterar la rutina base.
 

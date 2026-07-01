@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.10.0-beta` - 2026-06-30
+
+### 2026-06-30 - Prevencion de zoom accidental en botones de peso
+
+- Version: `v0.10.0-beta`.
+- Funcionalidad: evitar zoom del navegador al hacer taps repetidos sobre los botones `+/-` del selector de peso.
+- Resumen: se aplico una solucion acotada a los controles de peso con `touch-action: manipulation`, `user-select: none` y prevencion de `dblclick`, manteniendo disponible el zoom accesible general del navegador.
+- Pull Request: #15.
+
 ## `v0.9.0-beta` - 2026-06-30
 
 ### 2026-06-30 - Selector tactil de peso en entrenamiento

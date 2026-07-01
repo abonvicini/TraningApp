@@ -664,6 +664,7 @@ h3 {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 8px;
+  touch-action: manipulation;
 }
 
 .weight-step-button,
@@ -676,6 +677,8 @@ h3 {
   font: inherit;
   font-weight: 800;
   cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
 }
 
 .weight-clear-button {
