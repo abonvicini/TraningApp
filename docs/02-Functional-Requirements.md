@@ -21,6 +21,7 @@
 
 - El usuario puede iniciar un entrenamiento si el dia seleccionado tiene ejercicios.
 - La app muestra el ejercicio actual, serie actual, repeticiones objetivo y series restantes.
+- La app muestra una tarjeta de progreso con serie actual, peso anterior, repeticiones objetivo y peso actual.
 - El usuario puede registrar el peso utilizado por serie.
 - El peso puede quedar vacio y registrarse como `Sin peso`.
 - El peso puede ser entero o decimal con hasta 1 decimal.

@@ -38,6 +38,7 @@ Claves:
 - `renderDaySelector()`
 - `renderPlan()`
 - `renderWorkout()`
+- `renderTrainingProgressCard()`
 - `renderSummary()`
 - `renderSavedSessions()`
 

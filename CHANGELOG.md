@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.12.0-beta` - 2026-07-01
+
+### 2026-07-01 - TrainingProgressCard en modo entrenamiento
+
+- Version: `v0.12.0-beta`.
+- Funcionalidad: incorporar una tarjeta principal de progreso para la pantalla de entrenamiento.
+- Resumen: se agrego `TrainingProgressCard` como componente reutilizable en la arquitectura estatica, mostrando serie actual, peso anterior, repeticiones objetivo y peso actual con jerarquia visual fuerte.
+- Pull Request: pendiente.
+
 ## `v0.11.0-beta` - 2026-07-01
 
 ### 2026-07-01 - Precarga de peso entre series

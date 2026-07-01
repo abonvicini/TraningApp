@@ -111,6 +111,54 @@ Consecuencias:
 - Toda entrada nueva de changelog se agrega en `CHANGELOG.md`.
 - `docs/09-Changelog.md` debe mantenerse breve y apuntar al archivo raiz.
 
+## Crear una libreria de componentes en Storybook en paralelo
+
+Contexto:
+
+La app actual sigue siendo una aplicacion estatica en HTML, CSS y JavaScript plano. La migracion a React no es necesaria de forma inmediata, pero conviene preparar componentes reutilizables antes de encarar una migracion completa.
+
+Decision:
+
+Se decide crear una libreria de componentes en Storybook en paralelo al desarrollo de la app estatica actual.
+
+La app estatica continuara recibiendo mejoras funcionales y correcciones de UX mientras Storybook se utiliza como entorno de exploracion, validacion y documentacion de componentes reutilizables.
+
+Motivo:
+
+- Preparar una futura migracion a React con menor riesgo.
+- Definir componentes, variantes, estados visuales y patrones de interaccion antes de reemplazar pantallas completas.
+- Validar decisiones de UI sin bloquear el avance funcional de la app actual.
+- Evitar una reescritura grande sin componentes previamente probados.
+
+Consecuencias:
+
+- Storybook no reemplaza inmediatamente la app actual.
+- La app estatica sigue siendo el producto funcional principal.
+- La libreria de componentes puede madurar de forma incremental.
+- Cuando la libreria alcance un estado suficientemente maduro, se podra iniciar una migracion progresiva hacia React usando componentes ya validados.
+
+## Implementar `TrainingProgressCard` primero en la app estatica
+
+Contexto:
+
+La pantalla de entrenamiento necesita priorizar informacion critica: serie actual, peso anterior, repeticiones objetivo y peso actual. Aunque existe la decision de crear Storybook en paralelo, la app estatica sigue siendo el producto funcional principal.
+
+Decision:
+
+Se implementa `TrainingProgressCard` dentro de la app estatica actual como una combinacion de markup semantico, clases CSS y la funcion `renderTrainingProgressCard()`.
+
+Motivo:
+
+- Entregar valor inmediato en el flujo de entrenamiento.
+- Probar jerarquia visual y estados reales antes de llevar el patron a Storybook.
+- Mantener el componente alineado con la arquitectura actual sin introducir React prematuramente.
+
+Consecuencias:
+
+- El componente queda listo como referencia para una futura historia de Storybook.
+- La pantalla de entrenamiento reduce ruido visual y concentra informacion prioritaria.
+- Cuando exista la libreria React, este patron debera migrarse como componente formal con props equivalentes.
+
 ## Corregir la serie anterior removiendo el ultimo registro
 
 Contexto:

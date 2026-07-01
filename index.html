@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Training App</title>
-    <link rel="stylesheet" href="styles.css?v=0.11.0-beta" />
+    <link rel="stylesheet" href="styles.css?v=0.12.0-beta" />
   </head>
   <body>
     <main class="app-shell">
@@ -110,29 +110,29 @@
         </div>
 
         <section class="exercise-panel">
-          <div class="set-focus">
-            <p>Serie actual</p>
-            <strong id="setCounter">1 / 4</strong>
-          </div>
-
-          <div class="exercise-details">
-            <div>
-              <span>Repeticiones</span>
-              <strong id="repTarget">10</strong>
-            </div>
-            <div>
-              <span>Series restantes</span>
-              <strong id="setsRemaining">3</strong>
-            </div>
-          </div>
-
-          <label class="weight-input">
-            <span>Peso utilizado</span>
+          <section class="training-progress-card" aria-labelledby="trainingProgressTitle">
             <input id="weightInput" type="hidden" />
-            <div class="weight-display" aria-live="polite">
-              <strong id="weightDisplay">Sin peso</strong>
+
+            <div class="training-progress-card__set">
+              <p id="trainingProgressTitle">Serie en curso</p>
+              <strong id="setCounter">1 / 4</strong>
             </div>
-          </label>
+
+            <div class="training-progress-card__metrics" aria-label="Detalle de la serie">
+              <div class="training-progress-card__metric">
+                <span>Peso anterior</span>
+                <strong id="previousWeightDisplay">—</strong>
+              </div>
+              <div class="training-progress-card__metric">
+                <span>Reps</span>
+                <strong id="repTarget">10</strong>
+              </div>
+              <div class="training-progress-card__metric">
+                <span>Peso actual</span>
+                <strong id="weightDisplay" aria-live="polite">Sin peso</strong>
+              </div>
+            </div>
+          </section>
 
           <div class="weight-controls" aria-label="Ajustar peso utilizado">
             <button class="weight-step-button" type="button" data-weight-step="-2.5">-2.5</button>
@@ -170,6 +170,6 @@
       </section>
     </main>
 
-    <script src="app.js?v=0.11.0-beta"></script>
+    <script src="app.js?v=0.12.0-beta"></script>
   </body>
 </html>
