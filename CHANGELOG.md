@@ -7,7 +7,7 @@
 - Version: `v0.11.0-beta`.
 - Funcionalidad: precargar el peso utilizado en la serie anterior al iniciar una nueva serie del mismo ejercicio.
 - Resumen: al confirmar una serie, la siguiente serie del mismo ejercicio hereda el peso registrado; al cambiar de ejercicio, el peso vuelve a `Sin peso`.
-- Pull Request: pendiente.
+- Pull Request: #16.
 
 ## `v0.10.0-beta` - 2026-06-30
 

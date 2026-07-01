@@ -4,6 +4,8 @@ Fecha: 2026-07-01
 
 Version asignada: `v0.11.0-beta`
 
+Pull Request: #16
+
 ## Objetivo
 
 Reducir interacciones durante el entrenamiento precargando el peso usado en la serie anterior cuando el usuario inicia una nueva serie del mismo ejercicio.
