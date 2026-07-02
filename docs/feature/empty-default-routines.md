@@ -42,8 +42,20 @@ Se elimino la rutina demo porque la claridad del primer uso es mas importante qu
 ## Prueba manual sugerida
 
 1. Abrir la app con `localStorage` limpio.
-2. Completar la configuracion inicial.
-3. Verificar que `Dia 1` no tenga ejercicios precargados.
-4. Verificar que los demas dias tambien esten vacios.
-5. Cargar un ejercicio manualmente.
-6. Recargar la app y verificar que el ejercicio cargado se conserva.
+2. Verificar que se muestra la pantalla de configuracion solicitando la cantidad de dias de entrenamiento.
+3. Configurar `5` dias de entrenamiento.
+4. Verificar que la app abre el inicio con `Dia 1` seleccionado.
+5. Verificar que `Dia 1` no tenga ejercicios precargados.
+6. Verificar que `Dia 2`, `Dia 3`, `Dia 4` y `Dia 5` tambien esten vacios.
+7. Cargar un ejercicio manualmente.
+8. Recargar la app y verificar que el ejercicio cargado se conserva.
+
+## Comparacion con comportamiento anterior
+
+Antes de esta mejora, un usuario con configuracion inicial ya guardada podia abrir la app con varios dias configurados y encontrar `Dia 1` con una rutina de ejemplo.
+
+Con esta mejora, para un primer uso real:
+
+- La app solicita la cantidad de dias.
+- Al configurar los dias, todos quedan vacios.
+- `Dia 1` ya no incluye rutina demo.
