@@ -5,6 +5,7 @@
 - El usuario puede definir cuantos dias de entrenamiento tiene su semana.
 - El rango permitido es de 1 a 7 dias.
 - La configuracion se guarda localmente.
+- En el primer uso, los dias de entrenamiento deben iniciar sin ejercicios precargados.
 
 ## Gestion de rutina
 

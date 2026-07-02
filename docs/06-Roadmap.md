@@ -1,6 +1,6 @@
 # Roadmap
 
-## Version actual: `v0.12.0-beta`
+## Version actual: `v0.13.0-beta`
 
 - Soporte para pesos decimales.
 - Edicion de fecha y hora de entrenamientos guardados en historial.
@@ -13,6 +13,7 @@
 - Prevencion de zoom accidental por taps repetidos en los botones de peso.
 - Precarga del peso de la serie anterior al iniciar una nueva serie del mismo ejercicio.
 - Componente `TrainingProgressCard` para mostrar serie, peso anterior, reps y peso actual en modo entrenamiento.
+- Primer uso sin rutina precargada para que todos los dias inicien vacios.
 - Documentacion modular base en `docs/`.
 - Revision de backlog por prioridad.
 - Auditoria y sincronizacion general de documentacion.
@@ -22,6 +23,7 @@
 - Editar el nombre de ejercicios.
 - Modificar repeticiones realizadas durante el entrenamiento sin alterar la rutina base.
 - Historial completo con filtros, busqueda y ordenamiento.
+- Permitir borrar individualmente cada entrenamiento guardado en historial, manteniendo tambien la opcion de borrar todo el historial del dia.
 - Importar rutina e historial desde la pantalla inicial cuando la app se usa por primera vez.
 - Exportar rutina e historial cuando ya existen datos guardados.
 

@@ -5,18 +5,6 @@ const DEFAULT_TRAINING_DAY_COUNT = 4;
 const MAX_TRAINING_DAYS = 7;
 const legacyDayOrder = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"];
 
-const defaultRoutines = {
-  day1: [
-    { name: "Sentadilla", sets: 4, reps: 8 },
-    { name: "Press de banca", sets: 4, reps: 10 },
-    { name: "Remo con barra", sets: 3, reps: 10 },
-    { name: "Peso muerto rumano", sets: 3, reps: 12 },
-  ],
-  day2: [],
-  day3: [],
-  day4: [],
-};
-
 const savedConfig = loadConfig();
 
 const state = {
@@ -114,7 +102,7 @@ function loadRoutines(trainingDayCount) {
   const emptyRoutines = createEmptyRoutines(trainingDayCount);
 
   if (!saved) {
-    return ensureRoutinesForTrainingDays(cloneRoutines(defaultRoutines), trainingDayCount);
+    return emptyRoutines;
   }
 
   try {
@@ -122,12 +110,8 @@ function loadRoutines(trainingDayCount) {
     const migrated = hasLegacyRoutineKeys(parsed) ? migrateLegacyRoutines(parsed) : parsed;
     return ensureRoutinesForTrainingDays({ ...emptyRoutines, ...migrated }, trainingDayCount);
   } catch {
-    return ensureRoutinesForTrainingDays(cloneRoutines(defaultRoutines), trainingDayCount);
+    return emptyRoutines;
   }
-}
-
-function cloneRoutines(routines) {
-  return JSON.parse(JSON.stringify(routines));
 }
 
 function createEmptyRoutines(trainingDayCount) {
