@@ -4,6 +4,8 @@ Fecha: 2026-07-02
 
 Version asignada: `v0.13.0-beta`
 
+Pull Request: #18
+
 ## Objetivo
 
 Evitar que usuarios nuevos vean una rutina demo en `Dia 1`, porque puede confundirse con contenido real y afectar la experiencia inicial.
