@@ -6,6 +6,7 @@
 - Modificar repeticiones realizadas durante el entrenamiento sin alterar la rutina base.
 - Editar cualquier serie completada desde la lista de `Completado`.
 - Historial completo con filtros, busqueda y ordenamiento.
+- Permitir borrar individualmente cada entrenamiento guardado en historial, manteniendo tambien la opcion de borrar todo el historial del dia.
 - Importar rutina e historial desde la pantalla inicial cuando la app se usa por primera vez.
 - Exportar rutina e historial cuando ya existen datos guardados.
 
@@ -29,5 +30,6 @@
 - Evitar zoom del navegador al hacer taps repetidos en los botones `+/-` de peso, sin afectar accesibilidad ni experiencia de uso.
 - Precargar el peso de la serie anterior al iniciar una nueva serie del mismo ejercicio.
 - Componente `TrainingProgressCard` para priorizar serie, peso anterior, reps y peso actual en modo entrenamiento.
+- Primer uso sin rutina precargada en Dia 1.
 - Documentacion modular base.
 - Revision de backlog por prioridad.

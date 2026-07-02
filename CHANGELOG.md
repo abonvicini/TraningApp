@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.13.0-beta` - 2026-07-02
+
+### 2026-07-02 - Primer uso sin rutina precargada
+
+- Version: `v0.13.0-beta`.
+- Funcionalidad: iniciar la app sin ejercicios precargados para usuarios nuevos.
+- Resumen: se elimino la rutina demo de `day1`; cuando no existe rutina en `localStorage`, todos los dias se crean vacios sin afectar datos existentes.
+- Pull Request: #18.
+
 ## `v0.12.0-beta` - 2026-07-01
 
 ### 2026-07-01 - TrainingProgressCard en modo entrenamiento

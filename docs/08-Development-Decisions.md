@@ -159,6 +159,28 @@ Consecuencias:
 - La pantalla de entrenamiento reduce ruido visual y concentra informacion prioritaria.
 - Cuando exista la libreria React, este patron debera migrarse como componente formal con props equivalentes.
 
+## Iniciar usuarios nuevos sin rutina precargada
+
+Contexto:
+
+La app tenia una rutina de ejemplo precargada en `day1` para usuarios sin datos en `localStorage`. Aunque facilitaba probar la app, podia interpretarse como contenido real y romper la claridad del primer uso.
+
+Decision:
+
+Cuando no existe `training-app-routines` en `localStorage`, la app crea todos los dias de entrenamiento vacios.
+
+Motivo:
+
+- Evitar que el usuario nuevo confunda una rutina demo con su rutina real.
+- Mantener una experiencia inicial neutral.
+- Preparar mejor el flujo futuro de importar rutina e historial.
+
+Consecuencias:
+
+- El usuario nuevo debe cargar o importar su rutina antes de iniciar un entrenamiento.
+- Los datos existentes en `localStorage` no se modifican.
+- Si el contenido guardado de rutinas no puede parsearse, la app vuelve a un estado vacio en lugar de restaurar una rutina demo.
+
 ## Corregir la serie anterior removiendo el ultimo registro
 
 Contexto:
