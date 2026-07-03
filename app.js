@@ -3,6 +3,8 @@ const HISTORY_STORAGE_KEY = "training-app-history";
 const CONFIG_STORAGE_KEY = "training-app-config";
 const DEFAULT_TRAINING_DAY_COUNT = 4;
 const MAX_TRAINING_DAYS = 7;
+const WEIGHT_PRECISION_FACTOR = 100;
+const MIN_WEIGHT_STEP = 25;
 const legacyDayOrder = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"];
 
 const savedConfig = loadConfig();
@@ -459,7 +461,7 @@ function formatWeight(weight) {
     return escapeHtml(weight);
   }
 
-  return `${numericWeight.toLocaleString("es-AR", { maximumFractionDigits: 1 })} kg`;
+  return `${numericWeight.toLocaleString("es-AR", { maximumFractionDigits: 2 })} kg`;
 }
 
 function formatPreviousWeight(weight) {
@@ -522,7 +524,7 @@ function formatWeightInputValue(weight) {
     return "";
   }
 
-  return numericWeight.toFixed(1).replace(/\.0$/, "");
+  return numericWeight.toFixed(2).replace(/\.?0+$/, "");
 }
 
 function setWeightInputValue(weight) {
@@ -546,7 +548,7 @@ function renderWeightSelector() {
 
 function adjustWeight(step) {
   const currentWeight = weightInput.value === "" ? 0 : Number(weightInput.value);
-  const nextWeight = Math.max(0, Math.round((currentWeight + step) * 10) / 10);
+  const nextWeight = Math.max(0, Math.round((currentWeight + step) * WEIGHT_PRECISION_FACTOR) / WEIGHT_PRECISION_FACTOR);
 
   setWeightInputValue(nextWeight);
 }
@@ -589,16 +591,21 @@ function parseWeightInput(value) {
     return "";
   }
 
-  // Rechazamos mas de 1 decimal en vez de redondear para no guardar un peso distinto al que ingreso el usuario.
-  if (!/^\d+(\.\d{1})?$/.test(normalizedValue)) {
-    weightInput.setCustomValidity("Ingresa un peso positivo con hasta 1 decimal.");
+  // Rechazamos mas de 2 decimales en vez de redondear para no guardar un peso distinto al que ingreso el usuario.
+  if (!/^\d+(\.\d{1,2})?$/.test(normalizedValue)) {
+    weightInput.setCustomValidity("Ingresa un peso positivo con hasta 2 decimales.");
     return null;
   }
 
   const weight = Number(normalizedValue);
 
   if (!Number.isFinite(weight) || weight < 0) {
-    weightInput.setCustomValidity("Ingresa un peso positivo con hasta 1 decimal.");
+    weightInput.setCustomValidity("Ingresa un peso positivo con incrementos de 0.25 kg.");
+    return null;
+  }
+
+  if (Math.round(weight * WEIGHT_PRECISION_FACTOR) % MIN_WEIGHT_STEP !== 0) {
+    weightInput.setCustomValidity("Ingresa un peso positivo con incrementos de 0.25 kg.");
     return null;
   }
 

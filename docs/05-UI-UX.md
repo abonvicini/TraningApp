@@ -41,6 +41,8 @@ La serie actual, las repeticiones y los pesos deben poder leerse en una tarjeta 
 
 La carga de peso en modo entrenamiento debe priorizar controles tactiles para evitar que el teclado del telefono interrumpa el flujo.
 
+Los controles de ajuste de peso deben mostrarse en pares equivalentes, con el decremento a la izquierda del incremento.
+
 Los taps repetidos sobre controles de peso no deben generar zoom accidental del navegador ni saltos visuales.
 
 Al avanzar entre series del mismo ejercicio, el peso anterior debe mantenerse precargado para reducir interacciones repetitivas.

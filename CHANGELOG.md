@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.14.0-beta` - 2026-07-02
+
+### 2026-07-02 - Orden de botones tactiles de peso
+
+- Version: `v0.14.0-beta`.
+- Funcionalidad: ordenar los botones tactiles de peso en pares de decremento e incremento equivalente y sumar pasos de `0.25 kg`.
+- Resumen: los controles quedan ordenados como `Sin peso`, `-0.25`, `+0.25`, `-0.5`, `+0.5`, `-2.5` y `+2.5`; la precision interna del peso pasa a incrementos de `0.25 kg` para guardar cuartos de kilo sin aceptar decimales arbitrarios.
+- Pull Request: pendiente.
+
 ## `v0.13.0-beta` - 2026-07-02
 
 ### 2026-07-02 - Primer uso sin rutina precargada

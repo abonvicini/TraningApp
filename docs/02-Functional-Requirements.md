@@ -25,8 +25,9 @@
 - La app muestra una tarjeta de progreso con serie actual, peso anterior, repeticiones objetivo y peso actual.
 - El usuario puede registrar el peso utilizado por serie.
 - El peso puede quedar vacio y registrarse como `Sin peso`.
-- El peso puede ser entero o decimal con hasta 1 decimal.
+- El peso puede ser entero o decimal en incrementos de `0.25 kg`.
 - El usuario puede ajustar el peso durante el entrenamiento con controles tactiles sin abrir el teclado del telefono.
+- Los controles tactiles de peso deben agrupar cada decremento junto a su incremento equivalente.
 - Los controles tactiles de peso deben evitar zoom accidental por doble tap o taps repetidos.
 - Al iniciar una nueva serie del mismo ejercicio, el peso debe precargarse con el valor usado en la serie anterior.
 - El usuario puede volver a la serie anterior durante el entrenamiento para corregir el peso registrado.

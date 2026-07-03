@@ -15,8 +15,10 @@ Mejorar la experiencia de carga de peso en modo entrenamiento evitando que el te
 Se reemplazo el input numerico visible de peso por un selector tactil compuesto por:
 
 - `-2.5`
+- `-0.25`
 - `-0.5`
 - `Sin peso`
+- `+0.25`
 - `+0.5`
 - `+2.5`
 
@@ -41,7 +43,7 @@ El HTML referencia `styles.css` y `app.js` con la version beta para evitar cache
 ## Validaciones y compatibilidad
 
 - Los botones generan valores no negativos.
-- Los incrementos producen pesos con hasta 1 decimal.
+- Los incrementos producen pesos validos en pasos de `0.25 kg`.
 - La accion `Sin peso` mantiene el valor vacio para conservar el comportamiento existente.
 - La validacion de peso existente sigue funcionando como respaldo antes de guardar.
 - No se modifica la estructura de los registros guardados en `localStorage`.
