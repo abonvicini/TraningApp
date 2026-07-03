@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Training App</title>
-    <link rel="stylesheet" href="styles.css?v=0.13.0-beta" />
+    <link rel="stylesheet" href="styles.css?v=0.14.0-beta" />
   </head>
   <body>
     <main class="app-shell">
@@ -135,10 +135,12 @@
           </section>
 
           <div class="weight-controls" aria-label="Ajustar peso utilizado">
-            <button class="weight-step-button" type="button" data-weight-step="-2.5">-2.5</button>
-            <button class="weight-step-button" type="button" data-weight-step="-0.5">-0.5</button>
             <button class="weight-clear-button" id="clearWeightButton" type="button">Sin peso</button>
+            <button class="weight-step-button" type="button" data-weight-step="-0.25">-0.25</button>
+            <button class="weight-step-button" type="button" data-weight-step="0.25">+0.25</button>
+            <button class="weight-step-button" type="button" data-weight-step="-0.5">-0.5</button>
             <button class="weight-step-button" type="button" data-weight-step="0.5">+0.5</button>
+            <button class="weight-step-button" type="button" data-weight-step="-2.5">-2.5</button>
             <button class="weight-step-button" type="button" data-weight-step="2.5">+2.5</button>
           </div>
 
@@ -170,6 +172,6 @@
       </section>
     </main>
 
-    <script src="app.js?v=0.13.0-beta"></script>
+    <script src="app.js?v=0.14.0-beta"></script>
   </body>
 </html>

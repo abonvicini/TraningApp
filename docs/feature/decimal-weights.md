@@ -2,9 +2,11 @@
 
 ## Resumen
 
-La app permite registrar pesos enteros y decimales con hasta 1 decimal en cada serie de entrenamiento.
+La app permite registrar pesos enteros y decimales en incrementos de `0.25 kg` en cada serie de entrenamiento.
 
-La mejora acepta valores como `2`, `2.5`, `7.5` y `22.5 kg`, mantiene el comportamiento de campo vacio como `Sin peso`, y conserva la visualizacion de registros antiguos guardados en `localStorage`.
+La mejora acepta valores como `2`, `2.5`, `7.5`, `22.5 kg` y valores de cuarto kilo como `0.25`, mantiene el comportamiento de campo vacio como `Sin peso`, y conserva la visualizacion de registros antiguos guardados en `localStorage`.
+
+Nota: la implementacion inicial aceptaba hasta 1 decimal. En `v0.14.0-beta` se amplio la precision a incrementos de `0.25 kg` para soportar botones tactiles de cuarto kilo sin aceptar decimales arbitrarios.
 
 ## Archivos modificados
 
@@ -15,7 +17,7 @@ Se ajusto el input de peso utilizado:
 - Antes: `step="0.5"`
 - Ahora: `step="0.1"`
 
-Esto permite que el control HTML acepte incrementos de un decimal.
+Esto permitia que el control HTML aceptara incrementos de un decimal en la version inicial. El flujo actual usa botones tactiles y validacion en incrementos de `0.25 kg`.
 
 ### `app.js`
 
@@ -32,10 +34,11 @@ La funcion `parseWeightInput(value)` centraliza la validacion del peso.
 Reglas aplicadas:
 
 - Se aceptan numeros enteros positivos.
-- Se aceptan numeros decimales positivos con hasta 1 decimal.
+- Se aceptan numeros decimales positivos en incrementos de `0.25 kg`.
 - Se acepta el campo vacio y se guarda como `Sin peso`.
 - Se rechazan valores negativos.
-- Se rechazan valores con mas de 1 decimal.
+- Se rechazan valores que no coinciden con incrementos de `0.25 kg`.
+- Se rechazan valores con mas de 2 decimales.
 - Se rechazan valores no numericos o formatos ambiguos.
 - Se acepta coma decimal como entrada del usuario, normalizandola a punto antes de guardar.
 
@@ -45,18 +48,20 @@ Ejemplos aceptados:
 - `2.5`
 - `7.5`
 - `22.5`
+- `0.25`
 - Campo vacio
 
 Ejemplos rechazados:
 
 - `7.55`
+- `7.555`
 - `-1`
 - `abc`
 - `1e2`
 
-## Decision sobre valores con mas de 1 decimal
+## Decision sobre valores fuera de incrementos de 0.25 kg
 
-Para valores como `7.55`, la app rechaza el ingreso en lugar de redondearlo.
+Para valores como `7.55` o `7.555`, la app rechaza el ingreso en lugar de redondearlo.
 
 Motivo: redondear podria guardar un peso distinto al que ingreso el usuario. Para registros de entrenamiento, es mas seguro pedir correccion explicita y evitar alterar el dato.
 
@@ -75,12 +80,13 @@ Ahora:
 
 ## Visualizacion en historial y resumen
 
-`formatWeight(weight)` muestra correctamente pesos decimales con hasta 1 decimal.
+`formatWeight(weight)` muestra correctamente pesos decimales en incrementos de `0.25 kg`.
 
 Ejemplos:
 
 - `7.5` se muestra como `7,5 kg` en formato regional `es-AR`.
 - `22.5` se muestra como `22,5 kg`.
+- `0.25` se muestra como `0,25 kg`.
 - Campo vacio, `null` o `undefined` se muestra como `Sin peso`.
 - Registros antiguos no numericos se muestran sin romper la pantalla.
 

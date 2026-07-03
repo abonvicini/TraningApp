@@ -27,6 +27,7 @@
 - Reordenar ejercicios dentro de un dia de entrenamiento.
 - Habilitar las acciones Subir, Bajar y Quitar del menu de entrenamiento mediante un boton general Editar.
 - Selector tactil de peso en modo entrenamiento para evitar el teclado del telefono.
+- Reordenar los botones de peso para agrupar cada decremento junto a su incremento equivalente e incluir pasos de `0.25 kg`.
 - Evitar zoom del navegador al hacer taps repetidos en los botones `+/-` de peso, sin afectar accesibilidad ni experiencia de uso.
 - Precargar el peso de la serie anterior al iniciar una nueva serie del mismo ejercicio.
 - Componente `TrainingProgressCard` para priorizar serie, peso anterior, reps y peso actual en modo entrenamiento.

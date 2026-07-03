@@ -25,13 +25,14 @@ Trade-off:
 - No hay sincronizacion entre dispositivos.
 - El usuario puede perder datos si limpia el navegador.
 
-## Rechazar pesos con mas de 1 decimal
+## Rechazar pesos fuera de incrementos de 0.25 kg
 
-La app rechaza pesos como `7.55` en lugar de redondearlos.
+La app rechaza pesos como `7.55` o `7.555` en lugar de redondearlos.
 
 Motivo:
 
 - Redondear podria guardar un peso distinto al ingresado por el usuario.
+- La precision basada en `0.25 kg` permite soportar cuartos de kilo sin guardar valores ambiguos.
 
 ## Documentar cada mejora
 
@@ -211,18 +212,18 @@ Durante el entrenamiento en telefono, tocar el campo numerico de peso abre el te
 
 Decision:
 
-La app usa un display de peso y botones tactiles para ajustar el valor con incrementos de `0.5` y `2.5`, ademas de una accion `Sin peso`. El input de peso queda oculto como almacenamiento interno del valor antes de confirmar la serie.
+La app usa un display de peso y botones tactiles para ajustar el valor con incrementos de `0.25`, `0.5` y `2.5`, ademas de una accion `Sin peso`. El input de peso queda oculto como almacenamiento interno del valor antes de confirmar la serie.
 
 Motivo:
 
 - Evita abrir el teclado del telefono durante el flujo principal de entrenamiento.
 - Mantiene la compatibilidad con el guardado existente de pesos enteros, decimales y `Sin peso`.
-- Genera valores validos con hasta 1 decimal sin depender de correcciones posteriores.
+- Genera valores validos en incrementos de `0.25 kg` sin depender de correcciones posteriores.
 
 Consecuencias:
 
 - El usuario ya no escribe el peso manualmente durante el entrenamiento.
-- Los valores `7.5`, `22.5` y otros incrementos de medio kilo se pueden registrar con los botones.
+- Los valores `0.25`, `7.5`, `22.5` y otros incrementos de cuarto o medio kilo se pueden registrar con los botones.
 - La validacion existente sigue actuando como respaldo antes de guardar.
 - El HTML referencia los assets con la version beta para reducir riesgo de cache en la app estatica.
 
