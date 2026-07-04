@@ -316,3 +316,25 @@ Consecuencias:
 - El estado de edicion no se guarda en `localStorage`.
 - La rutina sigue usando la misma estructura de datos.
 - Las acciones destructivas conservan confirmacion antes de eliminar ejercicios.
+
+## Guardar reps realizadas solo en el log de sesion
+
+Contexto:
+
+Durante un entrenamiento, el usuario puede realizar una cantidad de repeticiones distinta a la definida en la rutina base. Esa diferencia debe quedar registrada como parte del entrenamiento realizado, sin alterar la planificacion.
+
+Decision:
+
+La app mantiene las repeticiones objetivo en `training-app-routines` y guarda las repeticiones realizadas solo dentro de `state.log`, que luego se persiste en `training-app-history`.
+
+Motivo:
+
+- Evita modificar la rutina base por una variacion puntual.
+- Reutiliza el modelo existente de sets completados, que ya guarda `reps` y `weight`.
+- Permite que el proximo entrenamiento vuelva a iniciar con las reps objetivo originales.
+
+Consecuencias:
+
+- El historial refleja las repeticiones realmente realizadas.
+- La rutina configurada conserva sus valores objetivo.
+- No se requiere migracion de `localStorage`.
