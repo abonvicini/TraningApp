@@ -5,6 +5,7 @@
 - Editar el nombre de ejercicios.
 - Editar cualquier serie completada desde la lista de `Completado`.
 - Historial completo con filtros, busqueda y ordenamiento.
+- Colapsar cada entrenamiento del historial para mostrar inicialmente solo fecha y hora, y desplegar el detalle completo al hacer tap.
 - Permitir borrar individualmente cada entrenamiento guardado en historial, manteniendo tambien la opcion de borrar todo el historial del dia.
 - Importar rutina e historial desde la pantalla inicial cuando la app se usa por primera vez.
 - Exportar rutina e historial cuando ya existen datos guardados.

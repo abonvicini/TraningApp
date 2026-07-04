@@ -338,3 +338,27 @@ Consecuencias:
 - El historial refleja las repeticiones realmente realizadas.
 - La rutina configurada conserva sus valores objetivo.
 - No se requiere migracion de `localStorage`.
+
+## Separar la vista principal con navegacion de footer
+
+Contexto:
+
+La pantalla principal acumulaba bienvenida, configuracion de rutina, edicion de ejercicios e historial en una sola vista. Eso hacia que algunas acciones compitieran visualmente y obligaba al usuario a escanear demasiado contenido para tareas simples.
+
+Decision:
+
+La app separa la vista principal en tres secciones locales: `Home`, `Rutinas` e `Historial`. La navegacion se resuelve con un footer interactivo visible solo en la vista principal. El estado `state.selectedDay` se comparte entre las tres secciones y la pestaña activa no se persiste en `localStorage`.
+
+Motivo:
+
+- Reduce ruido visual sin cambiar el modelo de datos.
+- Mantiene acceso rapido al selector de dias en cada seccion.
+- Evita mostrar navegacion durante entrenamiento activo, configuracion inicial o resumen.
+- Mantiene el arranque siempre en `Home`, que es el flujo mas predecible.
+
+Consecuencias:
+
+- No hay migracion de datos.
+- `Rutinas` concentra configuracion y edicion.
+- `Historial` concentra entrenamientos guardados.
+- Cambiar el dia en cualquier seccion actualiza las otras secciones inmediatamente.

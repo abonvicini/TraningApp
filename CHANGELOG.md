@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.16.0-beta` - 2026-07-04
+
+### 2026-07-04 - Navegacion principal por secciones
+
+- Version: `v0.16.0-beta`.
+- Funcionalidad: separar la vista principal en `Home`, `Rutinas` e `Historial` con un footer interactivo.
+- Resumen: se reorganizo la pantalla principal para que Home concentre bienvenida e inicio de entrenamiento, Rutinas concentre configuracion y edicion, e Historial concentre entrenamientos guardados; el selector de dias se mantiene disponible en cada seccion, comparte el mismo dia activo y Home guia a cargar rutina cuando el dia no tiene ejercicios.
+- Pull Request: pendiente.
+
 ## `v0.15.1-beta` - 2026-07-04
 
 ### 2026-07-04 - Modal de reps solo con botones

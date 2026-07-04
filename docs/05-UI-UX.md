@@ -18,11 +18,28 @@ Permite definir la cantidad de dias de entrenamiento.
 Permite:
 
 - Seleccionar dia.
+- Iniciar entrenamiento.
+- Cargar rutina desde el CTA principal cuando el dia seleccionado esta vacio.
+
+### Rutinas
+
+Permite:
+
+- Cambiar la cantidad de dias de entrenamiento.
+- Seleccionar dia.
 - Ver rutina cargada.
 - Agregar ejercicios.
 - Activar un modo `Editar` para habilitar acciones sobre ejercicios.
-- Ver historial reciente.
-- Iniciar entrenamiento.
+
+### Historial
+
+Permite:
+
+- Seleccionar dia.
+- Ver entrenamientos recientes.
+- Borrar el historial del dia seleccionado.
+
+La vista principal debe usar un footer de navegacion con tres accesos: `Home`, `Rutinas` e `Historial`. La pestaña activa debe destacarse de forma sutil con el color azul de la app.
 
 ### Entrenamiento
 
