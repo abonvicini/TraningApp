@@ -7,7 +7,7 @@
 - Version: `v0.15.0-beta`.
 - Funcionalidad: modificar las repeticiones realizadas de la serie actual durante el entrenamiento sin alterar la rutina base.
 - Resumen: el valor de reps mantiene la visualizacion compacta de la tarjeta y se edita desde un modal al tocar `Reps` o el numero; al completar la serie se guardan las reps realizadas en el log de la sesion y el historial, manteniendo intacta la rutina configurada.
-- Pull Request: pendiente.
+- Pull Request: #21.
 
 ## `v0.14.1-beta` - 2026-07-04
 
