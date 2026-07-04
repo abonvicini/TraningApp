@@ -57,7 +57,7 @@ const setCounter = document.querySelector("#setCounter");
 const repTarget = document.querySelector("#repTarget");
 const openRepsModalButton = document.querySelector("#openRepsModalButton");
 const repsModal = document.querySelector("#repsModal");
-const repsModalInput = document.querySelector("#repsModalInput");
+const repsModalValue = document.querySelector("#repsModalValue");
 const saveRepsModalButton = document.querySelector("#saveRepsModalButton");
 const cancelRepsModalButton = document.querySelector("#cancelRepsModalButton");
 const previousWeightDisplay = document.querySelector("#previousWeightDisplay");
@@ -559,11 +559,10 @@ function setCurrentRepsValue(reps) {
 function openRepsModal() {
   const reps = parseCurrentRepsInput() ?? 1;
 
-  repsModalInput.value = String(reps);
+  repsModalValue.textContent = String(reps);
   renderRepsModalState();
   repsModal.classList.remove("is-hidden");
-  repsModalInput.focus();
-  repsModalInput.select();
+  saveRepsModalButton.focus();
 }
 
 function closeRepsModal() {
@@ -571,10 +570,9 @@ function closeRepsModal() {
 }
 
 function renderRepsModalState() {
-  const parsedReps = parseRepsInput(repsModalInput.value);
+  const parsedReps = parseRepsInput(repsModalValue.textContent);
   const reps = parsedReps ?? 1;
 
-  repsModalInput.setCustomValidity(parsedReps === null ? "Ingresa repeticiones enteras mayores a 0." : "");
   repsModal.querySelectorAll("[data-reps-modal-step]").forEach((button) => {
     const step = Number(button.dataset.repsModalStep);
     button.disabled = step < 0 && reps <= 1;
@@ -582,18 +580,15 @@ function renderRepsModalState() {
 }
 
 function adjustRepsModalValue(step) {
-  const reps = parseRepsInput(repsModalInput.value) ?? 1;
-  repsModalInput.value = String(reps + step);
+  const reps = parseRepsInput(repsModalValue.textContent) ?? 1;
+  repsModalValue.textContent = String(reps + step);
   renderRepsModalState();
 }
 
 function saveRepsModalValue() {
-  const reps = parseRepsInput(repsModalInput.value);
-
-  repsModalInput.setCustomValidity(reps === null ? "Ingresa repeticiones enteras mayores a 0." : "");
+  const reps = parseRepsInput(repsModalValue.textContent);
 
   if (reps === null) {
-    repsModalInput.reportValidity();
     return;
   }
 
@@ -1018,13 +1013,6 @@ restartButton.addEventListener("click", () => {
   showView("home");
 });
 openRepsModalButton.addEventListener("click", openRepsModal);
-repsModalInput.addEventListener("input", renderRepsModalState);
-repsModalInput.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    saveRepsModalValue();
-  }
-});
 saveRepsModalButton.addEventListener("click", saveRepsModalValue);
 cancelRepsModalButton.addEventListener("click", closeRepsModal);
 repsModal.addEventListener("click", (event) => {

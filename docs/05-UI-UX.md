@@ -41,7 +41,7 @@ La serie actual, las repeticiones y los pesos deben poder leerse en una tarjeta 
 
 La carga de peso en modo entrenamiento debe priorizar controles tactiles para evitar que el teclado del telefono interrumpa el flujo.
 
-Las repeticiones realizadas deben mantener una visualizacion compacta en la tarjeta principal y poder ajustarse desde un modal al tocar `Reps` o el numero.
+Las repeticiones realizadas deben mantener una visualizacion compacta en la tarjeta principal y poder ajustarse desde un modal al tocar `Reps` o el numero. Ese modal debe usar botones tactiles para sumar o restar reps sin abrir el teclado del telefono.
 
 Los controles de ajuste de peso deben mostrarse en pares equivalentes, con el decremento a la izquierda del incremento.
 

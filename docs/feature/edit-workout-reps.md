@@ -24,8 +24,7 @@ Permitir modificar las repeticiones realizadas durante una sesion activa de entr
 
 - El valor inicial de reps de cada serie se toma de la rutina objetivo.
 - El usuario puede tocar `Reps` o el numero de reps para abrir un modal de edicion.
-- El usuario puede modificar las reps con input numerico dentro del modal.
-- El usuario puede aumentar o disminuir reps con botones tactiles dentro del modal.
+- El usuario puede modificar las reps con botones tactiles dentro del modal, sin escritura manual.
 - Al completar la serie se guarda el valor modificado en `state.log`.
 - Al volver a la serie anterior se recuperan peso y reps registradas para corregirlas.
 - La rutina base en `training-app-routines` no se modifica.
@@ -61,12 +60,11 @@ No se cambia la estructura general de almacenamiento.
 2. Confirmar que las reps iniciales coinciden con la rutina.
 3. Tocar `Reps` o el numero de reps para abrir el modal.
 4. Modificar reps con `+` y `-`.
-5. Modificar reps escribiendo un valor manualmente.
-6. Completar la serie y verificar que `Completado` muestra las reps modificadas.
-7. Volver a la serie anterior y verificar que se recuperan reps y peso.
-8. Confirmar que valores invalidos como `0`, negativos o decimales no se aceptan.
-9. Finalizar el entrenamiento y revisar que el historial muestra las reps realizadas.
-10. Iniciar nuevamente la rutina y confirmar que vuelve a mostrar las reps objetivo originales.
+5. Completar la serie y verificar que `Completado` muestra las reps modificadas.
+6. Volver a la serie anterior y verificar que se recuperan reps y peso.
+7. Confirmar que no se abre el teclado del telefono al editar reps.
+8. Finalizar el entrenamiento y revisar que el historial muestra las reps realizadas.
+9. Iniciar nuevamente la rutina y confirmar que vuelve a mostrar las reps objetivo originales.
 
 ## Mejora futura detectada
 
