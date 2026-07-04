@@ -1,6 +1,6 @@
 # Roadmap
 
-## Version actual: `v0.14.0-beta`
+## Version actual: `v0.14.1-beta`
 
 - Soporte para pesos decimales.
 - Edicion de fecha y hora de entrenamientos guardados en historial.

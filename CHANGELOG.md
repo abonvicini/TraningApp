@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.14.1-beta` - 2026-07-04
+
+### 2026-07-04 - Redeploy tecnico de GitHub Pages
+
+- Version: `v0.14.1-beta`.
+- Funcionalidad: generar una version tecnica para reintentar el deploy de GitHub Pages.
+- Resumen: se actualizaron las referencias versionadas de assets y la documentacion de version sin modificar la logica funcional de la aplicacion.
+- Pull Request: pendiente.
+
 ## `v0.14.0-beta` - 2026-07-02
 
 ### 2026-07-02 - Orden de botones tactiles de peso
@@ -7,7 +16,7 @@
 - Version: `v0.14.0-beta`.
 - Funcionalidad: ordenar los botones tactiles de peso en pares de decremento e incremento equivalente y sumar pasos de `0.25 kg`.
 - Resumen: los controles quedan ordenados como `Sin peso`, `-0.25`, `+0.25`, `-0.5`, `+0.5`, `-2.5` y `+2.5`; la precision interna del peso pasa a incrementos de `0.25 kg` para guardar cuartos de kilo sin aceptar decimales arbitrarios.
-- Pull Request: pendiente.
+- Pull Request: #19.
 
 ## `v0.13.0-beta` - 2026-07-02
 
