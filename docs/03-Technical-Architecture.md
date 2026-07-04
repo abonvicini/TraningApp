@@ -29,6 +29,7 @@ Incluye:
 
 - Configuracion de dias.
 - Dia seleccionado.
+- Seccion principal activa.
 - Rutinas.
 - Sesiones guardadas.
 - Progreso del entrenamiento actual.
@@ -51,7 +52,7 @@ El renderizado se realiza mediante funciones que actualizan el DOM con strings H
 Vistas principales:
 
 - Configuracion inicial.
-- Inicio y rutina del dia.
+- Vista principal seccionada en `Home`, `Rutinas` e `Historial`.
 - Entrenamiento activo.
 - Resumen de entrenamiento.
 

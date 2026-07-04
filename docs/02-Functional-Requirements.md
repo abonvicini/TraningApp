@@ -18,6 +18,15 @@
 - El usuario puede habilitar las acciones de edicion de rutina mediante un boton general `Editar`.
 - El usuario puede vaciar la rutina de un dia.
 
+## Navegacion principal
+
+- La app debe separar la vista principal en secciones `Home`, `Rutinas` e `Historial`.
+- La navegacion entre esas secciones debe estar disponible desde un footer interactivo.
+- El footer no debe mostrarse durante configuracion inicial, entrenamiento activo ni resumen de entrenamiento.
+- Cada seccion principal puede mostrar el selector de dias para acceso rapido.
+- El dia seleccionado debe compartirse entre `Home`, `Rutinas` e `Historial`.
+- Si el dia seleccionado no tiene rutina cargada, el CTA de `Home` debe cambiar a `Cargar rutina` y llevar a `Rutinas`.
+
 ## Ejecucion de entrenamiento
 
 - El usuario puede iniciar un entrenamiento si el dia seleccionado tiene ejercicios.

@@ -15,6 +15,7 @@ const state = {
   selectedDay: "day1",
   routines: loadRoutines(savedConfig?.trainingDayCount ?? DEFAULT_TRAINING_DAY_COUNT),
   sessions: loadSessions(savedConfig?.trainingDayCount ?? DEFAULT_TRAINING_DAY_COUNT),
+  activeAppSection: "home",
   workoutPlan: [],
   exerciseIndex: 0,
   setIndex: 0,
@@ -31,8 +32,11 @@ const homeView = document.querySelector("#homeView");
 const workoutView = document.querySelector("#workoutView");
 const summaryView = document.querySelector("#summaryView");
 const selectedDayLabel = document.querySelector("#selectedDayLabel");
-const daySelector = document.querySelector("#daySelector");
-const routineTitle = document.querySelector("#routineTitle");
+const appFooterNav = document.querySelector("#appFooterNav");
+const appSectionPanels = document.querySelectorAll("[data-app-section-panel]");
+const daySelectors = document.querySelectorAll(".day-selector");
+const routineDayTitle = document.querySelector("#routineDayTitle");
+const historyTitle = document.querySelector("#historyTitle");
 const planList = document.querySelector("#planList");
 const startButton = document.querySelector("#startButton");
 const trainingDaysForm = document.querySelector("#trainingDaysForm");
@@ -193,8 +197,8 @@ function getTrainingDayKeys() {
   return Array.from({ length: state.trainingDayCount }, (_, index) => `day${index + 1}`);
 }
 
-function renderDaySelector() {
-  daySelector.innerHTML = getTrainingDayKeys()
+function getDaySelectorMarkup() {
+  return getTrainingDayKeys()
     .map(
       (dayKey) => `
         <button class="day-button${state.selectedDay === dayKey ? " is-active" : ""}" type="button" data-day="${dayKey}">
@@ -205,10 +209,49 @@ function renderDaySelector() {
     .join("");
 }
 
+function renderDaySelectors() {
+  const markup = getDaySelectorMarkup();
+  daySelectors.forEach((selector) => {
+    selector.innerHTML = markup;
+  });
+}
+
+function showAppSection(section) {
+  state.activeAppSection = section;
+
+  appSectionPanels.forEach((panel) => {
+    panel.classList.toggle("is-hidden", panel.dataset.appSectionPanel !== section);
+  });
+
+  appFooterNav.querySelectorAll("[data-app-section]").forEach((button) => {
+    const isActive = button.dataset.appSection === section;
+    button.classList.toggle("is-active", isActive);
+    if (isActive) {
+      button.setAttribute("aria-current", "page");
+    } else {
+      button.removeAttribute("aria-current");
+    }
+  });
+}
+
+function updateHomeAction(routine) {
+  if (routine.length === 0) {
+    startButton.textContent = "Cargar rutina";
+    startButton.disabled = false;
+    startButton.dataset.homeAction = "load-routine";
+    return;
+  }
+
+  startButton.textContent = "Comenzar entrenamiento";
+  startButton.disabled = false;
+  startButton.dataset.homeAction = "start-workout";
+}
+
 function renderPlan() {
   const routine = getSelectedRoutine();
   selectedDayLabel.textContent = `Entrenamiento - ${getDayLabel(state.selectedDay)}`;
-  routineTitle.textContent = getDayLabel(state.selectedDay);
+  routineDayTitle.textContent = getDayLabel(state.selectedDay);
+  historyTitle.textContent = getDayLabel(state.selectedDay);
   trainingDaysInput.value = state.trainingDayCount;
   setupDaysInput.value = state.trainingDayCount;
   state.isEditingRoutine = routine.length > 0 && state.isEditingRoutine;
@@ -216,7 +259,7 @@ function renderPlan() {
   editRoutineButton.textContent = state.isEditingRoutine ? "Listo" : "Editar";
   editRoutineButton.setAttribute("aria-pressed", String(state.isEditingRoutine));
   clearDayButton.disabled = routine.length === 0;
-  startButton.disabled = routine.length === 0;
+  updateHomeAction(routine);
   renderSavedSessions();
 
   if (routine.length === 0) {
@@ -404,6 +447,10 @@ function showView(view) {
   homeView.classList.toggle("is-hidden", view !== "home");
   workoutView.classList.toggle("is-hidden", view !== "workout");
   summaryView.classList.toggle("is-hidden", view !== "summary");
+
+  if (view === "home") {
+    showAppSection(state.activeAppSection);
+  }
 }
 
 function resetWorkout() {
@@ -865,12 +912,20 @@ function applyTrainingDayCount(value) {
   saveConfig();
   saveRoutines();
   saveSessions();
-  renderDaySelector();
+  renderDaySelectors();
   renderPlan();
+  showAppSection("home");
   showView("home");
 }
 
-startButton.addEventListener("click", startWorkout);
+startButton.addEventListener("click", () => {
+  if (startButton.dataset.homeAction === "load-routine") {
+    showAppSection("routines");
+    return;
+  }
+
+  startWorkout();
+});
 completeSetButton.addEventListener("click", completeSet);
 previousSetButton.addEventListener("click", goToPreviousSet);
 editRoutineButton.addEventListener("click", () => {
@@ -920,18 +975,23 @@ clearHistoryButton.addEventListener("click", () => {
   saveSessions();
   renderSavedSessions();
 });
-daySelector.addEventListener("click", (event) => {
-  const day = event.target.dataset.day;
+document.addEventListener("click", (event) => {
+  const clickedElement = event.target instanceof Element ? event.target : event.target.parentElement;
+  const dayButton = clickedElement?.closest("[data-day]");
+  const sectionButton = clickedElement?.closest("[data-app-section]");
 
-  if (!day) {
+  if (dayButton) {
+    state.selectedDay = dayButton.dataset.day;
+    state.editingSessionIndex = null;
+    state.isEditingRoutine = false;
+    renderDaySelectors();
+    renderPlan();
     return;
   }
 
-  state.selectedDay = day;
-  state.editingSessionIndex = null;
-  state.isEditingRoutine = false;
-  renderDaySelector();
-  renderPlan();
+  if (sectionButton) {
+    showAppSection(sectionButton.dataset.appSection);
+  }
 });
 savedSessionsList.addEventListener("click", (event) => {
   const editSessionIndex = event.target.dataset.editSessionIndex;
@@ -1050,7 +1110,8 @@ weightControls.addEventListener("dblclick", (event) => {
   event.preventDefault();
 });
 
-renderDaySelector();
+renderDaySelectors();
 renderExerciseFormMode();
 renderPlan();
+showAppSection("home");
 showView(state.hasConfiguredTrainingDays ? "home" : "setup");

@@ -45,7 +45,6 @@ button:disabled {
 }
 
 .setup-view,
-.home-view,
 .summary-view {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
@@ -57,10 +56,18 @@ button:disabled {
   padding: 48px 0;
 }
 
+.home-view {
+  width: min(760px, calc(100% - 32px));
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 32px 0 122px;
+}
+
 .setup-content,
 .home-content,
 .summary-content,
 .today-plan,
+.saved-sessions,
 .summary-log,
 .exercise-panel,
 .history-panel {
@@ -78,6 +85,10 @@ button:disabled {
   min-height: 520px;
   padding: 42px;
   border-radius: 8px;
+}
+
+.app-section {
+  width: 100%;
 }
 
 .setup-view {
@@ -414,9 +425,16 @@ h3 {
 .saved-sessions {
   display: grid;
   gap: 14px;
-  margin-top: 24px;
-  padding-top: 22px;
-  border-top: 1px solid var(--line);
+  padding: 28px;
+  border-radius: 8px;
+}
+
+.saved-sessions .day-selector {
+  margin: 0 0 22px;
+}
+
+.today-plan .day-selector {
+  margin: 22px 0;
 }
 
 .history-heading,
@@ -531,6 +549,58 @@ h3 {
 .saved-session li span {
   margin-top: 0;
   line-height: 1.4;
+}
+
+.app-footer-nav {
+  position: fixed;
+  right: max(16px, calc((100vw - 760px) / 2));
+  bottom: 14px;
+  left: max(16px, calc((100vw - 760px) / 2));
+  z-index: 10;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  min-height: 76px;
+  border: 1px solid var(--line);
+  border-radius: 0 0 16px 16px;
+  padding: 10px 10px 12px;
+  background: rgba(17, 21, 18, 0.94);
+  box-shadow: var(--shadow);
+}
+
+.footer-nav-button {
+  display: grid;
+  gap: 5px;
+  place-items: center;
+  min-width: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  touch-action: manipulation;
+}
+
+.footer-nav-button svg {
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.9;
+}
+
+.footer-nav-button.is-active {
+  color: var(--accent);
+}
+
+.footer-nav-button:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
 }
 
 .workout-view {
@@ -861,7 +931,6 @@ h3 {
 
 @media (max-width: 760px) {
   .setup-view,
-  .home-view,
   .summary-view {
     grid-template-columns: 1fr;
     gap: 16px;
@@ -869,10 +938,16 @@ h3 {
     padding: 12px 0;
   }
 
+  .home-view {
+    width: min(100% - 24px, 560px);
+    padding: 12px 0 110px;
+  }
+
   .setup-content,
   .home-content,
   .summary-content,
   .today-plan,
+  .saved-sessions,
   .summary-log {
     min-height: auto;
     padding: 22px;
@@ -903,6 +978,12 @@ h3 {
   .session-edit-actions {
     display: grid;
     grid-template-columns: 1fr;
+  }
+
+  .app-footer-nav {
+    right: 12px;
+    bottom: 10px;
+    left: 12px;
   }
 
   .primary-action {

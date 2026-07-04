@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Training App</title>
-    <link rel="stylesheet" href="styles.css?v=0.15.1-beta" />
+    <link rel="stylesheet" href="styles.css?v=0.16.0-beta" />
   </head>
   <body>
     <main class="app-shell">
@@ -26,13 +26,21 @@
       </section>
 
       <section class="home-view" id="homeView" aria-labelledby="appTitle">
-        <div class="home-content">
+        <section class="app-section home-content" id="homeSection" data-app-section-panel="home" aria-labelledby="appTitle">
           <p class="eyebrow" id="selectedDayLabel">Entrenamiento de hoy</p>
           <h1 id="appTitle">Training App</h1>
           <p class="intro">
             Elegi el dia de entrenamiento, carga tu rutina y completa cada serie registrando el peso usado.
           </p>
-          <div class="day-selector" aria-label="Seleccionar dia de rutina" id="daySelector"></div>
+          <div class="day-selector" aria-label="Seleccionar dia de entrenamiento" id="homeDaySelector"></div>
+          <button class="primary-action" id="startButton" type="button">
+            Comenzar entrenamiento
+          </button>
+        </section>
+
+        <section class="app-section today-plan is-hidden" id="routinesSection" data-app-section-panel="routines" aria-labelledby="routinesSectionTitle">
+          <p class="eyebrow" id="routinesSectionTitle">Rutinas</p>
+          <h2 id="routineDayTitle">Dia 1</h2>
           <form class="training-days-form" id="trainingDaysForm">
             <label>
               <span>Dias por semana</span>
@@ -40,16 +48,10 @@
             </label>
             <button class="secondary-action" type="submit">Actualizar</button>
           </form>
-          <button class="primary-action" id="startButton" type="button">
-            Comenzar entrenamiento
-          </button>
-        </div>
-
-        <div class="today-plan" aria-label="Plan de entrenamiento">
+          <div class="day-selector" aria-label="Seleccionar dia de rutina" id="routineDaySelector"></div>
           <div class="panel-heading">
             <div>
               <p class="eyebrow">Rutina seleccionada</p>
-              <h2 id="routineTitle">Rutina</h2>
             </div>
             <div class="panel-actions">
               <button class="secondary-action" id="editRoutineButton" type="button" aria-pressed="false">
@@ -82,14 +84,48 @@
             <div class="set-reps-fields is-hidden" id="setRepsFields"></div>
             <button class="secondary-action form-action" type="submit">Agregar ejercicio</button>
           </form>
-          <section class="saved-sessions" aria-label="Entrenamientos guardados">
-            <div class="history-heading">
-              <h3>Ultimos entrenamientos</h3>
-              <button class="secondary-action" id="clearHistoryButton" type="button">Borrar historial</button>
+        </section>
+
+        <section class="app-section saved-sessions is-hidden" id="historySection" data-app-section-panel="history" aria-label="Historial">
+          <div class="history-heading">
+            <div>
+              <p class="eyebrow">Historial</p>
+              <h2 id="historyTitle">Dia 1</h2>
             </div>
-            <div id="savedSessionsList"></div>
-          </section>
-        </div>
+            <button class="secondary-action" id="clearHistoryButton" type="button">Borrar historial</button>
+          </div>
+          <div class="day-selector" aria-label="Seleccionar dia de historial" id="historyDaySelector"></div>
+          <div id="savedSessionsList"></div>
+        </section>
+
+        <nav class="app-footer-nav" id="appFooterNav" aria-label="Navegacion principal">
+          <button class="footer-nav-button is-active" type="button" data-app-section="home" aria-current="page">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M3 10.5 12 3l9 7.5"></path>
+              <path d="M5.5 9.5V21h13V9.5"></path>
+              <path d="M9 21v-6h6v6"></path>
+            </svg>
+            <span>Home</span>
+          </button>
+          <button class="footer-nav-button" type="button" data-app-section="routines">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M7 7v10"></path>
+              <path d="M17 7v10"></path>
+              <path d="M4 9v6"></path>
+              <path d="M20 9v6"></path>
+              <path d="M7 12h10"></path>
+            </svg>
+            <span>Rutinas</span>
+          </button>
+          <button class="footer-nav-button" type="button" data-app-section="history">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M12 7v5l3 2"></path>
+              <path d="M21 12a9 9 0 1 1-9-9"></path>
+              <path d="M12 3a9 9 0 0 1 9 9"></path>
+            </svg>
+            <span>Historial</span>
+          </button>
+        </nav>
       </section>
 
       <section class="workout-view is-hidden" id="workoutView" aria-live="polite">
@@ -190,6 +226,6 @@
       </div>
     </div>
 
-    <script src="app.js?v=0.15.1-beta"></script>
+    <script src="app.js?v=0.16.0-beta"></script>
   </body>
 </html>
