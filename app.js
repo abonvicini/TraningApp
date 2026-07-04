@@ -55,6 +55,11 @@ const exerciseCounter = document.querySelector("#exerciseCounter");
 const exerciseName = document.querySelector("#exerciseName");
 const setCounter = document.querySelector("#setCounter");
 const repTarget = document.querySelector("#repTarget");
+const openRepsModalButton = document.querySelector("#openRepsModalButton");
+const repsModal = document.querySelector("#repsModal");
+const repsModalInput = document.querySelector("#repsModalInput");
+const saveRepsModalButton = document.querySelector("#saveRepsModalButton");
+const cancelRepsModalButton = document.querySelector("#cancelRepsModalButton");
 const previousWeightDisplay = document.querySelector("#previousWeightDisplay");
 const weightInput = document.querySelector("#weightInput");
 const weightDisplay = document.querySelector("#weightDisplay");
@@ -422,17 +427,18 @@ function getCompletedSets() {
   return state.log.reduce((total, exercise) => total + exercise.sets.length, 0);
 }
 
-function renderTrainingProgressCard({ currentSet, totalSets, previousWeight, currentWeight, targetReps }) {
+function renderTrainingProgressCard({ currentSet, totalSets, previousWeight, currentWeight, targetReps, currentReps }) {
   setCounter.textContent = `${currentSet} / ${totalSets}`;
   previousWeightDisplay.textContent = formatPreviousWeight(previousWeight);
-  repTarget.textContent = targetReps;
+  setCurrentRepsValue(currentReps ?? targetReps);
   setWeightInputValue(currentWeight);
 }
 
-function renderWorkout(weightValue = "") {
+function renderWorkout(weightValue = "", repsValue = null) {
   const exercise = state.workoutPlan[state.exerciseIndex];
   const completedForExercise = state.log[state.exerciseIndex].sets;
   const currentSet = state.setIndex + 1;
+  const targetReps = getRepsForSet(exercise, state.setIndex);
 
   exerciseCounter.textContent = `${getDayLabel(state.selectedDay)} - ejercicio ${state.exerciseIndex + 1} de ${state.workoutPlan.length}`;
   exerciseName.textContent = exercise.name;
@@ -446,7 +452,8 @@ function renderWorkout(weightValue = "") {
     totalSets: exercise.sets,
     previousWeight: completedForExercise[completedForExercise.length - 1]?.weight,
     currentWeight: weightValue,
-    targetReps: getRepsForSet(exercise, state.setIndex),
+    targetReps,
+    currentReps: repsValue,
   });
 }
 
@@ -474,6 +481,10 @@ function formatPreviousWeight(weight) {
 
 function formatLoggedSet(set, index) {
   if (set && typeof set === "object") {
+    if (set.reps === undefined || set.reps === null || set.reps === "") {
+      return `S${index + 1}: ${formatWeight(set.weight)}`;
+    }
+
     return `S${index + 1}: ${escapeHtml(set.reps)} reps - ${formatWeight(set.weight)}`;
   }
 
@@ -483,14 +494,20 @@ function formatLoggedSet(set, index) {
 function completeSet() {
   const exercise = state.workoutPlan[state.exerciseIndex];
   const weight = parseWeightInput(weightInput.value);
+  const reps = parseCurrentRepsInput();
 
   if (weight === null) {
     weightInput.reportValidity();
     return;
   }
 
+  if (reps === null) {
+    openRepsModal();
+    return;
+  }
+
   state.log[state.exerciseIndex].sets.push({
-    reps: getRepsForSet(exercise, state.setIndex),
+    reps,
     weight,
   });
   state.setIndex += 1;
@@ -531,6 +548,77 @@ function setWeightInputValue(weight) {
   weightInput.value = weight === "" || weight === null || weight === undefined ? "" : formatWeightInputValue(weight);
   weightInput.setCustomValidity("");
   renderWeightSelector();
+}
+
+function setCurrentRepsValue(reps) {
+  const parsedReps = parseRepsInput(reps);
+
+  repTarget.textContent = parsedReps === null ? "1" : String(parsedReps);
+}
+
+function openRepsModal() {
+  const reps = parseCurrentRepsInput() ?? 1;
+
+  repsModalInput.value = String(reps);
+  renderRepsModalState();
+  repsModal.classList.remove("is-hidden");
+  repsModalInput.focus();
+  repsModalInput.select();
+}
+
+function closeRepsModal() {
+  repsModal.classList.add("is-hidden");
+}
+
+function renderRepsModalState() {
+  const parsedReps = parseRepsInput(repsModalInput.value);
+  const reps = parsedReps ?? 1;
+
+  repsModalInput.setCustomValidity(parsedReps === null ? "Ingresa repeticiones enteras mayores a 0." : "");
+  repsModal.querySelectorAll("[data-reps-modal-step]").forEach((button) => {
+    const step = Number(button.dataset.repsModalStep);
+    button.disabled = step < 0 && reps <= 1;
+  });
+}
+
+function adjustRepsModalValue(step) {
+  const reps = parseRepsInput(repsModalInput.value) ?? 1;
+  repsModalInput.value = String(reps + step);
+  renderRepsModalState();
+}
+
+function saveRepsModalValue() {
+  const reps = parseRepsInput(repsModalInput.value);
+
+  repsModalInput.setCustomValidity(reps === null ? "Ingresa repeticiones enteras mayores a 0." : "");
+
+  if (reps === null) {
+    repsModalInput.reportValidity();
+    return;
+  }
+
+  setCurrentRepsValue(reps);
+  closeRepsModal();
+}
+
+function parseRepsInput(value) {
+  const normalizedValue = String(value).trim();
+
+  if (!/^\d+$/.test(normalizedValue)) {
+    return null;
+  }
+
+  const reps = Number(normalizedValue);
+
+  if (!Number.isInteger(reps) || reps < 1) {
+    return null;
+  }
+
+  return reps;
+}
+
+function parseCurrentRepsInput() {
+  return parseRepsInput(repTarget.textContent);
 }
 
 function renderWeightSelector() {
@@ -579,7 +667,7 @@ function goToPreviousSet() {
   const previousSet = completedSets.pop();
   state.exerciseIndex = previousSetPosition.exerciseIndex;
   state.setIndex = previousSetPosition.setIndex;
-  renderWorkout(getWeightInputValue(previousSet?.weight));
+  renderWorkout(getWeightInputValue(previousSet?.weight), previousSet?.reps);
 }
 
 function parseWeightInput(value) {
@@ -928,6 +1016,34 @@ backButton.addEventListener("click", () => {
 restartButton.addEventListener("click", () => {
   renderPlan();
   showView("home");
+});
+openRepsModalButton.addEventListener("click", openRepsModal);
+repsModalInput.addEventListener("input", renderRepsModalState);
+repsModalInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    saveRepsModalValue();
+  }
+});
+saveRepsModalButton.addEventListener("click", saveRepsModalValue);
+cancelRepsModalButton.addEventListener("click", closeRepsModal);
+repsModal.addEventListener("click", (event) => {
+  const clickedElement = event.target instanceof Element ? event.target : event.target.parentElement;
+  const stepButton = clickedElement?.closest("[data-reps-modal-step]");
+
+  if (stepButton) {
+    adjustRepsModalValue(Number(stepButton.dataset.repsModalStep));
+    return;
+  }
+
+  if (clickedElement === repsModal) {
+    closeRepsModal();
+  }
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !repsModal.classList.contains("is-hidden")) {
+    closeRepsModal();
+  }
 });
 weightControls.addEventListener("click", (event) => {
   const clickedElement = event.target instanceof Element ? event.target : event.target.parentElement;

@@ -3,7 +3,6 @@
 ## Alta prioridad
 
 - Editar el nombre de ejercicios.
-- Modificar repeticiones realizadas durante el entrenamiento sin alterar la rutina base.
 - Editar cualquier serie completada desde la lista de `Completado`.
 - Historial completo con filtros, busqueda y ordenamiento.
 - Permitir borrar individualmente cada entrenamiento guardado en historial, manteniendo tambien la opcion de borrar todo el historial del dia.
@@ -30,6 +29,7 @@
 - Reordenar los botones de peso para agrupar cada decremento junto a su incremento equivalente e incluir pasos de `0.25 kg`.
 - Evitar zoom del navegador al hacer taps repetidos en los botones `+/-` de peso, sin afectar accesibilidad ni experiencia de uso.
 - Precargar el peso de la serie anterior al iniciar una nueva serie del mismo ejercicio.
+- Modificar repeticiones realizadas durante el entrenamiento sin alterar la rutina base.
 - Componente `TrainingProgressCard` para priorizar serie, peso anterior, reps y peso actual en modo entrenamiento.
 - Primer uso sin rutina precargada en Dia 1.
 - Documentacion modular base.

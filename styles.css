@@ -653,6 +653,130 @@ h3 {
   line-height: 1;
 }
 
+.reps-display-button {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.reps-display-button:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 4px;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(7, 9, 8, 0.72);
+}
+
+.modal-card {
+  width: min(100%, 360px);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 24px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.modal-heading {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.modal-heading h2 {
+  margin: 0;
+}
+
+.reps-modal-control {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) 48px;
+  gap: 8px;
+  align-items: center;
+}
+
+.reps-modal-control input {
+  display: block;
+  min-width: 0;
+  width: 100%;
+  min-height: 52px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  outline: 0;
+  padding: 0 10px;
+  background: var(--surface-strong);
+  color: var(--blue);
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.reps-modal-control input:focus {
+  border-color: var(--blue);
+}
+
+.reps-modal-control input::-webkit-outer-spin-button,
+.reps-modal-control input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.reps-modal-control input[type="number"] {
+  appearance: textfield;
+}
+
+.reps-step-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 52px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-strong);
+  color: var(--text);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+}
+
+.reps-step-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.modal-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.modal-actions .primary-action,
+.modal-actions .secondary-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  min-height: 52px;
+  margin-top: 0;
+  padding: 0 16px;
+  line-height: 1;
+  text-align: center;
+}
+
 .weight-controls {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));

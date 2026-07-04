@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Training App</title>
-    <link rel="stylesheet" href="styles.css?v=0.14.1-beta" />
+    <link rel="stylesheet" href="styles.css?v=0.15.0-beta" />
   </head>
   <body>
     <main class="app-shell">
@@ -123,10 +123,10 @@
                 <span>Peso anterior</span>
                 <strong id="previousWeightDisplay">—</strong>
               </div>
-              <div class="training-progress-card__metric">
+              <button class="training-progress-card__metric reps-display-button" id="openRepsModalButton" type="button" aria-label="Editar repeticiones realizadas">
                 <span>Reps</span>
                 <strong id="repTarget">10</strong>
-              </div>
+              </button>
               <div class="training-progress-card__metric">
                 <span>Peso actual</span>
                 <strong id="weightDisplay" aria-live="polite">Sin peso</strong>
@@ -172,6 +172,24 @@
       </section>
     </main>
 
-    <script src="app.js?v=0.14.1-beta"></script>
+    <div class="modal-backdrop is-hidden" id="repsModal" role="dialog" aria-modal="true" aria-labelledby="repsModalTitle">
+      <div class="modal-card">
+        <div class="modal-heading">
+          <p class="eyebrow">Serie actual</p>
+          <h2 id="repsModalTitle">Editar reps</h2>
+        </div>
+        <div class="reps-modal-control" aria-label="Cambiar repeticiones realizadas">
+          <button class="reps-step-button" type="button" data-reps-modal-step="-1" aria-label="Restar una repeticion">-</button>
+          <input id="repsModalInput" type="number" min="1" step="1" inputmode="numeric" aria-label="Repeticiones realizadas" value="10" />
+          <button class="reps-step-button" type="button" data-reps-modal-step="1" aria-label="Sumar una repeticion">+</button>
+        </div>
+        <div class="modal-actions">
+          <button class="secondary-action" id="cancelRepsModalButton" type="button">Cancelar</button>
+          <button class="primary-action" id="saveRepsModalButton" type="button">Guardar</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js?v=0.15.0-beta"></script>
   </body>
 </html>

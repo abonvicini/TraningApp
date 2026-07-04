@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.15.0-beta` - 2026-07-04
+
+### 2026-07-04 - Modificacion de repeticiones durante entrenamiento
+
+- Version: `v0.15.0-beta`.
+- Funcionalidad: modificar las repeticiones realizadas de la serie actual durante el entrenamiento sin alterar la rutina base.
+- Resumen: el valor de reps mantiene la visualizacion compacta de la tarjeta y se edita desde un modal al tocar `Reps` o el numero; al completar la serie se guardan las reps realizadas en el log de la sesion y el historial, manteniendo intacta la rutina configurada.
+- Pull Request: pendiente.
+
 ## `v0.14.1-beta` - 2026-07-04
 
 ### 2026-07-04 - Redeploy tecnico de GitHub Pages
@@ -7,7 +16,7 @@
 - Version: `v0.14.1-beta`.
 - Funcionalidad: generar una version tecnica para reintentar el deploy de GitHub Pages.
 - Resumen: se actualizaron las referencias versionadas de assets y la documentacion de version sin modificar la logica funcional de la aplicacion.
-- Pull Request: pendiente.
+- Pull Request: #20.
 
 ## `v0.14.0-beta` - 2026-07-02
 

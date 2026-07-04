@@ -29,6 +29,8 @@
 - El usuario puede ajustar el peso durante el entrenamiento con controles tactiles sin abrir el teclado del telefono.
 - Los controles tactiles de peso deben agrupar cada decremento junto a su incremento equivalente.
 - Los controles tactiles de peso deben evitar zoom accidental por doble tap o taps repetidos.
+- El usuario puede modificar las repeticiones realizadas de la serie actual durante el entrenamiento.
+- Modificar las repeticiones realizadas durante el entrenamiento no debe alterar la rutina base.
 - Al iniciar una nueva serie del mismo ejercicio, el peso debe precargarse con el valor usado en la serie anterior.
 - El usuario puede volver a la serie anterior durante el entrenamiento para corregir el peso registrado.
 - Al volver a la serie anterior, la app debe corregir el registro de la sesion actual sin alterar la rutina base.
