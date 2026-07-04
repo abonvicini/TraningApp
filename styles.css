@@ -667,6 +667,22 @@ h3 {
   outline-offset: 4px;
 }
 
+.reps-label {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.edit-hint {
+  display: inline-flex;
+  align-items: center;
+  color: var(--muted);
+  font-size: 0.76em;
+  line-height: 1;
+}
+
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -703,14 +719,14 @@ h3 {
   align-items: center;
 }
 
-.reps-modal-control input {
-  display: block;
+.reps-modal-value {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-width: 0;
-  width: 100%;
   min-height: 52px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  outline: 0;
   padding: 0 10px;
   background: var(--surface-strong);
   color: var(--blue);
@@ -718,20 +734,6 @@ h3 {
   font-size: 2rem;
   font-weight: 800;
   line-height: 1;
-}
-
-.reps-modal-control input:focus {
-  border-color: var(--blue);
-}
-
-.reps-modal-control input::-webkit-outer-spin-button,
-.reps-modal-control input::-webkit-inner-spin-button {
-  margin: 0;
-  appearance: none;
-}
-
-.reps-modal-control input[type="number"] {
-  appearance: textfield;
 }
 
 .reps-step-button {

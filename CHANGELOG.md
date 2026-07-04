@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.15.1-beta` - 2026-07-04
+
+### 2026-07-04 - Modal de reps solo con botones
+
+- Version: `v0.15.1-beta`.
+- Funcionalidad: editar las repeticiones realizadas desde el modal usando solo botones de sumar y restar.
+- Resumen: se reemplazo el input manual del modal por un valor de solo lectura con controles `-` y `+`, evitando que el teclado del telefono interrumpa la experiencia durante el entrenamiento.
+- Pull Request: #22.
+
 ## `v0.15.0-beta` - 2026-07-04
 
 ### 2026-07-04 - Modificacion de repeticiones durante entrenamiento
