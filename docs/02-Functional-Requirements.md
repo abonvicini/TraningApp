@@ -49,6 +49,8 @@
 - Al finalizar un entrenamiento, la app guarda una sesion en historial.
 - El historial se guarda en `localStorage`.
 - El historial muestra los ultimos entrenamientos por dia.
+- Cada entrenamiento guardado del historial se muestra colapsado inicialmente con fecha y hora.
+- Al tocar un entrenamiento del historial, se despliega el detalle completo de ejercicios y series.
 - El usuario puede editar la fecha y hora de un entrenamiento guardado.
 - La edicion de fecha y hora debe actualizar solo `completedAt`, sin modificar ejercicios, series, pesos ni repeticiones.
 - El usuario puede cancelar la edicion de fecha y hora sin guardar cambios.

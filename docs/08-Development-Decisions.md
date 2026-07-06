@@ -362,3 +362,26 @@ Consecuencias:
 - `Rutinas` concentra configuracion y edicion.
 - `Historial` concentra entrenamientos guardados.
 - Cambiar el dia en cualquier seccion actualiza las otras secciones inmediatamente.
+
+## Mantener el colapso del historial como estado visual temporal
+
+Contexto:
+
+El historial puede acumular varios entrenamientos por dia. Mostrar cada entrenamiento con todo el detalle de ejercicios y series hace que la vista sea extensa y dificil de escanear.
+
+Decision:
+
+Cada entrenamiento del historial se muestra colapsado inicialmente y solo deja visible la fecha y hora. Al tocarlo, la app despliega el detalle completo. El estado de expandido o colapsado se mantiene solo en memoria durante la sesion actual y no se guarda en `localStorage`.
+
+Motivo:
+
+- Evitar cambios en el modelo de datos del historial.
+- Mantener compatibilidad total con registros antiguos.
+- Reducir ruido visual sin agregar migraciones.
+- Permitir que cada recarga vuelva a una vista compacta y predecible.
+
+Consecuencias:
+
+- Los registros guardados no cambian.
+- No se requiere migracion.
+- Si el usuario recarga la app, los entrenamientos vuelven a mostrarse colapsados.

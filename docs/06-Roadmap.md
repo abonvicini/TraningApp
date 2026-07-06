@@ -1,6 +1,6 @@
 # Roadmap
 
-## Version actual: `v0.16.0-beta`
+## Version actual: `v0.17.0-beta`
 
 - Soporte para pesos decimales.
 - Edicion de fecha y hora de entrenamientos guardados en historial.
@@ -16,6 +16,7 @@
 - Modificacion de repeticiones realizadas durante el entrenamiento sin alterar la rutina base.
 - Modal de repeticiones ajustable solo con botones tactiles para evitar abrir el teclado.
 - Navegacion principal seccionada en `Home`, `Rutinas` e `Historial` con footer interactivo.
+- Entrenamientos del historial colapsados por fecha y hora, con despliegue del detalle al tocar.
 - Componente `TrainingProgressCard` para mostrar serie, peso anterior, reps y peso actual en modo entrenamiento.
 - Primer uso sin rutina precargada para que todos los dias inicien vacios.
 - Documentacion modular base en `docs/`.
