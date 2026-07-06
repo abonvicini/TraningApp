@@ -22,6 +22,7 @@ const state = {
   log: [],
   currentSessionSaved: false,
   editingSessionIndex: null,
+  expandedSessionIndexes: new Set(),
   isEditingRoutine: false,
 };
 
@@ -334,34 +335,58 @@ function renderSavedSessions() {
 
   savedSessionsList.innerHTML = sessionsForDay
     .map(
-      ({ session, index }) => `
+      ({ session, index }) => {
+        const isExpanded = state.expandedSessionIndexes.has(index) || state.editingSessionIndex === index;
+
+        return `
         <article class="saved-session">
-          <div class="saved-session-header">
-            <div>
+          <button
+            class="saved-session-toggle"
+            type="button"
+            data-toggle-session-index="${index}"
+            aria-expanded="${isExpanded}"
+          >
+            <span>
               <strong>${formatSessionDate(session.completedAt)}</strong>
-              <span>${session.totalSets} series</span>
-            </div>
-            <button class="secondary-action" type="button" data-edit-session-index="${index}">Editar</button>
-          </div>
-          ${state.editingSessionIndex === index ? renderSessionDateTimeForm(session, index) : ""}
-          <ul>
-            ${session.exercises
-              .map(
-                (exercise) => `
-                  <li>
-                    <strong>${escapeHtml(exercise.name)}</strong>
-                    <span>${exercise.sets
-                      .map((set, index) => formatLoggedSet(set, index))
-                      .join(" - ")}</span>
-                  </li>
-                `,
-              )
-              .join("")}
-          </ul>
+            </span>
+            <span class="saved-session-toggle-icon" aria-hidden="true">${isExpanded ? "-" : "+"}</span>
+          </button>
+          ${
+            isExpanded
+              ? renderSavedSessionDetails(session, index)
+              : ""
+          }
         </article>
-      `,
+      `;
+      },
     )
     .join("");
+}
+
+function renderSavedSessionDetails(session, index) {
+  return `
+    <div class="saved-session-details">
+      <div class="saved-session-meta">
+        <span>${session.totalSets} series</span>
+        <button class="secondary-action" type="button" data-edit-session-index="${index}">Editar</button>
+      </div>
+      ${state.editingSessionIndex === index ? renderSessionDateTimeForm(session, index) : ""}
+      <ul>
+        ${session.exercises
+          .map(
+            (exercise) => `
+              <li>
+                <strong>${escapeHtml(exercise.name)}</strong>
+                <span>${exercise.sets
+                  .map((set, index) => formatLoggedSet(set, index))
+                  .join(" - ")}</span>
+              </li>
+            `,
+          )
+          .join("")}
+      </ul>
+    </div>
+  `;
 }
 
 function renderSessionDateTimeForm(session, index) {
@@ -972,6 +997,7 @@ clearHistoryButton.addEventListener("click", () => {
 
   state.sessions = state.sessions.filter((session) => session.day !== state.selectedDay);
   state.editingSessionIndex = null;
+  state.expandedSessionIndexes.clear();
   saveSessions();
   renderSavedSessions();
 });
@@ -983,6 +1009,7 @@ document.addEventListener("click", (event) => {
   if (dayButton) {
     state.selectedDay = dayButton.dataset.day;
     state.editingSessionIndex = null;
+    state.expandedSessionIndexes.clear();
     state.isEditingRoutine = false;
     renderDaySelectors();
     renderPlan();
@@ -994,16 +1021,35 @@ document.addEventListener("click", (event) => {
   }
 });
 savedSessionsList.addEventListener("click", (event) => {
-  const editSessionIndex = event.target.dataset.editSessionIndex;
+  const clickedElement = event.target instanceof Element ? event.target : null;
+  const editButton = clickedElement?.closest("[data-edit-session-index]");
+  const cancelButton = clickedElement?.closest("[data-cancel-session-edit]");
+  const toggleButton = clickedElement?.closest("[data-toggle-session-index]");
 
-  if (editSessionIndex !== undefined) {
-    state.editingSessionIndex = Number(editSessionIndex);
+  if (editButton) {
+    const index = Number(editButton.dataset.editSessionIndex);
+    state.editingSessionIndex = index;
+    state.expandedSessionIndexes.add(index);
     renderSavedSessions();
     return;
   }
 
-  if (event.target.dataset.cancelSessionEdit !== undefined) {
+  if (cancelButton) {
     state.editingSessionIndex = null;
+    renderSavedSessions();
+    return;
+  }
+
+  if (toggleButton) {
+    const index = Number(toggleButton.dataset.toggleSessionIndex);
+    if (state.expandedSessionIndexes.has(index)) {
+      state.expandedSessionIndexes.delete(index);
+      if (state.editingSessionIndex === index) {
+        state.editingSessionIndex = null;
+      }
+    } else {
+      state.expandedSessionIndexes.add(index);
+    }
     renderSavedSessions();
   }
 });

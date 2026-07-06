@@ -37,9 +37,11 @@ Permite:
 
 - Seleccionar dia.
 - Ver entrenamientos recientes.
+- Ver cada entrenamiento colapsado por fecha y hora.
+- Desplegar un entrenamiento al tocarlo para revisar el detalle completo.
 - Borrar el historial del dia seleccionado.
 
-La vista principal debe usar un footer de navegacion con tres accesos: `Home`, `Rutinas` e `Historial`. La pestaña activa debe destacarse de forma sutil con el color azul de la app.
+La vista principal debe usar un footer de navegacion con tres accesos: `Home`, `Rutinas` e `Historial`. La pestaña activa debe destacarse de forma sutil con el color naranja de la app.
 
 ### Entrenamiento
 
@@ -81,6 +83,8 @@ Muestra el registro final del entrenamiento y permite volver al inicio.
 ## Historial
 
 El historial debe permitir revisar entrenamientos recientes sin distraer del armado de rutina.
+
+Los entrenamientos guardados deben mostrarse compactos por defecto, dejando visible fecha y hora. El detalle de ejercicios y series debe aparecer solo cuando el usuario toca el entrenamiento.
 
 Mejoras futuras posibles:
 

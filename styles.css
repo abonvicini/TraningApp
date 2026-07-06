@@ -468,9 +468,55 @@ h3 {
   margin-top: 10px;
 }
 
-.saved-session-header span {
+.saved-session-toggle {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+}
+
+.saved-session-toggle strong {
   display: block;
-  margin-top: 4px;
+  font-size: 1rem;
+}
+
+.saved-session-toggle-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--green);
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.saved-session-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.saved-session-details {
+  display: grid;
+  gap: 12px;
+}
+
+.saved-session-meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.saved-session-meta span {
   color: var(--green);
   font-size: 0.85rem;
   font-weight: 800;
@@ -969,7 +1015,7 @@ h3 {
   .panel-actions,
   .today-plan li,
   .history-heading,
-  .saved-session-header,
+  .saved-session-meta,
   .session-edit-form {
     display: grid;
     grid-template-columns: 1fr;

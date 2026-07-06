@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.17.0-beta` - 2026-07-05
+
+### 2026-07-05 - Historial colapsable por entrenamiento
+
+- Version: `v0.17.0-beta`.
+- Funcionalidad: colapsar cada entrenamiento del historial para mostrar inicialmente solo fecha y hora.
+- Resumen: los entrenamientos guardados se muestran compactos por defecto y despliegan ejercicios, series y acciones al hacer tap; el estado expandido es temporal y no modifica el historial persistido.
+- Pull Request: #24.
+
 ## `v0.16.0-beta` - 2026-07-04
 
 ### 2026-07-04 - Navegacion principal por secciones
@@ -7,7 +16,7 @@
 - Version: `v0.16.0-beta`.
 - Funcionalidad: separar la vista principal en `Home`, `Rutinas` e `Historial` con un footer interactivo.
 - Resumen: se reorganizo la pantalla principal para que Home concentre bienvenida e inicio de entrenamiento, Rutinas concentre configuracion y edicion, e Historial concentre entrenamientos guardados; el selector de dias se mantiene disponible en cada seccion, comparte el mismo dia activo y Home guia a cargar rutina cuando el dia no tiene ejercicios.
-- Pull Request: pendiente.
+- Pull Request: #23.
 
 ## `v0.15.1-beta` - 2026-07-04
 
