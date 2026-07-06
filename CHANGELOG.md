@@ -7,7 +7,7 @@
 - Version: `v0.17.0-beta`.
 - Funcionalidad: colapsar cada entrenamiento del historial para mostrar inicialmente solo fecha y hora.
 - Resumen: los entrenamientos guardados se muestran compactos por defecto y despliegan ejercicios, series y acciones al hacer tap; el estado expandido es temporal y no modifica el historial persistido.
-- Pull Request: pendiente.
+- Pull Request: #24.
 
 ## `v0.16.0-beta` - 2026-07-04
 
