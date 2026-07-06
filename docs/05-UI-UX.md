@@ -39,6 +39,7 @@ Permite:
 - Ver entrenamientos recientes.
 - Ver cada entrenamiento colapsado por fecha y hora.
 - Desplegar un entrenamiento al tocarlo para revisar el detalle completo.
+- Borrar un entrenamiento individual desde su detalle.
 - Borrar el historial del dia seleccionado.
 
 La vista principal debe usar un footer de navegacion con tres accesos: `Home`, `Rutinas` e `Historial`. La pestaña activa debe destacarse de forma sutil con el color naranja de la app.

@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.18.0-beta` - 2026-07-05
+
+### 2026-07-05 - Borrado individual de entrenamientos del historial
+
+- Version: `v0.18.0-beta`.
+- Funcionalidad: borrar entrenamientos individuales desde el historial, manteniendo la opcion de borrar todo el historial del dia.
+- Resumen: cada entrenamiento desplegado muestra una accion `Borrar` con confirmacion; al aceptar, se elimina solo esa sesion de `training-app-history` sin modificar rutinas, otros dias ni el modelo de datos.
+- Pull Request: #25.
+
 ## `v0.17.0-beta` - 2026-07-05
 
 ### 2026-07-05 - Historial colapsable por entrenamiento

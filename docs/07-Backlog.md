@@ -5,7 +5,6 @@
 - Editar el nombre de ejercicios.
 - Editar cualquier serie completada desde la lista de `Completado`.
 - Historial completo con filtros, busqueda y ordenamiento.
-- Permitir borrar individualmente cada entrenamiento guardado en historial, manteniendo tambien la opcion de borrar todo el historial del dia.
 - Importar rutina e historial desde la pantalla inicial cuando la app se usa por primera vez.
 - Exportar rutina e historial cuando ya existen datos guardados.
 
@@ -14,6 +13,7 @@
 - Migracion a React.
 - Reordenamiento de ejercicios por arrastrar y soltar.
 - Configurar incrementos personalizados para el selector de peso.
+- Agregar opcion de deshacer luego de borrar un entrenamiento del historial.
 - Backend.
 - Base de datos.
 - Sistema de autenticacion.
@@ -32,6 +32,7 @@
 - Modificar repeticiones realizadas durante el entrenamiento sin alterar la rutina base.
 - Componente `TrainingProgressCard` para priorizar serie, peso anterior, reps y peso actual en modo entrenamiento.
 - Colapsar cada entrenamiento del historial para mostrar inicialmente solo fecha y hora, y desplegar el detalle completo al hacer tap.
+- Permitir borrar individualmente cada entrenamiento guardado en historial, manteniendo tambien la opcion de borrar todo el historial del dia.
 - Primer uso sin rutina precargada en Dia 1.
 - Documentacion modular base.
 - Revision de backlog por prioridad.
