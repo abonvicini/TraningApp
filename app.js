@@ -368,7 +368,10 @@ function renderSavedSessionDetails(session, index) {
     <div class="saved-session-details">
       <div class="saved-session-meta">
         <span>${session.totalSets} series</span>
-        <button class="secondary-action" type="button" data-edit-session-index="${index}">Editar</button>
+        <div class="saved-session-actions">
+          <button class="secondary-action" type="button" data-edit-session-index="${index}">Editar</button>
+          <button class="remove-action" type="button" data-delete-session-index="${index}">Borrar</button>
+        </div>
       </div>
       ${state.editingSessionIndex === index ? renderSessionDateTimeForm(session, index) : ""}
       <ul>
@@ -387,6 +390,29 @@ function renderSavedSessionDetails(session, index) {
       </ul>
     </div>
   `;
+}
+
+function deleteSavedSession(index) {
+  const session = state.sessions[index];
+
+  if (!session) {
+    return false;
+  }
+
+  const confirmed = window.confirm(
+    `Seguro que queres borrar el entrenamiento del ${formatSessionDate(session.completedAt)}?`,
+  );
+
+  if (!confirmed) {
+    return false;
+  }
+
+  state.sessions.splice(index, 1);
+  state.editingSessionIndex = null;
+  state.expandedSessionIndexes.clear();
+  saveSessions();
+  renderSavedSessions();
+  return true;
 }
 
 function renderSessionDateTimeForm(session, index) {
@@ -1023,6 +1049,7 @@ document.addEventListener("click", (event) => {
 savedSessionsList.addEventListener("click", (event) => {
   const clickedElement = event.target instanceof Element ? event.target : null;
   const editButton = clickedElement?.closest("[data-edit-session-index]");
+  const deleteButton = clickedElement?.closest("[data-delete-session-index]");
   const cancelButton = clickedElement?.closest("[data-cancel-session-edit]");
   const toggleButton = clickedElement?.closest("[data-toggle-session-index]");
 
@@ -1031,6 +1058,11 @@ savedSessionsList.addEventListener("click", (event) => {
     state.editingSessionIndex = index;
     state.expandedSessionIndexes.add(index);
     renderSavedSessions();
+    return;
+  }
+
+  if (deleteButton) {
+    deleteSavedSession(Number(deleteButton.dataset.deleteSessionIndex));
     return;
   }
 

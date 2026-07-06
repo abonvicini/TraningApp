@@ -385,3 +385,26 @@ Consecuencias:
 - Los registros guardados no cambian.
 - No se requiere migracion.
 - Si el usuario recarga la app, los entrenamientos vuelven a mostrarse colapsados.
+
+## Borrar entrenamientos individuales sin cambiar el modelo de historial
+
+Contexto:
+
+El usuario puede necesitar borrar un entrenamiento cargado por error sin perder todo el historial del dia.
+
+Decision:
+
+La app agrega una accion `Borrar` dentro del detalle desplegado de cada entrenamiento. Al confirmar, se elimina solo esa sesion del array `training-app-history`, se limpian los estados visuales temporales del historial y se vuelve a renderizar la lista.
+
+Motivo:
+
+- Mantener la opcion existente de borrar todo el historial del dia.
+- Evitar cambios en la estructura de cada sesion guardada.
+- Mantener compatibilidad con historiales antiguos.
+- Reducir el riesgo de borrados accidentales mediante confirmacion.
+
+Consecuencias:
+
+- No se requiere migracion de datos.
+- Borrar un entrenamiento puede cambiar los indices internos de la lista, por lo que los estados temporales de edicion y despliegue se limpian despues de borrar.
+- La accion no modifica rutinas ni otros dias de entrenamiento.
