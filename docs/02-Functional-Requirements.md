@@ -55,6 +55,7 @@
 - La edicion de fecha y hora debe actualizar solo `completedAt`, sin modificar ejercicios, series, pesos ni repeticiones.
 - El usuario puede cancelar la edicion de fecha y hora sin guardar cambios.
 - El usuario puede borrar individualmente un entrenamiento guardado.
+- Luego de borrar un entrenamiento individual, el usuario puede deshacer la accion durante 10 segundos.
 - El usuario puede borrar el historial del dia seleccionado.
 - Los registros antiguos deben seguir visualizandose correctamente.
 

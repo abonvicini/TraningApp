@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.19.0-beta` - 2026-07-05
+
+### 2026-07-05 - Deshacer borrado de entrenamiento del historial
+
+- Version: `v0.19.0-beta`.
+- Funcionalidad: deshacer el ultimo borrado individual de un entrenamiento del historial.
+- Resumen: al borrar un entrenamiento individual, la app muestra durante 10 segundos un toast inferior con la accion `Deshacer` para restaurarlo en su posicion original; el estado de deshacer es temporal en memoria y no cambia el modelo de `training-app-history`.
+- Pull Request: pendiente.
+
 ## `v0.18.0-beta` - 2026-07-05
 
 ### 2026-07-05 - Borrado individual de entrenamientos del historial

@@ -1,6 +1,6 @@
 # Roadmap
 
-## Version actual: `v0.18.0-beta`
+## Version actual: `v0.19.0-beta`
 
 - Soporte para pesos decimales.
 - Edicion de fecha y hora de entrenamientos guardados en historial.
@@ -18,6 +18,7 @@
 - Navegacion principal seccionada en `Home`, `Rutinas` e `Historial` con footer interactivo.
 - Entrenamientos del historial colapsados por fecha y hora, con despliegue del detalle al tocar.
 - Borrado individual de entrenamientos guardados sin perder la opcion de borrar todo el historial del dia.
+- Opcion de deshacer luego de borrar un entrenamiento individual del historial.
 - Componente `TrainingProgressCard` para mostrar serie, peso anterior, reps y peso actual en modo entrenamiento.
 - Primer uso sin rutina precargada para que todos los dias inicien vacios.
 - Documentacion modular base en `docs/`.

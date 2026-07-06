@@ -408,3 +408,27 @@ Consecuencias:
 - No se requiere migracion de datos.
 - Borrar un entrenamiento puede cambiar los indices internos de la lista, por lo que los estados temporales de edicion y despliegue se limpian despues de borrar.
 - La accion no modifica rutinas ni otros dias de entrenamiento.
+
+## Mantener el deshacer de borrado de historial en memoria
+
+Contexto:
+
+Luego de borrar un entrenamiento individual, el usuario puede necesitar revertir la accion inmediatamente si fue accidental.
+
+Decision:
+
+La app conserva temporalmente en memoria la ultima sesion borrada junto con su posicion original. Luego del borrado, muestra durante 10 segundos un toast inferior con la accion `Deshacer`. Si el usuario toca `Deshacer`, la sesion se reinserta en `state.sessions`, se guarda nuevamente `training-app-history` y se limpia el estado temporal.
+
+Motivo:
+
+- Evitar agregar campos nuevos al modelo persistido del historial.
+- Mantener la accion simple y local al flujo de borrado.
+- Permitir recuperar la sesion sin cambiar rutinas ni otros dias.
+- Evitar migraciones.
+
+Consecuencias:
+
+- Solo se puede deshacer el ultimo borrado individual disponible.
+- El toast expira automaticamente luego de 10 segundos para no dejar una accion temporal visible indefinidamente.
+- El deshacer no sobrevive a recargar la app.
+- Si se borra todo el historial del dia, se limpia el deshacer pendiente.
