@@ -3,6 +3,7 @@ const HISTORY_STORAGE_KEY = "training-app-history";
 const CONFIG_STORAGE_KEY = "training-app-config";
 const DEFAULT_TRAINING_DAY_COUNT = 4;
 const MAX_TRAINING_DAYS = 7;
+const UNDO_HISTORY_DELETE_TIMEOUT = 10000;
 const WEIGHT_PRECISION_FACTOR = 100;
 const MIN_WEIGHT_STEP = 25;
 const legacyDayOrder = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"];
@@ -23,6 +24,8 @@ const state = {
   currentSessionSaved: false,
   editingSessionIndex: null,
   expandedSessionIndexes: new Set(),
+  deletedSession: null,
+  deletedSessionTimeoutId: null,
   isEditingRoutine: false,
 };
 
@@ -325,6 +328,7 @@ function renderSavedSessions() {
     .map((session, index) => ({ session, index }))
     .filter(({ session }) => session.day === state.selectedDay)
     .slice(0, 5);
+  renderDeletedSessionUndoToast();
 
   clearHistoryButton.disabled = sessionsForDay.length === 0;
 
@@ -333,12 +337,13 @@ function renderSavedSessions() {
     return;
   }
 
-  savedSessionsList.innerHTML = sessionsForDay
-    .map(
-      ({ session, index }) => {
-        const isExpanded = state.expandedSessionIndexes.has(index) || state.editingSessionIndex === index;
+  savedSessionsList.innerHTML = `
+    ${sessionsForDay
+      .map(
+        ({ session, index }) => {
+          const isExpanded = state.expandedSessionIndexes.has(index) || state.editingSessionIndex === index;
 
-        return `
+          return `
         <article class="saved-session">
           <button
             class="saved-session-toggle"
@@ -358,9 +363,37 @@ function renderSavedSessions() {
           }
         </article>
       `;
-      },
-    )
-    .join("");
+        },
+      )
+      .join("")}
+  `;
+}
+
+function renderDeletedSessionUndoToast() {
+  document.querySelector("#historyUndoToast")?.remove();
+
+  if (!state.deletedSession || state.deletedSession.session.day !== state.selectedDay) {
+    return;
+  }
+
+  document.body.insertAdjacentHTML(
+    "beforeend",
+    `
+      <div class="history-undo-toast" id="historyUndoToast" role="status">
+        <span>Entrenamiento borrado.</span>
+        <button class="secondary-action" type="button" data-undo-session-delete>Deshacer</button>
+      </div>
+    `,
+  );
+}
+
+function clearDeletedSessionUndo() {
+  state.deletedSession = null;
+  if (state.deletedSessionTimeoutId) {
+    clearTimeout(state.deletedSessionTimeoutId);
+    state.deletedSessionTimeoutId = null;
+  }
+  document.querySelector("#historyUndoToast")?.remove();
 }
 
 function renderSavedSessionDetails(session, index) {
@@ -407,7 +440,33 @@ function deleteSavedSession(index) {
     return false;
   }
 
+  state.deletedSession = {
+    index,
+    session: { ...session },
+  };
+  if (state.deletedSessionTimeoutId) {
+    clearTimeout(state.deletedSessionTimeoutId);
+  }
+  state.deletedSessionTimeoutId = setTimeout(() => {
+    clearDeletedSessionUndo();
+  }, UNDO_HISTORY_DELETE_TIMEOUT);
   state.sessions.splice(index, 1);
+  state.editingSessionIndex = null;
+  state.expandedSessionIndexes.clear();
+  saveSessions();
+  renderSavedSessions();
+  return true;
+}
+
+function undoDeletedSession() {
+  if (!state.deletedSession) {
+    return false;
+  }
+
+  const { index, session } = state.deletedSession;
+  const restoreIndex = Math.min(index, state.sessions.length);
+  state.sessions.splice(restoreIndex, 0, session);
+  clearDeletedSessionUndo();
   state.editingSessionIndex = null;
   state.expandedSessionIndexes.clear();
   saveSessions();
@@ -1024,6 +1083,7 @@ clearHistoryButton.addEventListener("click", () => {
   state.sessions = state.sessions.filter((session) => session.day !== state.selectedDay);
   state.editingSessionIndex = null;
   state.expandedSessionIndexes.clear();
+  clearDeletedSessionUndo();
   saveSessions();
   renderSavedSessions();
 });
@@ -1031,6 +1091,12 @@ document.addEventListener("click", (event) => {
   const clickedElement = event.target instanceof Element ? event.target : event.target.parentElement;
   const dayButton = clickedElement?.closest("[data-day]");
   const sectionButton = clickedElement?.closest("[data-app-section]");
+  const undoDeleteButton = clickedElement?.closest("[data-undo-session-delete]");
+
+  if (undoDeleteButton) {
+    undoDeletedSession();
+    return;
+  }
 
   if (dayButton) {
     state.selectedDay = dayButton.dataset.day;

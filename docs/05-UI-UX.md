@@ -40,6 +40,7 @@ Permite:
 - Ver cada entrenamiento colapsado por fecha y hora.
 - Desplegar un entrenamiento al tocarlo para revisar el detalle completo.
 - Borrar un entrenamiento individual desde su detalle.
+- Deshacer el borrado individual de un entrenamiento desde un toast inferior durante 10 segundos.
 - Borrar el historial del dia seleccionado.
 
 La vista principal debe usar un footer de navegacion con tres accesos: `Home`, `Rutinas` e `Historial`. La pestaña activa debe destacarse de forma sutil con el color naranja de la app.

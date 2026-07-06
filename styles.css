@@ -468,6 +468,28 @@ h3 {
   margin-top: 10px;
 }
 
+.history-undo-toast {
+  position: fixed;
+  right: max(16px, calc((100vw - 760px) / 2));
+  bottom: 104px;
+  left: max(16px, calc((100vw - 760px) / 2));
+  z-index: 20;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: rgba(17, 21, 18, 0.96);
+  box-shadow: var(--shadow);
+}
+
+.history-undo-toast span {
+  color: var(--text);
+  font-weight: 800;
+}
+
 .saved-session-toggle {
   display: flex;
   gap: 12px;
@@ -1037,6 +1059,12 @@ h3 {
   .app-footer-nav {
     right: 12px;
     bottom: 10px;
+    left: 12px;
+  }
+
+  .history-undo-toast {
+    right: 12px;
+    bottom: 98px;
     left: 12px;
   }
 
