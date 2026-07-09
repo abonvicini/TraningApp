@@ -33,6 +33,7 @@
 - Colapsar cada entrenamiento del historial para mostrar inicialmente solo fecha y hora, y desplegar el detalle completo al hacer tap.
 - Permitir borrar individualmente cada entrenamiento guardado en historial, manteniendo tambien la opcion de borrar todo el historial del dia.
 - Agregar opcion de deshacer durante 10 segundos luego de borrar un entrenamiento del historial.
+- Ocultar el input general de reps cuando se seleccionan diferentes reps por serie al cargar una rutina.
 - Primer uso sin rutina precargada en Dia 1.
 - Documentacion modular base.
 - Revision de backlog por prioridad.

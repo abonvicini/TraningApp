@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.20.0-beta` - 2026-07-09
+
+### 2026-07-09 - Ocultar input general de reps por serie
+
+- Version: `v0.20.0-beta`.
+- Funcionalidad: ocultar el input general de reps cuando se cargan diferentes reps por serie.
+- Resumen: al activar `Diferentes reps por serie`, el formulario oculta y deshabilita el campo general `Reps`, deja visible solo `Series` y muestra los inputs especificos por serie sin cambiar el modelo de rutina.
+- Pull Request: pendiente.
+
 ## `v0.19.0-beta` - 2026-07-05
 
 ### 2026-07-05 - Deshacer borrado de entrenamiento del historial

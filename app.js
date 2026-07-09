@@ -54,6 +54,7 @@ const clearDayButton = document.querySelector("#clearDayButton");
 const clearHistoryButton = document.querySelector("#clearHistoryButton");
 const exerciseForm = document.querySelector("#exerciseForm");
 const exerciseInput = document.querySelector("#exerciseInput");
+const exerciseFieldsGrid = document.querySelector("#exerciseFieldsGrid");
 const setsInput = document.querySelector("#setsInput");
 const repsInput = document.querySelector("#repsInput");
 const singleRepsField = document.querySelector("#singleRepsField");
@@ -963,7 +964,9 @@ function getRepsBySetFromForm() {
 function renderExerciseFormMode() {
   const useVariableReps = variableRepsToggle.checked;
   singleRepsField.classList.toggle("is-hidden", useVariableReps);
+  exerciseFieldsGrid.classList.toggle("is-single-column", useVariableReps);
   repsInput.required = !useVariableReps;
+  repsInput.disabled = useVariableReps;
   setRepsFields.classList.toggle("is-hidden", !useVariableReps);
 
   if (useVariableReps) {
