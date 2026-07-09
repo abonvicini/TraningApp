@@ -77,6 +77,7 @@ Muestra el registro final del entrenamiento y permite volver al inicio.
 ## Formularios
 
 - Usar inputs numericos para series y reps.
+- Ocultar el input general de reps cuando el usuario elige cargar diferentes reps por serie.
 - Usar controles tactiles para el peso durante el entrenamiento.
 - Usar `date` y `time` cuando se editen fechas.
 - Mantener labels visibles.

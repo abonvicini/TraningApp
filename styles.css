@@ -412,6 +412,10 @@ h3 {
   gap: 10px;
 }
 
+.form-grid.is-single-column {
+  grid-template-columns: 1fr;
+}
+
 .form-action {
   width: 100%;
 }

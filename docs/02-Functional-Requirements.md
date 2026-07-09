@@ -13,6 +13,7 @@
 - El usuario puede agregar ejercicios a cada dia.
 - Cada ejercicio puede tener una cantidad fija de series y repeticiones.
 - Cada ejercicio puede usar repeticiones diferentes por serie.
+- Al cargar una rutina con repeticiones diferentes por serie, el formulario debe ocultar el input general de reps.
 - El usuario puede quitar ejercicios de un dia.
 - El usuario puede reordenar ejercicios dentro de un dia.
 - El usuario puede habilitar las acciones de edicion de rutina mediante un boton general `Editar`.
