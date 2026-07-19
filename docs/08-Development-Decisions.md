@@ -252,6 +252,28 @@ Consecuencias:
 - La validacion existente sigue actuando como respaldo antes de guardar.
 - El HTML referencia los assets con la version beta para reducir riesgo de cache en la app estatica.
 
+## Editar el peso actual desde un modal tactil
+
+Contexto:
+
+La pantalla de entrenamiento acumulaba los botones tactiles de peso junto a la tarjeta principal. Aunque evitaban abrir el teclado del telefono, ocupaban espacio permanente y reducian la limpieza visual del modo entrenamiento.
+
+Decision:
+
+`Peso actual` pasa a ser un boton discreto dentro de la tarjeta principal. Al tocarlo se abre un modal con el valor temporal de peso, la accion `Sin peso` y los incrementos `0.25`, `0.5`, `2.5` y `10` en pares de restar/sumar. Los cambios se aplican al input interno de peso solo al confirmar con `Guardar`; `Cancelar`, cerrar por fondo o `Escape` descartan el ajuste temporal.
+
+Motivo:
+
+- Mantiene la pantalla de entrenamiento enfocada en serie, reps, ultima sesion y peso actual.
+- Reutiliza el patron del modal de reps, que ya evita el teclado del telefono.
+- Reduce cambios accidentales porque el peso se confirma explicitamente.
+
+Consecuencias:
+
+- Ajustar el peso requiere abrir el modal antes de usar los botones.
+- No cambia el modelo de datos ni la estructura de `training-app-history`.
+- Las validaciones de peso existentes siguen funcionando como respaldo antes de completar la serie.
+
 ## Prevenir zoom accidental solo en controles tactiles de peso
 
 Contexto:

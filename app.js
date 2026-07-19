@@ -27,6 +27,7 @@ const state = {
   deletedSession: null,
   deletedSessionTimeoutId: null,
   isEditingRoutine: false,
+  weightModalValue: "",
 };
 
 const setupView = document.querySelector("#setupView");
@@ -73,8 +74,13 @@ const lastSessionWeightButton = document.querySelector("#lastSessionWeightButton
 const lastSessionWeightDisplay = document.querySelector("#lastSessionWeightDisplay");
 const weightInput = document.querySelector("#weightInput");
 const weightDisplay = document.querySelector("#weightDisplay");
-const weightControls = document.querySelector(".weight-controls");
+const openWeightModalButton = document.querySelector("#openWeightModalButton");
+const weightModal = document.querySelector("#weightModal");
+const weightModalValue = document.querySelector("#weightModalValue");
+const weightControls = document.querySelector("#weightModalControls");
 const clearWeightButton = document.querySelector("#clearWeightButton");
+const saveWeightModalButton = document.querySelector("#saveWeightModalButton");
+const cancelWeightModalButton = document.querySelector("#cancelWeightModalButton");
 const setHistory = document.querySelector("#setHistory");
 const progressFill = document.querySelector("#progressFill");
 const summaryText = document.querySelector("#summaryText");
@@ -762,6 +768,11 @@ function setWeightInputValue(weight) {
   renderWeightSelector();
 }
 
+function setWeightModalValue(weight) {
+  state.weightModalValue = weight === "" || weight === null || weight === undefined ? "" : formatWeightInputValue(weight);
+  renderWeightModalState();
+}
+
 function setCurrentRepsValue(reps) {
   const parsedReps = parseRepsInput(reps);
 
@@ -808,6 +819,41 @@ function saveRepsModalValue() {
   closeRepsModal();
 }
 
+function openWeightModal() {
+  setWeightModalValue(weightInput.value);
+  weightModal.classList.remove("is-hidden");
+  saveWeightModalButton.focus();
+}
+
+function closeWeightModal() {
+  weightModal.classList.add("is-hidden");
+}
+
+function renderWeightModalState() {
+  const hasWeight = state.weightModalValue !== "";
+  const currentWeight = hasWeight ? Number(state.weightModalValue) : 0;
+
+  weightModalValue.textContent = hasWeight ? formatWeight(state.weightModalValue) : "Sin peso";
+  clearWeightButton.disabled = !hasWeight;
+
+  weightControls.querySelectorAll("[data-weight-step]").forEach((button) => {
+    const step = Number(button.dataset.weightStep);
+    button.disabled = step < 0 && currentWeight <= 0;
+  });
+}
+
+function adjustWeightModalValue(step) {
+  const currentWeight = state.weightModalValue === "" ? 0 : Number(state.weightModalValue);
+  const nextWeight = Math.max(0, Math.round((currentWeight + step) * WEIGHT_PRECISION_FACTOR) / WEIGHT_PRECISION_FACTOR);
+
+  setWeightModalValue(nextWeight);
+}
+
+function saveWeightModalValue() {
+  setWeightInputValue(state.weightModalValue);
+  closeWeightModal();
+}
+
 function parseRepsInput(value) {
   const normalizedValue = String(value).trim();
 
@@ -830,22 +876,8 @@ function parseCurrentRepsInput() {
 
 function renderWeightSelector() {
   const hasWeight = weightInput.value !== "";
-  const currentWeight = hasWeight ? Number(weightInput.value) : 0;
 
   weightDisplay.textContent = hasWeight ? formatWeight(weightInput.value) : "Sin peso";
-  clearWeightButton.disabled = !hasWeight;
-
-  weightControls.querySelectorAll("[data-weight-step]").forEach((button) => {
-    const step = Number(button.dataset.weightStep);
-    button.disabled = step < 0 && currentWeight <= 0;
-  });
-}
-
-function adjustWeight(step) {
-  const currentWeight = weightInput.value === "" ? 0 : Number(weightInput.value);
-  const nextWeight = Math.max(0, Math.round((currentWeight + step) * WEIGHT_PRECISION_FACTOR) / WEIGHT_PRECISION_FACTOR);
-
-  setWeightInputValue(nextWeight);
 }
 
 function getLastCompletedSetPosition() {
@@ -1290,22 +1322,34 @@ repsModal.addEventListener("click", (event) => {
     closeRepsModal();
   }
 });
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && !repsModal.classList.contains("is-hidden")) {
-    closeRepsModal();
-  }
-});
-weightControls.addEventListener("click", (event) => {
+openWeightModalButton.addEventListener("click", openWeightModal);
+saveWeightModalButton.addEventListener("click", saveWeightModalValue);
+cancelWeightModalButton.addEventListener("click", closeWeightModal);
+weightModal.addEventListener("click", (event) => {
   const clickedElement = event.target instanceof Element ? event.target : event.target.parentElement;
   const stepButton = clickedElement?.closest("[data-weight-step]");
 
   if (stepButton) {
-    adjustWeight(Number(stepButton.dataset.weightStep));
+    adjustWeightModalValue(Number(stepButton.dataset.weightStep));
     return;
   }
 
   if (clickedElement === clearWeightButton) {
-    setWeightInputValue("");
+    setWeightModalValue("");
+    return;
+  }
+
+  if (clickedElement === weightModal) {
+    closeWeightModal();
+  }
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !repsModal.classList.contains("is-hidden")) {
+    closeRepsModal();
+  }
+
+  if (event.key === "Escape" && !weightModal.classList.contains("is-hidden")) {
+    closeWeightModal();
   }
 });
 weightControls.addEventListener("dblclick", (event) => {

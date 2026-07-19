@@ -24,6 +24,8 @@ Se reemplazo el input numerico visible de peso por un selector tactil compuesto 
 
 La pantalla muestra el peso seleccionado en un display central. Si no hay peso cargado, muestra `Sin peso`.
 
+Actualizacion `v0.23.0-beta`: los mismos controles tactiles pasan a mostrarse dentro del modal `Editar peso`, abierto desde `Peso actual`, para mantener mas limpia la pantalla principal de entrenamiento. El valor se aplica solo al confirmar con `Guardar`, y el modal suma pasos rapidos de `-10` y `+10`.
+
 El HTML referencia `styles.css` y `app.js` con la version beta para evitar cache de assets entre mejoras.
 
 ## Archivos modificados

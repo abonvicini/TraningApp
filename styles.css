@@ -803,6 +803,7 @@ h3 {
 }
 
 .reps-display-button,
+.weight-display-button,
 .last-session-reference-button {
   border: 0;
   background: transparent;
@@ -813,6 +814,7 @@ h3 {
 }
 
 .reps-display-button:focus-visible,
+.weight-display-button:focus-visible,
 .last-session-reference-button:focus-visible {
   outline: 2px solid var(--blue);
   outline-offset: 4px;
@@ -822,7 +824,8 @@ h3 {
   cursor: default;
 }
 
-.reps-label {
+.reps-label,
+.weight-label {
   display: inline-flex;
   gap: 4px;
   align-items: center;
@@ -913,6 +916,25 @@ h3 {
   opacity: 0.45;
 }
 
+.weight-modal-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 68px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: var(--surface-strong);
+  text-align: center;
+}
+
+.weight-modal-display strong {
+  color: var(--blue);
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
 .modal-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -938,7 +960,12 @@ h3 {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 8px;
+  margin-top: 12px;
   touch-action: manipulation;
+}
+
+.weight-modal-controls {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .weight-step-button,
@@ -956,6 +983,7 @@ h3 {
 }
 
 .weight-clear-button {
+  grid-column: 1 / -1;
   color: var(--muted);
 }
 
