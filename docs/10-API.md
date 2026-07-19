@@ -41,6 +41,9 @@ Claves:
 - `renderTrainingProgressCard()`
 - `getLastSessionWeightReference(exerciseName, setIndex)`
 - `useLastSessionWeightReference()`
+- `openWeightModal()`
+- `saveWeightModalValue()`
+- `adjustWeightModalValue(step)`
 - `renderSummary()`
 - `renderSavedSessions()`
 

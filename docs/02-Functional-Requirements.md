@@ -36,7 +36,8 @@
 - El usuario puede registrar el peso utilizado por serie.
 - El peso puede quedar vacio y registrarse como `Sin peso`.
 - El peso puede ser entero o decimal en incrementos de `0.25 kg`.
-- El usuario puede ajustar el peso durante el entrenamiento con controles tactiles sin abrir el teclado del telefono.
+- El usuario puede tocar `Peso actual` y ajustar el peso desde un modal con controles tactiles, sin abrir el teclado del telefono.
+- Los cambios de peso hechos en el modal se aplican solo al confirmar con `Guardar`; al cancelar, se conserva el peso previo.
 - Los controles tactiles de peso deben agrupar cada decremento junto a su incremento equivalente.
 - Los controles tactiles de peso deben evitar zoom accidental por doble tap o taps repetidos.
 - El usuario puede modificar las repeticiones realizadas de la serie actual durante el entrenamiento.

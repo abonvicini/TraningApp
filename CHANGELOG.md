@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.23.0-beta` - 2026-07-19
+
+### 2026-07-19 - Modal tactil para editar peso actual
+
+- Version: `v0.23.0-beta`.
+- Funcionalidad: editar `Peso actual` desde un modal en modo entrenamiento.
+- Resumen: la tarjeta de entrenamiento queda mas limpia; tocar `Peso actual` abre un modal con `Sin peso` y botones `+/-` para `0.25`, `0.5`, `2.5` y `10 kg`. Los cambios se aplican solo al guardar y cancelar descarta el ajuste temporal.
+- Pull Request: pendiente.
+
 ## `v0.22.0-beta` - 2026-07-19
 
 ### 2026-07-19 - Usar peso de ultima sesion

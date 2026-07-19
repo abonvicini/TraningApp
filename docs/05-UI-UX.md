@@ -62,6 +62,8 @@ La serie actual, las repeticiones y los pesos deben poder leerse en una tarjeta 
 
 La carga de peso en modo entrenamiento debe priorizar controles tactiles para evitar que el teclado del telefono interrumpa el flujo.
 
+El `Peso actual` debe mantener una visualizacion compacta en la tarjeta principal y poder ajustarse desde un modal al tocar el valor. El modal debe usar botones tactiles, permitir volver a `Sin peso` y aplicar cambios solo al guardar.
+
 Las repeticiones realizadas deben mantener una visualizacion compacta en la tarjeta principal y poder ajustarse desde un modal al tocar `Reps` o el numero. Ese modal debe usar botones tactiles para sumar o restar reps sin abrir el teclado del telefono.
 
 Los controles de ajuste de peso deben mostrarse en pares equivalentes, con el decremento a la izquierda del incremento.
@@ -82,7 +84,7 @@ Muestra el registro final del entrenamiento y permite volver al inicio.
 
 - Usar inputs numericos para series y reps.
 - Ocultar el input general de reps cuando el usuario elige cargar diferentes reps por serie.
-- Usar controles tactiles para el peso durante el entrenamiento.
+- Usar controles tactiles para el peso durante el entrenamiento, preferentemente dentro de un modal para mantener limpia la pantalla principal.
 - Usar `date` y `time` cuando se editen fechas.
 - Mantener labels visibles.
 - Evitar flujos largos para acciones frecuentes.

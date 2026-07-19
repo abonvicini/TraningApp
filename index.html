@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Training App</title>
-    <link rel="stylesheet" href="styles.css?v=0.22.0-beta" />
+    <link rel="stylesheet" href="styles.css?v=0.23.0-beta" />
   </head>
   <body>
     <main class="app-shell">
@@ -168,22 +168,12 @@
                 <span class="reps-label">Reps <span class="edit-hint" aria-hidden="true">✎</span></span>
                 <strong id="repTarget">10</strong>
               </button>
-              <div class="training-progress-card__metric">
-                <span>Peso actual</span>
+              <button class="training-progress-card__metric weight-display-button" id="openWeightModalButton" type="button" aria-label="Editar peso actual">
+                <span class="weight-label">Peso actual <span class="edit-hint" aria-hidden="true">✎</span></span>
                 <strong id="weightDisplay" aria-live="polite">Sin peso</strong>
-              </div>
+              </button>
             </div>
           </section>
-
-          <div class="weight-controls" aria-label="Ajustar peso utilizado">
-            <button class="weight-clear-button" id="clearWeightButton" type="button">Sin peso</button>
-            <button class="weight-step-button" type="button" data-weight-step="-0.25">-0.25</button>
-            <button class="weight-step-button" type="button" data-weight-step="0.25">+0.25</button>
-            <button class="weight-step-button" type="button" data-weight-step="-0.5">-0.5</button>
-            <button class="weight-step-button" type="button" data-weight-step="0.5">+0.5</button>
-            <button class="weight-step-button" type="button" data-weight-step="-2.5">-2.5</button>
-            <button class="weight-step-button" type="button" data-weight-step="2.5">+2.5</button>
-          </div>
 
           <button class="primary-action complete-button" id="completeSetButton" type="button">
             Aceptar peso y continuar
@@ -231,6 +221,33 @@
       </div>
     </div>
 
-    <script src="app.js?v=0.22.0-beta"></script>
+    <div class="modal-backdrop is-hidden" id="weightModal" role="dialog" aria-modal="true" aria-labelledby="weightModalTitle">
+      <div class="modal-card">
+        <div class="modal-heading">
+          <p class="eyebrow">Serie actual</p>
+          <h2 id="weightModalTitle">Editar peso</h2>
+        </div>
+        <div class="weight-modal-display">
+          <strong id="weightModalValue" aria-live="polite">Sin peso</strong>
+        </div>
+        <div class="weight-controls weight-modal-controls" id="weightModalControls" aria-label="Ajustar peso utilizado">
+          <button class="weight-clear-button" id="clearWeightButton" type="button">Sin peso</button>
+          <button class="weight-step-button" type="button" data-weight-step="-0.25">-0.25</button>
+          <button class="weight-step-button" type="button" data-weight-step="0.25">+0.25</button>
+          <button class="weight-step-button" type="button" data-weight-step="-0.5">-0.5</button>
+          <button class="weight-step-button" type="button" data-weight-step="0.5">+0.5</button>
+          <button class="weight-step-button" type="button" data-weight-step="-2.5">-2.5</button>
+          <button class="weight-step-button" type="button" data-weight-step="2.5">+2.5</button>
+          <button class="weight-step-button" type="button" data-weight-step="-10">-10</button>
+          <button class="weight-step-button" type="button" data-weight-step="10">+10</button>
+        </div>
+        <div class="modal-actions">
+          <button class="secondary-action" id="cancelWeightModalButton" type="button">Cancelar</button>
+          <button class="primary-action" id="saveWeightModalButton" type="button">Guardar</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js?v=0.23.0-beta"></script>
   </body>
 </html>
