@@ -274,6 +274,28 @@ Consecuencias:
 - No cambia el modelo de datos ni la estructura de `training-app-history`.
 - Las validaciones de peso existentes siguen funcionando como respaldo antes de completar la serie.
 
+## Mantener header y footer fijos en modo entrenamiento
+
+Contexto:
+
+Durante el entrenamiento, las acciones de avanzar y volver de serie son frecuentes y deben estar siempre disponibles, especialmente en uso movil con una sola mano. Al mismo tiempo, el usuario necesita conservar visible el contexto de dia, ejercicio y nombre del ejercicio.
+
+Decision:
+
+El modo entrenamiento usa un header fijo con boton de volver, dia/ejercicio actual y nombre del ejercicio. Las acciones de serie se mueven a un footer fijo: flecha izquierda para volver a la serie anterior y flecha derecha para aceptar el peso y continuar. Los botones conservan sus `id` y nombres accesibles para reutilizar la logica existente.
+
+Motivo:
+
+- Evita que las acciones principales desaparezcan al desplazarse.
+- Reduce texto repetitivo en el footer y mejora la lectura rapida durante el entrenamiento.
+- Mantiene la logica de entrenamiento sin cambios al conservar los mismos eventos e identificadores.
+
+Consecuencias:
+
+- El contenido del entrenamiento necesita padding superior e inferior para no quedar oculto debajo de las barras fijas.
+- La accion visual pasa a depender de iconos, por lo que se mantienen `aria-label` descriptivos.
+- No cambia la estructura de datos ni el flujo de persistencia.
+
 ## Prevenir zoom accidental solo en controles tactiles de peso
 
 Contexto:

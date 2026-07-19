@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Training App</title>
-    <link rel="stylesheet" href="styles.css?v=0.23.0-beta" />
+    <link rel="stylesheet" href="styles.css?v=0.24.0-beta" />
   </head>
   <body>
     <main class="app-shell">
@@ -175,18 +175,27 @@
             </div>
           </section>
 
-          <button class="primary-action complete-button" id="completeSetButton" type="button">
-            Aceptar peso y continuar
-          </button>
-          <button class="secondary-action previous-set-button" id="previousSetButton" type="button">
-            Volver a la serie anterior
-          </button>
         </section>
 
         <section class="history-panel" aria-label="Series completadas">
           <h3>Completado</h3>
           <ol id="setHistory"></ol>
         </section>
+
+        <footer class="workout-action-footer" aria-label="Acciones de entrenamiento">
+          <button class="secondary-action workout-arrow-button previous-set-button" id="previousSetButton" type="button" aria-label="Volver a la serie anterior">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M19 12H5"></path>
+              <path d="m12 19-7-7 7-7"></path>
+            </svg>
+          </button>
+          <button class="primary-action workout-arrow-button complete-button" id="completeSetButton" type="button" aria-label="Aceptar peso y continuar">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </button>
+        </footer>
       </section>
 
       <section class="summary-view is-hidden" id="summaryView" aria-labelledby="summaryTitle">
@@ -248,6 +257,6 @@
       </div>
     </div>
 
-    <script src="app.js?v=0.23.0-beta"></script>
+    <script src="app.js?v=0.24.0-beta"></script>
   </body>
 </html>

@@ -58,6 +58,8 @@ Debe concentrar la atencion en:
 
 El titulo del ejercicio y el indicador de serie en curso deben mantenerse compactos para no saturar visualmente el entrenamiento.
 
+El header de entrenamiento debe permanecer fijo y contener la accion de volver, el dia/ejercicio actual y el nombre del ejercicio.
+
 La serie actual, las repeticiones y los pesos deben poder leerse en una tarjeta principal de alto contraste, con jerarquia clara y sin cards internas.
 
 La carga de peso en modo entrenamiento debe priorizar controles tactiles para evitar que el teclado del telefono interrumpa el flujo.
@@ -75,6 +77,8 @@ Al avanzar entre series del mismo ejercicio, el peso anterior debe mantenerse pr
 La tarjeta principal debe mostrar la referencia `Ultima sesion` para que el usuario pueda comparar el peso actual contra el peso usado en el historial mas reciente compatible.
 
 Si existe una referencia compatible, `Ultima sesion` debe poder tocarse para cargar rapidamente ese valor en `Peso actual`.
+
+Las acciones principales de entrenamiento deben permanecer fijas en el footer. La accion de volver a la serie anterior debe representarse con una flecha izquierda y la accion de aceptar/continuar con una flecha derecha, manteniendo nombres accesibles.
 
 ### Resumen
 
