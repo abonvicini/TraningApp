@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.25.0-beta` - 2026-07-19
+
+### 2026-07-19 - CTA principal de Home cerca del footer
+
+- Version: `v0.25.0-beta`.
+- Funcionalidad: reubicar el boton principal de Home para mejorar alcance en mobile.
+- Resumen: el boton `Comenzar entrenamiento` mantiene su tamano y comportamiento, pero se desplaza hacia la parte inferior de Home, cerca del footer de navegacion, para quedar mas accesible al pulgar derecho.
+- Pull Request: pendiente.
+
 ## `v0.24.0-beta` - 2026-07-19
 
 ### 2026-07-19 - Header y footer fijos en modo entrenamiento

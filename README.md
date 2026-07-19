@@ -2,7 +2,7 @@
 
 Training App es una aplicacion web estatica para cargar rutinas, registrar series de entrenamiento y guardar historial local en el navegador.
 
-Version actual: `v0.24.0-beta`.
+Version actual: `v0.25.0-beta`.
 
 ## Documentacion
 

@@ -35,6 +35,7 @@
 - Usar el peso de ultima sesion como peso actual al tocar la referencia en modo entrenamiento.
 - Editar el peso actual desde un modal tactil en modo entrenamiento para limpiar la pantalla principal.
 - Header y footer fijos en modo entrenamiento, con acciones de serie representadas mediante flechas.
+- Ubicar el CTA principal de Home cerca del footer para mejorar alcance con el pulgar en mobile.
 - Modificar repeticiones realizadas durante el entrenamiento sin alterar la rutina base.
 - Componente `TrainingProgressCard` para priorizar serie, ultima sesion, reps y peso actual en modo entrenamiento.
 - Colapsar cada entrenamiento del historial para mostrar inicialmente solo fecha y hora, y desplegar el detalle completo al hacer tap.

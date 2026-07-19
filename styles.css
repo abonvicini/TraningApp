@@ -87,6 +87,15 @@ button:disabled {
   border-radius: 8px;
 }
 
+.home-content {
+  justify-content: flex-start;
+  min-height: calc(100vh - 154px);
+}
+
+.home-content .home-start-action {
+  margin-top: auto;
+}
+
 .app-section {
   width: 100%;
 }
@@ -1113,7 +1122,7 @@ h3 {
   }
 
   .home-content {
-    min-height: 58vh;
+    min-height: calc(100vh - 146px);
   }
 
   .setup-content {
