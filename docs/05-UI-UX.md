@@ -21,6 +21,8 @@ Permite:
 - Iniciar entrenamiento.
 - Cargar rutina desde el CTA principal cuando el dia seleccionado esta vacio.
 
+El CTA principal de Home debe ubicarse cerca del footer de navegacion para facilitar el acceso con el pulgar derecho en mobile, manteniendo su tamano y jerarquia visual.
+
 ### Rutinas
 
 Permite:
