@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.24.0-beta` - 2026-07-19
+
+### 2026-07-19 - Header y footer fijos en modo entrenamiento
+
+- Version: `v0.24.0-beta`.
+- Funcionalidad: mantener fijos el header y footer durante el entrenamiento.
+- Resumen: el header de entrenamiento queda fijo con boton de volver, dia/ejercicio y nombre del ejercicio; las acciones `Volver a la serie anterior` y `Aceptar peso y continuar` pasan a un footer fijo con flechas izquierda y derecha, manteniendo sus nombres accesibles.
+- Pull Request: pendiente.
+
 ## `v0.23.0-beta` - 2026-07-19
 
 ### 2026-07-19 - Modal tactil para editar peso actual

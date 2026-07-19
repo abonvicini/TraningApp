@@ -684,17 +684,26 @@ h3 {
 
 .workout-view {
   display: grid;
-  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   gap: 18px;
   min-height: 100vh;
-  padding: 20px;
+  padding: 124px 20px 112px;
 }
 
 .session-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 10;
   display: grid;
   grid-template-columns: 46px minmax(0, 1fr);
   gap: 14px;
   align-items: center;
+  border-bottom: 1px solid var(--line);
+  padding: 16px 20px;
+  background: rgba(18, 22, 19, 0.96);
+  backdrop-filter: blur(14px);
 }
 
 .session-header h2 {
@@ -705,6 +714,9 @@ h3 {
 }
 
 .icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 46px;
   height: 46px;
   border: 1px solid var(--line);
@@ -1002,6 +1014,40 @@ h3 {
   width: 100%;
 }
 
+.workout-action-footer {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  padding: 14px 20px;
+  background: rgba(18, 22, 19, 0.96);
+  backdrop-filter: blur(14px);
+}
+
+.workout-arrow-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 62px;
+  margin-top: 0;
+  padding: 0;
+}
+
+.workout-arrow-button svg {
+  width: 30px;
+  height: 30px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
 .history-panel {
   min-height: 116px;
   padding: 16px;
@@ -1112,7 +1158,7 @@ h3 {
 
   .workout-view {
     gap: 14px;
-    padding: 12px;
+    padding: 108px 12px 104px;
   }
 
   h1 {
@@ -1127,8 +1173,21 @@ h3 {
     font-size: 1.45rem;
   }
 
+  .session-header {
+    padding: 12px;
+  }
+
   .exercise-panel {
     padding: 24px;
+  }
+
+  .workout-action-footer {
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .workout-arrow-button {
+    min-height: 58px;
   }
 
   .training-progress-card {

@@ -32,6 +32,7 @@
 
 - El usuario puede iniciar un entrenamiento si el dia seleccionado tiene ejercicios.
 - La app muestra el ejercicio actual, serie actual, repeticiones objetivo y series restantes.
+- En modo entrenamiento, el header debe permanecer fijo y mostrar la accion de volver, el dia/ejercicio actual y el nombre del ejercicio.
 - La app muestra una tarjeta de progreso con serie actual, peso usado en la ultima sesion compatible, repeticiones objetivo y peso actual.
 - El usuario puede registrar el peso utilizado por serie.
 - El peso puede quedar vacio y registrarse como `Sin peso`.
@@ -46,6 +47,7 @@
 - La referencia de ultima sesion debe salir del historial del mismo dia, mismo ejercicio y misma serie.
 - El usuario puede tocar la referencia de ultima sesion para usar ese peso como peso actual de la serie en curso.
 - El usuario puede volver a la serie anterior durante el entrenamiento para corregir el peso registrado.
+- Las acciones de avanzar y volver serie deben estar disponibles en un footer fijo con controles de flecha.
 - Al volver a la serie anterior, la app debe corregir el registro de la sesion actual sin alterar la rutina base.
 
 ## Historial
