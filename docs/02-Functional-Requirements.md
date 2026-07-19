@@ -32,7 +32,7 @@
 
 - El usuario puede iniciar un entrenamiento si el dia seleccionado tiene ejercicios.
 - La app muestra el ejercicio actual, serie actual, repeticiones objetivo y series restantes.
-- La app muestra una tarjeta de progreso con serie actual, peso anterior, repeticiones objetivo y peso actual.
+- La app muestra una tarjeta de progreso con serie actual, peso usado en la ultima sesion compatible, repeticiones objetivo y peso actual.
 - El usuario puede registrar el peso utilizado por serie.
 - El peso puede quedar vacio y registrarse como `Sin peso`.
 - El peso puede ser entero o decimal en incrementos de `0.25 kg`.
@@ -42,6 +42,8 @@
 - El usuario puede modificar las repeticiones realizadas de la serie actual durante el entrenamiento.
 - Modificar las repeticiones realizadas durante el entrenamiento no debe alterar la rutina base.
 - Al iniciar una nueva serie del mismo ejercicio, el peso debe precargarse con el valor usado en la serie anterior.
+- La referencia de ultima sesion debe salir del historial del mismo dia, mismo ejercicio y misma serie.
+- El usuario puede tocar la referencia de ultima sesion para usar ese peso como peso actual de la serie en curso.
 - El usuario puede volver a la serie anterior durante el entrenamiento para corregir el peso registrado.
 - Al volver a la serie anterior, la app debe corregir el registro de la sesion actual sin alterar la rutina base.
 

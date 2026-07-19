@@ -72,12 +72,16 @@ En esta version estatica, esos datos se pasan como objeto a `renderTrainingProgr
 - El selector tactil de peso sigue funcionando igual.
 - La tarjeta funciona como referencia para una futura historia en Storybook.
 
+## Evolucion posterior
+
+En `v0.21.0-beta`, el bloque visual `Peso anterior` fue reemplazado por `Ultima sesion` para mostrar el peso usado en la ultima sesion compatible del historial.
+
 ## Prueba manual sugerida
 
 1. Abrir la app en mobile o viewport angosto.
 2. Iniciar un entrenamiento.
 3. Verificar que la tarjeta muestre `1 / N` como elemento principal.
-4. Verificar que `Peso anterior` muestre `—` en la primera serie.
+4. Verificar que `Ultima sesion` muestre `—` cuando no hay historial compatible.
 5. Cargar un peso y confirmar la serie.
-6. Verificar que la siguiente serie muestre el peso anterior y el peso actual.
+6. Verificar que la siguiente serie mantenga `Peso actual` correctamente y que la referencia historica no altere el registro en curso.
 7. Verificar que el layout no se rompa desde 320px de ancho.

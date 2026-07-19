@@ -1,5 +1,23 @@
 # Changelog
 
+## `v0.22.0-beta` - 2026-07-19
+
+### 2026-07-19 - Usar peso de ultima sesion
+
+- Version: `v0.22.0-beta`.
+- Funcionalidad: cargar el peso de `Ultima sesion` como `Peso actual` al tocar la referencia.
+- Resumen: el bloque `Ultima sesion` de la tarjeta de entrenamiento pasa a ser un boton discreto; si existe una referencia compatible, tocarlo copia ese peso al peso actual de la serie en curso, y si no existe referencia queda deshabilitado sin modificar rutina ni historial.
+- Pull Request: pendiente.
+
+## `v0.21.0-beta` - 2026-07-19
+
+### 2026-07-19 - Referencia de peso de ultima sesion
+
+- Version: `v0.21.0-beta`.
+- Funcionalidad: mostrar en modo entrenamiento el peso usado en la ultima sesion compatible.
+- Resumen: la tarjeta de progreso reemplaza `Peso anterior` por `Ultima sesion` y busca el peso en `training-app-history` usando el mismo dia, nombre de ejercicio y numero de serie; si no hay referencia compatible muestra `—` y si la serie previa fue sin peso muestra `Sin peso`.
+- Pull Request: pendiente.
+
 ## `v0.20.0-beta` - 2026-07-09
 
 ### 2026-07-09 - Ocultar input general de reps por serie

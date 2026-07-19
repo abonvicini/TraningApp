@@ -142,7 +142,7 @@ Consecuencias:
 
 Contexto:
 
-La pantalla de entrenamiento necesita priorizar informacion critica: serie actual, peso anterior, repeticiones objetivo y peso actual. Aunque existe la decision de crear Storybook en paralelo, la app estatica sigue siendo el producto funcional principal.
+La pantalla de entrenamiento necesita priorizar informacion critica: serie actual, referencia de peso historico, repeticiones objetivo y peso actual. Aunque existe la decision de crear Storybook en paralelo, la app estatica sigue siendo el producto funcional principal.
 
 Decision:
 
@@ -159,6 +159,31 @@ Consecuencias:
 - El componente queda listo como referencia para una futura historia de Storybook.
 - La pantalla de entrenamiento reduce ruido visual y concentra informacion prioritaria.
 - Cuando exista la libreria React, este patron debera migrarse como componente formal con props equivalentes.
+
+## Calcular la referencia de ultima sesion desde historial
+
+Contexto:
+
+Durante el entrenamiento, el usuario necesita saber que peso uso en la ultima rutina realizada del mismo dia para el mismo ejercicio y la misma serie.
+
+Decision:
+
+La app calcula la referencia `Ultima sesion` en tiempo de render usando `state.sessions`. Busca la sesion mas reciente del dia seleccionado segun `completedAt`, matchea el ejercicio por nombre normalizado y toma la serie por indice. El dato se muestra como referencia visual y puede tocarse para cargarlo como peso actual, pero no se copia al log del entrenamiento actual ni se persiste como campo nuevo hasta que el usuario completa la serie.
+
+Motivo:
+
+- Reutilizar `training-app-history` como fuente real de entrenamientos realizados.
+- Mantener separadas la rutina base, la sesion actual y el historial.
+- Evitar migraciones o cambios en el modelo persistido.
+- No mostrar pesos antiguos si la ultima sesion del dia no contiene un ejercicio o serie compatible.
+
+Consecuencias:
+
+- Si no existe una sesion compatible, la tarjeta muestra `—`.
+- Si no existe una sesion compatible, la accion queda deshabilitada.
+- Si la serie compatible fue registrada sin peso, la tarjeta muestra `Sin peso`.
+- Si el ejercicio fue renombrado entre sesiones, no se puede matchear automaticamente y no se muestra referencia.
+- Editar la fecha y hora de entrenamientos del historial puede cambiar cual sesion se considera la mas reciente.
 
 ## Iniciar usuarios nuevos sin rutina precargada
 

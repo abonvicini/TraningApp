@@ -1,6 +1,6 @@
 # Roadmap
 
-## Version actual: `v0.20.0-beta`
+## Version actual: `v0.22.0-beta`
 
 - Soporte para pesos decimales.
 - Edicion de fecha y hora de entrenamientos guardados en historial.
@@ -13,6 +13,8 @@
 - Botones tactiles de peso ordenados en pares de decremento e incremento equivalente, incluyendo pasos de `0.25 kg`.
 - Prevencion de zoom accidental por taps repetidos en los botones de peso.
 - Precarga del peso de la serie anterior al iniciar una nueva serie del mismo ejercicio.
+- Referencia de peso de la ultima sesion compatible en modo entrenamiento.
+- Uso rapido del peso de ultima sesion al tocar la referencia en modo entrenamiento.
 - Modificacion de repeticiones realizadas durante el entrenamiento sin alterar la rutina base.
 - Modal de repeticiones ajustable solo con botones tactiles para evitar abrir el teclado.
 - Navegacion principal seccionada en `Home`, `Rutinas` e `Historial` con footer interactivo.
@@ -20,7 +22,7 @@
 - Borrado individual de entrenamientos guardados sin perder la opcion de borrar todo el historial del dia.
 - Opcion de deshacer luego de borrar un entrenamiento individual del historial.
 - Ocultar el input general de reps al cargar ejercicios con diferentes reps por serie.
-- Componente `TrainingProgressCard` para mostrar serie, peso anterior, reps y peso actual en modo entrenamiento.
+- Componente `TrainingProgressCard` para mostrar serie, ultima sesion, reps y peso actual en modo entrenamiento.
 - Primer uso sin rutina precargada para que todos los dias inicien vacios.
 - Documentacion modular base en `docs/`.
 - Revision de backlog por prioridad.

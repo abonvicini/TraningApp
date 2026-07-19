@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Training App</title>
-    <link rel="stylesheet" href="styles.css?v=0.20.0-beta" />
+    <link rel="stylesheet" href="styles.css?v=0.22.0-beta" />
   </head>
   <body>
     <main class="app-shell">
@@ -155,10 +155,15 @@
             </div>
 
             <div class="training-progress-card__metrics" aria-label="Detalle de la serie">
-              <div class="training-progress-card__metric">
-                <span>Peso anterior</span>
-                <strong id="previousWeightDisplay">—</strong>
-              </div>
+              <button
+                class="training-progress-card__metric last-session-reference-button"
+                id="lastSessionWeightButton"
+                type="button"
+                aria-label="Usar peso de ultima sesion"
+              >
+                <span>Ultima sesion</span>
+                <strong id="lastSessionWeightDisplay">—</strong>
+              </button>
               <button class="training-progress-card__metric reps-display-button" id="openRepsModalButton" type="button" aria-label="Editar repeticiones realizadas">
                 <span class="reps-label">Reps <span class="edit-hint" aria-hidden="true">✎</span></span>
                 <strong id="repTarget">10</strong>
@@ -226,6 +231,6 @@
       </div>
     </div>
 
-    <script src="app.js?v=0.20.0-beta"></script>
+    <script src="app.js?v=0.22.0-beta"></script>
   </body>
 </html>
