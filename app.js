@@ -69,7 +69,8 @@ const repsModal = document.querySelector("#repsModal");
 const repsModalValue = document.querySelector("#repsModalValue");
 const saveRepsModalButton = document.querySelector("#saveRepsModalButton");
 const cancelRepsModalButton = document.querySelector("#cancelRepsModalButton");
-const previousWeightDisplay = document.querySelector("#previousWeightDisplay");
+const lastSessionWeightButton = document.querySelector("#lastSessionWeightButton");
+const lastSessionWeightDisplay = document.querySelector("#lastSessionWeightDisplay");
 const weightInput = document.querySelector("#weightInput");
 const weightDisplay = document.querySelector("#weightDisplay");
 const weightControls = document.querySelector(".weight-controls");
@@ -585,9 +586,10 @@ function getCompletedSets() {
   return state.log.reduce((total, exercise) => total + exercise.sets.length, 0);
 }
 
-function renderTrainingProgressCard({ currentSet, totalSets, previousWeight, currentWeight, targetReps, currentReps }) {
+function renderTrainingProgressCard({ currentSet, totalSets, lastSessionWeightReference, currentWeight, targetReps, currentReps }) {
   setCounter.textContent = `${currentSet} / ${totalSets}`;
-  previousWeightDisplay.textContent = formatPreviousWeight(previousWeight);
+  lastSessionWeightDisplay.textContent = formatLastSessionWeightReference(lastSessionWeightReference);
+  lastSessionWeightButton.disabled = !lastSessionWeightReference?.hasReference;
   setCurrentRepsValue(currentReps ?? targetReps);
   setWeightInputValue(currentWeight);
 }
@@ -608,7 +610,7 @@ function renderWorkout(weightValue = "", repsValue = null) {
   renderTrainingProgressCard({
     currentSet,
     totalSets: exercise.sets,
-    previousWeight: completedForExercise[completedForExercise.length - 1]?.weight,
+    lastSessionWeightReference: getLastSessionWeightReference(exercise.name, state.setIndex),
     currentWeight: weightValue,
     targetReps,
     currentReps: repsValue,
@@ -629,12 +631,64 @@ function formatWeight(weight) {
   return `${numericWeight.toLocaleString("es-AR", { maximumFractionDigits: 2 })} kg`;
 }
 
-function formatPreviousWeight(weight) {
-  if (weight === "" || weight === null || weight === undefined) {
+function formatLastSessionWeightReference(reference) {
+  if (!reference?.hasReference) {
     return "—";
   }
 
-  return formatWeight(weight);
+  return formatWeight(reference.weight);
+}
+
+function getLastSessionWeightReference(exerciseName, setIndex) {
+  const lastSession = [...state.sessions]
+    .filter((session) => session.day === state.selectedDay)
+    .sort((firstSession, secondSession) => getSessionTimestamp(secondSession) - getSessionTimestamp(firstSession))[0];
+
+  if (!lastSession || !Array.isArray(lastSession.exercises)) {
+    return { hasReference: false, weight: null };
+  }
+
+  const matchingExercise = lastSession.exercises.find(
+    (exercise) => normalizeExerciseName(exercise.name) === normalizeExerciseName(exerciseName),
+  );
+
+  if (!matchingExercise || !Array.isArray(matchingExercise.sets) || setIndex >= matchingExercise.sets.length) {
+    return { hasReference: false, weight: null };
+  }
+
+  return {
+    hasReference: true,
+    weight: getLoggedSetWeight(matchingExercise.sets[setIndex]),
+  };
+}
+
+function getSessionTimestamp(session) {
+  const timestamp = Date.parse(session?.completedAt);
+  return Number.isFinite(timestamp) ? timestamp : 0;
+}
+
+function normalizeExerciseName(name) {
+  return String(name ?? "").trim().toLocaleLowerCase("es-AR");
+}
+
+function getLoggedSetWeight(set) {
+  return set && typeof set === "object" ? set.weight : set;
+}
+
+function useLastSessionWeightReference() {
+  const exercise = state.workoutPlan[state.exerciseIndex];
+
+  if (!exercise) {
+    return;
+  }
+
+  const reference = getLastSessionWeightReference(exercise.name, state.setIndex);
+
+  if (!reference.hasReference) {
+    return;
+  }
+
+  setWeightInputValue(reference.weight);
 }
 
 function formatLoggedSet(set, index) {
@@ -1041,6 +1095,7 @@ startButton.addEventListener("click", () => {
 });
 completeSetButton.addEventListener("click", completeSet);
 previousSetButton.addEventListener("click", goToPreviousSet);
+lastSessionWeightButton.addEventListener("click", useLastSessionWeightReference);
 editRoutineButton.addEventListener("click", () => {
   if (getSelectedRoutine().length === 0) {
     return;

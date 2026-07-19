@@ -802,7 +802,8 @@ h3 {
   line-height: 1;
 }
 
-.reps-display-button {
+.reps-display-button,
+.last-session-reference-button {
   border: 0;
   background: transparent;
   color: inherit;
@@ -811,9 +812,14 @@ h3 {
   touch-action: manipulation;
 }
 
-.reps-display-button:focus-visible {
+.reps-display-button:focus-visible,
+.last-session-reference-button:focus-visible {
   outline: 2px solid var(--blue);
   outline-offset: 4px;
+}
+
+.last-session-reference-button:disabled {
+  cursor: default;
 }
 
 .reps-label {

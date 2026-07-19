@@ -39,6 +39,8 @@ Claves:
 - `renderPlan()`
 - `renderWorkout()`
 - `renderTrainingProgressCard()`
+- `getLastSessionWeightReference(exerciseName, setIndex)`
+- `useLastSessionWeightReference()`
 - `renderSummary()`
 - `renderSavedSessions()`
 

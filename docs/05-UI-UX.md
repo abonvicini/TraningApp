@@ -51,7 +51,7 @@ Debe concentrar la atencion en:
 
 - Ejercicio actual.
 - Serie actual.
-- Peso anterior.
+- Peso usado en la ultima sesion compatible.
 - Repeticiones objetivo.
 - Peso utilizado.
 - Avance de la sesion.
@@ -69,6 +69,10 @@ Los controles de ajuste de peso deben mostrarse en pares equivalentes, con el de
 Los taps repetidos sobre controles de peso no deben generar zoom accidental del navegador ni saltos visuales.
 
 Al avanzar entre series del mismo ejercicio, el peso anterior debe mantenerse precargado para reducir interacciones repetitivas.
+
+La tarjeta principal debe mostrar la referencia `Ultima sesion` para que el usuario pueda comparar el peso actual contra el peso usado en el historial mas reciente compatible.
+
+Si existe una referencia compatible, `Ultima sesion` debe poder tocarse para cargar rapidamente ese valor en `Peso actual`.
 
 ### Resumen
 

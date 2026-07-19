@@ -6,7 +6,7 @@ Training App ayuda a registrar rutinas de entrenamiento de forma simple, rapida 
 
 La app esta orientada a personas que quieren cargar sus dias de entrenamiento, completar series y guardar el peso usado sin depender de cuentas, servidores ni configuraciones complejas.
 
-Version actual del producto: `v0.20.0-beta`.
+Version actual del producto: `v0.22.0-beta`.
 
 ## Usuario objetivo
 
