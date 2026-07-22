@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.26.0-beta` - 2026-07-22
+
+### 2026-07-22 - Diferenciacion visual de pesos en entrenamiento
+
+- Version: `v0.26.0-beta`.
+- Funcionalidad: diferenciar visualmente `Peso actual` y `Ultima sesion` en modo entrenamiento.
+- Resumen: `Peso actual` pasa a usar el color de acento para indicar que es el valor activo que se registrara; `Ultima sesion` usa un tono secundario para leerse como referencia historica sin cambiar comportamiento ni datos.
+- Pull Request: pendiente.
+
 ## `v0.25.0-beta` - 2026-07-19
 
 ### 2026-07-19 - CTA principal de Home cerca del footer

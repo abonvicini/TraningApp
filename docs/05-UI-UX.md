@@ -80,6 +80,8 @@ La tarjeta principal debe mostrar la referencia `Ultima sesion` para que el usua
 
 Si existe una referencia compatible, `Ultima sesion` debe poder tocarse para cargar rapidamente ese valor en `Peso actual`.
 
+`Peso actual` debe tener mayor peso visual que `Ultima sesion` porque representa el dato activo que se va a registrar. `Ultima sesion` debe verse como referencia historica usando un tratamiento de color secundario para evitar confusiones.
+
 Las acciones principales de entrenamiento deben permanecer fijas en el footer. La accion de volver a la serie anterior debe representarse con una flecha izquierda y la accion de aceptar/continuar con una flecha derecha, manteniendo nombres accesibles.
 
 ### Resumen

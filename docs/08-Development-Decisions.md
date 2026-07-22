@@ -274,6 +274,28 @@ Consecuencias:
 - No cambia el modelo de datos ni la estructura de `training-app-history`.
 - Las validaciones de peso existentes siguen funcionando como respaldo antes de completar la serie.
 
+## Diferenciar dato activo y referencia historica por jerarquia visual
+
+Contexto:
+
+En la tarjeta de entrenamiento, `Peso actual` y `Ultima sesion` aparecian con una jerarquia visual muy similar. Eso podia confundir al usuario sobre cual valor se va a registrar y cual es solo una referencia historica.
+
+Decision:
+
+`Peso actual` usa el color de acento de la app para comunicar que es el dato activo. `Ultima sesion` usa un tono secundario verde con menor intensidad para mantenerse visible como referencia historica sin competir con el valor actual.
+
+Motivo:
+
+- Prioriza el dato que se va a guardar en la serie.
+- Mantiene disponible la comparacion con la ultima sesion.
+- Evita agregar texto explicativo o cambiar la estructura de la tarjeta.
+
+Consecuencias:
+
+- El cambio es visual y no modifica eventos, persistencia ni calculos de historial.
+- La diferenciacion no depende solo del texto del label.
+- La referencia `Ultima sesion` sigue siendo accionable cuando existe un valor compatible.
+
 ## Mantener header y footer fijos en modo entrenamiento
 
 Contexto:
