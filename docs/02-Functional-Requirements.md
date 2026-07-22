@@ -34,6 +34,7 @@
 - La app muestra el ejercicio actual, serie actual, repeticiones objetivo y series restantes.
 - En modo entrenamiento, el header debe permanecer fijo y mostrar la accion de volver, el dia/ejercicio actual y el nombre del ejercicio.
 - La app muestra una tarjeta de progreso con serie actual, peso usado en la ultima sesion compatible, repeticiones objetivo y peso actual.
+- `Peso actual` y `Ultima sesion` deben diferenciarse visualmente para que el usuario identifique cual es el dato activo que se va a registrar.
 - El usuario puede registrar el peso utilizado por serie.
 - El peso puede quedar vacio y registrarse como `Sin peso`.
 - El peso puede ser entero o decimal en incrementos de `0.25 kg`.

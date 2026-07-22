@@ -4,6 +4,7 @@
 
 - Editar el nombre de ejercicios.
 - Editar cualquier serie completada desde la lista de `Completado`.
+- Agregar observaciones o notas libres en cada serie del entrenamiento.
 - Historial completo con filtros, busqueda y ordenamiento.
 - Importar rutina e historial desde la pantalla inicial cuando la app se usa por primera vez.
 - Exportar rutina e historial cuando ya existen datos guardados.
@@ -33,6 +34,7 @@
 - Precargar el peso de la serie anterior al iniciar una nueva serie del mismo ejercicio.
 - Mostrar en modo entrenamiento el peso usado en la ultima sesion compatible del mismo dia, ejercicio y serie.
 - Usar el peso de ultima sesion como peso actual al tocar la referencia en modo entrenamiento.
+- Diferenciar visualmente `Peso actual` y `Ultima sesion` en modo entrenamiento para evitar confusiones.
 - Editar el peso actual desde un modal tactil en modo entrenamiento para limpiar la pantalla principal.
 - Header y footer fijos en modo entrenamiento, con acciones de serie representadas mediante flechas.
 - Ubicar el CTA principal de Home cerca del footer para mejorar alcance con el pulgar en mobile.

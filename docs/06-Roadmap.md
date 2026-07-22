@@ -1,6 +1,6 @@
 # Roadmap
 
-## Version actual: `v0.25.0-beta`
+## Version actual: `v0.26.0-beta`
 
 - Soporte para pesos decimales.
 - Edicion de fecha y hora de entrenamientos guardados en historial.
@@ -15,6 +15,7 @@
 - Precarga del peso de la serie anterior al iniciar una nueva serie del mismo ejercicio.
 - Referencia de peso de la ultima sesion compatible en modo entrenamiento.
 - Uso rapido del peso de ultima sesion al tocar la referencia en modo entrenamiento.
+- Diferenciacion visual entre `Peso actual` y `Ultima sesion` en modo entrenamiento.
 - Edicion de peso actual desde modal tactil en modo entrenamiento.
 - Header y footer fijos en modo entrenamiento, con navegacion de series mediante flechas.
 - Modificacion de repeticiones realizadas durante el entrenamiento sin alterar la rutina base.

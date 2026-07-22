@@ -845,6 +845,23 @@ h3 {
   cursor: default;
 }
 
+.last-session-reference-button strong {
+  color: var(--green);
+  opacity: 0.84;
+}
+
+.weight-display-button {
+  border-radius: 0;
+}
+
+.weight-display-button span {
+  color: var(--accent-strong);
+}
+
+.weight-display-button strong {
+  color: var(--accent-strong);
+}
+
 .reps-label,
 .weight-label {
   display: inline-flex;
