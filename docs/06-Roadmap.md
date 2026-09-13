@@ -1,6 +1,6 @@
 # Roadmap
 
-## Version actual: `v0.26.0-beta`
+## Version actual: `v0.27.0-beta`
 
 - Soporte para pesos decimales.
 - Edicion de fecha y hora de entrenamientos guardados en historial.
@@ -23,6 +23,7 @@
 - Navegacion principal seccionada en `Home`, `Rutinas` e `Historial` con footer interactivo.
 - CTA principal de Home ubicado cerca del footer para mejorar alcance con el pulgar en mobile.
 - Entrenamientos del historial colapsados por fecha y hora, con despliegue del detalle al tocar.
+- Visualizacion de todos los entrenamientos disponibles del dia seleccionado en historial.
 - Borrado individual de entrenamientos guardados sin perder la opcion de borrar todo el historial del dia.
 - Opcion de deshacer luego de borrar un entrenamiento individual del historial.
 - Ocultar el input general de reps al cargar ejercicios con diferentes reps por serie.
@@ -35,7 +36,7 @@
 ## Corto plazo
 
 - Editar el nombre de ejercicios.
-- Historial completo con filtros, busqueda y ordenamiento.
+- Filtros, busqueda y ordenamiento para el historial.
 - Importar rutina e historial desde la pantalla inicial cuando la app se usa por primera vez.
 - Exportar rutina e historial cuando ya existen datos guardados.
 

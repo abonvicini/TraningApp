@@ -105,7 +105,6 @@ Los entrenamientos guardados deben mostrarse compactos por defecto, dejando visi
 
 Mejoras futuras posibles:
 
-- Historial completo.
 - Filtros por fecha.
 - Busqueda por ejercicio.
 - Comparacion de pesos por ejercicio.
