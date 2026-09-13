@@ -46,6 +46,8 @@
 - Modificar las repeticiones realizadas durante el entrenamiento no debe alterar la rutina base.
 - El usuario puede agregar una observacion libre opcional a cada serie durante el entrenamiento.
 - Las observaciones de serie deben guardarse solo en el entrenamiento realizado y no deben modificar la rutina base.
+- El usuario puede editar una serie ya completada desde la lista `Completado` durante el entrenamiento activo.
+- Editar una serie completada debe permitir corregir reps, peso y observacion sin modificar la rutina base.
 - Al iniciar una nueva serie del mismo ejercicio, el peso debe precargarse con el valor usado en la serie anterior.
 - La referencia de ultima sesion debe salir del historial del mismo dia, mismo ejercicio y misma serie.
 - El usuario puede tocar la referencia de ultima sesion para usar ese peso como peso actual de la serie en curso.
