@@ -3,7 +3,6 @@
 ## Alta prioridad
 
 - Editar el nombre de ejercicios.
-- Editar cualquier serie completada desde la lista de `Completado`.
 - Filtros, busqueda y ordenamiento para el historial.
 - Importar rutina e historial desde la pantalla inicial cuando la app se usa por primera vez.
 - Exportar rutina e historial cuando ya existen datos guardados.
@@ -39,6 +38,7 @@
 - Ubicar el CTA principal de Home cerca del footer para mejorar alcance con el pulgar en mobile.
 - Modificar repeticiones realizadas durante el entrenamiento sin alterar la rutina base.
 - Agregar observaciones o notas libres en cada serie del entrenamiento.
+- Editar cualquier serie completada desde la lista de `Completado`.
 - Componente `TrainingProgressCard` para priorizar serie, ultima sesion, reps y peso actual en modo entrenamiento.
 - Colapsar cada entrenamiento del historial para mostrar inicialmente solo fecha y hora, y desplegar el detalle completo al hacer tap.
 - Mostrar todos los entrenamientos disponibles del dia seleccionado en historial.

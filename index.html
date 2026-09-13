@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Training App</title>
-    <link rel="stylesheet" href="styles.css?v=0.28.0-beta" />
+    <link rel="stylesheet" href="styles.css?v=0.29.0-beta" />
   </head>
   <body>
     <main class="app-shell">
@@ -277,6 +277,50 @@
       </div>
     </div>
 
-    <script src="app.js?v=0.28.0-beta"></script>
+    <div class="modal-backdrop is-hidden" id="completedSetModal" role="dialog" aria-modal="true" aria-labelledby="completedSetModalTitle">
+      <div class="modal-card">
+        <div class="modal-heading">
+          <p class="eyebrow" id="completedSetModalContext">Serie completada</p>
+          <h2 id="completedSetModalTitle">Editar serie</h2>
+        </div>
+        <div class="completed-set-editor">
+          <div>
+            <span>Reps</span>
+            <div class="reps-modal-control" aria-label="Cambiar repeticiones completadas">
+              <button class="reps-step-button" type="button" data-completed-reps-step="-1" aria-label="Restar una repeticion">-</button>
+              <strong class="reps-modal-value" id="completedSetRepsValue" aria-live="polite">10</strong>
+              <button class="reps-step-button" type="button" data-completed-reps-step="1" aria-label="Sumar una repeticion">+</button>
+            </div>
+          </div>
+          <div>
+            <span>Peso</span>
+            <div class="weight-modal-display">
+              <strong id="completedSetWeightValue" aria-live="polite">Sin peso</strong>
+            </div>
+            <div class="weight-controls weight-modal-controls" id="completedSetWeightControls" aria-label="Ajustar peso completado">
+              <button class="weight-clear-button" id="clearCompletedSetWeightButton" type="button">Sin peso</button>
+              <button class="weight-step-button" type="button" data-completed-weight-step="-0.25">-0.25</button>
+              <button class="weight-step-button" type="button" data-completed-weight-step="0.25">+0.25</button>
+              <button class="weight-step-button" type="button" data-completed-weight-step="-0.5">-0.5</button>
+              <button class="weight-step-button" type="button" data-completed-weight-step="0.5">+0.5</button>
+              <button class="weight-step-button" type="button" data-completed-weight-step="-2.5">-2.5</button>
+              <button class="weight-step-button" type="button" data-completed-weight-step="2.5">+2.5</button>
+              <button class="weight-step-button" type="button" data-completed-weight-step="-10">-10</button>
+              <button class="weight-step-button" type="button" data-completed-weight-step="10">+10</button>
+            </div>
+          </div>
+          <label class="set-note-field">
+            <span>Nota</span>
+            <textarea id="completedSetNoteInput" rows="4" maxlength="240" placeholder="Ej: molestia leve, tecnica, energia..."></textarea>
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button class="secondary-action" id="cancelCompletedSetModalButton" type="button">Cancelar</button>
+          <button class="primary-action" id="saveCompletedSetModalButton" type="button">Guardar</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js?v=0.29.0-beta"></script>
   </body>
 </html>

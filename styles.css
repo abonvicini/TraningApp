@@ -932,6 +932,46 @@ h3 {
   color: var(--muted);
 }
 
+.completed-set-button {
+  display: block;
+  width: 100%;
+  margin: -8px -12px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.completed-set-button:focus-visible {
+  border-color: var(--accent);
+  outline: 0;
+}
+
+.completed-set-button .edit-hint {
+  margin-left: 4px;
+}
+
+.completed-set-editor {
+  display: grid;
+  gap: 18px;
+}
+
+.completed-set-editor > div,
+.completed-set-editor label {
+  display: grid;
+  gap: 8px;
+}
+
+.completed-set-editor span {
+  color: var(--muted);
+  font-weight: 800;
+}
+
 .modal-backdrop {
   position: fixed;
   inset: 0;

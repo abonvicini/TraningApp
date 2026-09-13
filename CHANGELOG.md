@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.29.0-beta` - 2026-09-13
+
+### 2026-09-13 - Edicion de series completadas
+
+- Version: `v0.29.0-beta`.
+- Funcionalidad: editar series ya completadas desde la lista `Completado` durante el entrenamiento activo.
+- Resumen: cada serie completada pasa a ser editable mediante un modal que permite corregir reps, peso y observacion; el cambio actualiza solo `state.log`, conserva la rutina base y se guarda en historial al finalizar la sesion.
+- Pull Request: pendiente.
+
 ## `v0.28.0-beta` - 2026-09-13
 
 ### 2026-09-13 - Observaciones por serie

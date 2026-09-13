@@ -29,6 +29,7 @@ const state = {
   isEditingRoutine: false,
   weightModalValue: "",
   currentSetNote: "",
+  completedSetDraft: null,
 };
 
 const setupView = document.querySelector("#setupView");
@@ -88,6 +89,15 @@ const setNoteModal = document.querySelector("#setNoteModal");
 const setNoteInput = document.querySelector("#setNoteInput");
 const saveSetNoteModalButton = document.querySelector("#saveSetNoteModalButton");
 const cancelSetNoteModalButton = document.querySelector("#cancelSetNoteModalButton");
+const completedSetModal = document.querySelector("#completedSetModal");
+const completedSetModalContext = document.querySelector("#completedSetModalContext");
+const completedSetRepsValue = document.querySelector("#completedSetRepsValue");
+const completedSetWeightValue = document.querySelector("#completedSetWeightValue");
+const completedSetWeightControls = document.querySelector("#completedSetWeightControls");
+const clearCompletedSetWeightButton = document.querySelector("#clearCompletedSetWeightButton");
+const completedSetNoteInput = document.querySelector("#completedSetNoteInput");
+const saveCompletedSetModalButton = document.querySelector("#saveCompletedSetModalButton");
+const cancelCompletedSetModalButton = document.querySelector("#cancelCompletedSetModalButton");
 const setHistory = document.querySelector("#setHistory");
 const progressFill = document.querySelector("#progressFill");
 const summaryText = document.querySelector("#summaryText");
@@ -618,7 +628,16 @@ function renderWorkout(weightValue = "", repsValue = null, noteValue = "") {
   exerciseName.textContent = exercise.name;
   progressFill.style.width = `${(getCompletedSets() / getTotalSets()) * 100}%`;
   setHistory.innerHTML = completedForExercise
-    .map((set, index) => `<li>${formatLoggedSet(set, index)}</li>`)
+    .map(
+      (set, index) => `
+        <li>
+          <button class="completed-set-button" type="button" data-edit-completed-set-index="${index}">
+            ${formatLoggedSet(set, index)}
+            <span class="edit-hint" aria-hidden="true">✎</span>
+          </button>
+        </li>
+      `,
+    )
     .join("");
   previousSetButton.disabled = getCompletedSets() === 0;
   renderTrainingProgressCard({
@@ -687,6 +706,23 @@ function normalizeExerciseName(name) {
 
 function getLoggedSetWeight(set) {
   return set && typeof set === "object" ? set.weight : set;
+}
+
+function getLoggedSetReps(set, exerciseIndex, setIndex) {
+  if (set && typeof set === "object" && set.reps !== undefined && set.reps !== null && set.reps !== "") {
+    return set.reps;
+  }
+
+  const exercise = state.workoutPlan[exerciseIndex];
+  return exercise ? getRepsForSet(exercise, setIndex) : 1;
+}
+
+function normalizeCompletedSet(set, exerciseIndex, setIndex) {
+  return {
+    reps: getLoggedSetReps(set, exerciseIndex, setIndex),
+    weight: getLoggedSetWeight(set),
+    note: set && typeof set === "object" ? normalizeSetNote(set.note) : "",
+  };
 }
 
 function useLastSessionWeightReference() {
@@ -902,6 +938,113 @@ function saveSetNoteModalValue() {
   state.currentSetNote = normalizeSetNote(setNoteInput.value);
   renderSetNoteButton();
   closeSetNoteModal();
+}
+
+function openCompletedSetModal(setIndex) {
+  const exerciseIndex = state.exerciseIndex;
+  const set = state.log[exerciseIndex]?.sets[setIndex];
+
+  if (set === undefined) {
+    return;
+  }
+
+  const normalizedSet = normalizeCompletedSet(set, exerciseIndex, setIndex);
+  state.completedSetDraft = {
+    exerciseIndex,
+    setIndex,
+    reps: parseRepsInput(normalizedSet.reps) ?? 1,
+    weight: getWeightInputValue(normalizedSet.weight),
+    note: normalizedSet.note,
+  };
+
+  completedSetModalContext.textContent = `Serie ${setIndex + 1} completada`;
+  completedSetNoteInput.value = state.completedSetDraft.note;
+  renderCompletedSetModalState();
+  completedSetModal.classList.remove("is-hidden");
+  saveCompletedSetModalButton.focus();
+}
+
+function closeCompletedSetModal() {
+  completedSetModal.classList.add("is-hidden");
+  state.completedSetDraft = null;
+}
+
+function renderCompletedSetModalState() {
+  if (!state.completedSetDraft) {
+    return;
+  }
+
+  const reps = parseRepsInput(state.completedSetDraft.reps) ?? 1;
+  const hasWeight = state.completedSetDraft.weight !== "";
+  const currentWeight = hasWeight ? Number(state.completedSetDraft.weight) : 0;
+
+  completedSetRepsValue.textContent = String(reps);
+  completedSetWeightValue.textContent = hasWeight ? formatWeight(state.completedSetDraft.weight) : "Sin peso";
+  clearCompletedSetWeightButton.disabled = !hasWeight;
+
+  completedSetModal.querySelectorAll("[data-completed-reps-step]").forEach((button) => {
+    const step = Number(button.dataset.completedRepsStep);
+    button.disabled = step < 0 && reps <= 1;
+  });
+
+  completedSetWeightControls.querySelectorAll("[data-completed-weight-step]").forEach((button) => {
+    const step = Number(button.dataset.completedWeightStep);
+    button.disabled = step < 0 && currentWeight <= 0;
+  });
+}
+
+function adjustCompletedSetReps(step) {
+  if (!state.completedSetDraft) {
+    return;
+  }
+
+  const reps = parseRepsInput(state.completedSetDraft.reps) ?? 1;
+  state.completedSetDraft.reps = Math.max(1, reps + step);
+  renderCompletedSetModalState();
+}
+
+function setCompletedSetWeightValue(weight) {
+  if (!state.completedSetDraft) {
+    return;
+  }
+
+  state.completedSetDraft.weight = weight === "" || weight === null || weight === undefined ? "" : formatWeightInputValue(weight);
+  renderCompletedSetModalState();
+}
+
+function adjustCompletedSetWeight(step) {
+  if (!state.completedSetDraft) {
+    return;
+  }
+
+  const currentWeight = state.completedSetDraft.weight === "" ? 0 : Number(state.completedSetDraft.weight);
+  const nextWeight = Math.max(0, Math.round((currentWeight + step) * WEIGHT_PRECISION_FACTOR) / WEIGHT_PRECISION_FACTOR);
+  setCompletedSetWeightValue(nextWeight);
+}
+
+function saveCompletedSetModalValue() {
+  if (!state.completedSetDraft) {
+    return;
+  }
+
+  const { exerciseIndex, setIndex } = state.completedSetDraft;
+  const reps = parseRepsInput(state.completedSetDraft.reps);
+  const weight = state.completedSetDraft.weight === "" ? "" : Number(state.completedSetDraft.weight);
+  const note = normalizeSetNote(completedSetNoteInput.value);
+
+  if (reps === null || (weight !== "" && !Number.isFinite(weight)) || !state.log[exerciseIndex]?.sets[setIndex]) {
+    return;
+  }
+
+  const updatedSet = { reps, weight };
+
+  if (note) {
+    updatedSet.note = note;
+  }
+
+  state.log[exerciseIndex].sets[setIndex] = updatedSet;
+  closeCompletedSetModal();
+  renderWorkout(weightInput.value, parseCurrentRepsInput(), state.currentSetNote);
 }
 
 function parseRepsInput(value) {
@@ -1358,6 +1501,16 @@ restartButton.addEventListener("click", () => {
 openRepsModalButton.addEventListener("click", openRepsModal);
 saveRepsModalButton.addEventListener("click", saveRepsModalValue);
 cancelRepsModalButton.addEventListener("click", closeRepsModal);
+setHistory.addEventListener("click", (event) => {
+  const clickedElement = event.target instanceof Element ? event.target : event.target.parentElement;
+  const editButton = clickedElement?.closest("[data-edit-completed-set-index]");
+
+  if (!editButton) {
+    return;
+  }
+
+  openCompletedSetModal(Number(editButton.dataset.editCompletedSetIndex));
+});
 repsModal.addEventListener("click", (event) => {
   const clickedElement = event.target instanceof Element ? event.target : event.target.parentElement;
   const stepButton = clickedElement?.closest("[data-reps-modal-step]");
@@ -1377,6 +1530,8 @@ cancelWeightModalButton.addEventListener("click", closeWeightModal);
 openSetNoteModalButton.addEventListener("click", openSetNoteModal);
 saveSetNoteModalButton.addEventListener("click", saveSetNoteModalValue);
 cancelSetNoteModalButton.addEventListener("click", closeSetNoteModal);
+saveCompletedSetModalButton.addEventListener("click", saveCompletedSetModalValue);
+cancelCompletedSetModalButton.addEventListener("click", closeCompletedSetModal);
 weightModal.addEventListener("click", (event) => {
   const clickedElement = event.target instanceof Element ? event.target : event.target.parentElement;
   const stepButton = clickedElement?.closest("[data-weight-step]");
@@ -1400,6 +1555,30 @@ setNoteModal.addEventListener("click", (event) => {
     closeSetNoteModal();
   }
 });
+completedSetModal.addEventListener("click", (event) => {
+  const clickedElement = event.target instanceof Element ? event.target : event.target.parentElement;
+  const repsButton = clickedElement?.closest("[data-completed-reps-step]");
+  const weightButton = clickedElement?.closest("[data-completed-weight-step]");
+
+  if (repsButton) {
+    adjustCompletedSetReps(Number(repsButton.dataset.completedRepsStep));
+    return;
+  }
+
+  if (weightButton) {
+    adjustCompletedSetWeight(Number(weightButton.dataset.completedWeightStep));
+    return;
+  }
+
+  if (clickedElement === clearCompletedSetWeightButton) {
+    setCompletedSetWeightValue("");
+    return;
+  }
+
+  if (clickedElement === completedSetModal) {
+    closeCompletedSetModal();
+  }
+});
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !repsModal.classList.contains("is-hidden")) {
     closeRepsModal();
@@ -1412,8 +1591,15 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !setNoteModal.classList.contains("is-hidden")) {
     closeSetNoteModal();
   }
+
+  if (event.key === "Escape" && !completedSetModal.classList.contains("is-hidden")) {
+    closeCompletedSetModal();
+  }
 });
 weightControls.addEventListener("dblclick", (event) => {
+  event.preventDefault();
+});
+completedSetWeightControls.addEventListener("dblclick", (event) => {
   event.preventDefault();
 });
 

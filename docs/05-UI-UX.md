@@ -73,6 +73,8 @@ Las repeticiones realizadas deben mantener una visualizacion compacta en la tarj
 
 Las observaciones de serie deben mantenerse como accion secundaria. La tarjeta puede mostrar un boton discreto `+ Nota` y abrir un modal de texto para cargar o editar la observacion sin ocupar espacio permanente en la pantalla principal.
 
+La lista `Completado` debe permitir tocar una serie ya registrada para corregir reps, peso o nota desde un modal, sin obligar al usuario a retroceder linealmente por cada serie.
+
 Los controles de ajuste de peso deben mostrarse en pares equivalentes, con el decremento a la izquierda del incremento.
 
 Los taps repetidos sobre controles de peso no deben generar zoom accidental del navegador ni saltos visuales.

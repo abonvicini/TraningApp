@@ -546,3 +546,27 @@ Consecuencias:
 - Las series sin observacion no agregan el campo `note`.
 - Al volver a una serie anterior durante el entrenamiento, la nota se recupera junto con reps y peso.
 - Los registros antiguos siguen visualizandose normalmente.
+
+## Editar series completadas desde el estado temporal del entrenamiento
+
+Contexto:
+
+El usuario puede detectar un error en una serie ya completada sin querer retroceder serie por serie. La lista `Completado` ya muestra el registro temporal de la sesion activa y es el lugar natural para corregir datos puntuales.
+
+Decision:
+
+Cada serie visible en `Completado` se vuelve editable mediante un modal. Al guardar, la app actualiza solamente el objeto correspondiente dentro de `state.log`, conservando la rutina base sin cambios. Si luego el usuario finaliza el entrenamiento, el historial persiste la version corregida.
+
+Motivo:
+
+- Evitar obligar al usuario a usar el flujo lineal de `Serie anterior` para correcciones no consecutivas.
+- Reutilizar el registro temporal de sesion activa como fuente de verdad antes de guardar historial.
+- Mantener separadas rutina objetivo, sesion activa e historial.
+- Evitar migraciones de datos.
+
+Consecuencias:
+
+- La edicion solo esta disponible durante el entrenamiento activo.
+- El historial guarda la version corregida al finalizar.
+- La rutina base no cambia.
+- Los botones tactiles mantienen la misma logica de validacion de reps enteras y pesos en pasos de `0.25 kg`.
