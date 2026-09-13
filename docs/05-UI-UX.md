@@ -56,6 +56,7 @@ Debe concentrar la atencion en:
 - Peso usado en la ultima sesion compatible.
 - Repeticiones objetivo.
 - Peso utilizado.
+- Observaciones opcionales por serie.
 - Avance de la sesion.
 
 El titulo del ejercicio y el indicador de serie en curso deben mantenerse compactos para no saturar visualmente el entrenamiento.
@@ -69,6 +70,8 @@ La carga de peso en modo entrenamiento debe priorizar controles tactiles para ev
 El `Peso actual` debe mantener una visualizacion compacta en la tarjeta principal y poder ajustarse desde un modal al tocar el valor. El modal debe usar botones tactiles, permitir volver a `Sin peso` y aplicar cambios solo al guardar.
 
 Las repeticiones realizadas deben mantener una visualizacion compacta en la tarjeta principal y poder ajustarse desde un modal al tocar `Reps` o el numero. Ese modal debe usar botones tactiles para sumar o restar reps sin abrir el teclado del telefono.
+
+Las observaciones de serie deben mantenerse como accion secundaria. La tarjeta puede mostrar un boton discreto `+ Nota` y abrir un modal de texto para cargar o editar la observacion sin ocupar espacio permanente en la pantalla principal.
 
 Los controles de ajuste de peso deben mostrarse en pares equivalentes, con el decremento a la izquierda del incremento.
 

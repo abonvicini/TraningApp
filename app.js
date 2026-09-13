@@ -28,6 +28,7 @@ const state = {
   deletedSessionTimeoutId: null,
   isEditingRoutine: false,
   weightModalValue: "",
+  currentSetNote: "",
 };
 
 const setupView = document.querySelector("#setupView");
@@ -81,6 +82,12 @@ const weightControls = document.querySelector("#weightModalControls");
 const clearWeightButton = document.querySelector("#clearWeightButton");
 const saveWeightModalButton = document.querySelector("#saveWeightModalButton");
 const cancelWeightModalButton = document.querySelector("#cancelWeightModalButton");
+const openSetNoteModalButton = document.querySelector("#openSetNoteModalButton");
+const setNoteButtonLabel = document.querySelector("#setNoteButtonLabel");
+const setNoteModal = document.querySelector("#setNoteModal");
+const setNoteInput = document.querySelector("#setNoteInput");
+const saveSetNoteModalButton = document.querySelector("#saveSetNoteModalButton");
+const cancelSetNoteModalButton = document.querySelector("#cancelSetNoteModalButton");
 const setHistory = document.querySelector("#setHistory");
 const progressFill = document.querySelector("#progressFill");
 const summaryText = document.querySelector("#summaryText");
@@ -597,14 +604,16 @@ function renderTrainingProgressCard({ currentSet, totalSets, lastSessionWeightRe
   lastSessionWeightButton.disabled = !lastSessionWeightReference?.hasReference;
   setCurrentRepsValue(currentReps ?? targetReps);
   setWeightInputValue(currentWeight);
+  renderSetNoteButton();
 }
 
-function renderWorkout(weightValue = "", repsValue = null) {
+function renderWorkout(weightValue = "", repsValue = null, noteValue = "") {
   const exercise = state.workoutPlan[state.exerciseIndex];
   const completedForExercise = state.log[state.exerciseIndex].sets;
   const currentSet = state.setIndex + 1;
   const targetReps = getRepsForSet(exercise, state.setIndex);
 
+  state.currentSetNote = normalizeSetNote(noteValue);
   exerciseCounter.textContent = `${getDayLabel(state.selectedDay)} - ejercicio ${state.exerciseIndex + 1} de ${state.workoutPlan.length}`;
   exerciseName.textContent = exercise.name;
   progressFill.style.width = `${(getCompletedSets() / getTotalSets()) * 100}%`;
@@ -698,11 +707,14 @@ function useLastSessionWeightReference() {
 
 function formatLoggedSet(set, index) {
   if (set && typeof set === "object") {
+    const note = normalizeSetNote(set.note);
+    const noteMarkup = note ? `<small class="set-note-summary">Nota: ${escapeHtml(note)}</small>` : "";
+
     if (set.reps === undefined || set.reps === null || set.reps === "") {
-      return `S${index + 1}: ${formatWeight(set.weight)}`;
+      return `S${index + 1}: ${formatWeight(set.weight)}${noteMarkup}`;
     }
 
-    return `S${index + 1}: ${escapeHtml(set.reps)} reps - ${formatWeight(set.weight)}`;
+    return `S${index + 1}: ${escapeHtml(set.reps)} reps - ${formatWeight(set.weight)}${noteMarkup}`;
   }
 
   return `S${index + 1}: ${formatWeight(set)}`;
@@ -723,10 +735,18 @@ function completeSet() {
     return;
   }
 
-  state.log[state.exerciseIndex].sets.push({
+  const completedSet = {
     reps,
     weight,
-  });
+  };
+  const note = normalizeSetNote(state.currentSetNote);
+
+  if (note) {
+    completedSet.note = note;
+  }
+
+  state.log[state.exerciseIndex].sets.push(completedSet);
+  state.currentSetNote = "";
   state.setIndex += 1;
 
   if (state.setIndex >= exercise.sets) {
@@ -853,6 +873,37 @@ function saveWeightModalValue() {
   closeWeightModal();
 }
 
+function normalizeSetNote(value) {
+  return String(value ?? "").trim();
+}
+
+function renderSetNoteButton() {
+  const hasNote = normalizeSetNote(state.currentSetNote) !== "";
+
+  setNoteButtonLabel.textContent = hasNote ? "Nota agregada ✎" : "+ Nota";
+  openSetNoteModalButton.classList.toggle("has-note", hasNote);
+  openSetNoteModalButton.setAttribute(
+    "aria-label",
+    hasNote ? "Editar observacion de la serie" : "Agregar observacion a la serie",
+  );
+}
+
+function openSetNoteModal() {
+  setNoteInput.value = state.currentSetNote;
+  setNoteModal.classList.remove("is-hidden");
+  setNoteInput.focus();
+}
+
+function closeSetNoteModal() {
+  setNoteModal.classList.add("is-hidden");
+}
+
+function saveSetNoteModalValue() {
+  state.currentSetNote = normalizeSetNote(setNoteInput.value);
+  renderSetNoteButton();
+  closeSetNoteModal();
+}
+
 function parseRepsInput(value) {
   const normalizedValue = String(value).trim();
 
@@ -905,7 +956,7 @@ function goToPreviousSet() {
   const previousSet = completedSets.pop();
   state.exerciseIndex = previousSetPosition.exerciseIndex;
   state.setIndex = previousSetPosition.setIndex;
-  renderWorkout(getWeightInputValue(previousSet?.weight), previousSet?.reps);
+  renderWorkout(getWeightInputValue(previousSet?.weight), previousSet?.reps, previousSet?.note);
 }
 
 function parseWeightInput(value) {
@@ -1323,6 +1374,9 @@ repsModal.addEventListener("click", (event) => {
 openWeightModalButton.addEventListener("click", openWeightModal);
 saveWeightModalButton.addEventListener("click", saveWeightModalValue);
 cancelWeightModalButton.addEventListener("click", closeWeightModal);
+openSetNoteModalButton.addEventListener("click", openSetNoteModal);
+saveSetNoteModalButton.addEventListener("click", saveSetNoteModalValue);
+cancelSetNoteModalButton.addEventListener("click", closeSetNoteModal);
 weightModal.addEventListener("click", (event) => {
   const clickedElement = event.target instanceof Element ? event.target : event.target.parentElement;
   const stepButton = clickedElement?.closest("[data-weight-step]");
@@ -1341,6 +1395,11 @@ weightModal.addEventListener("click", (event) => {
     closeWeightModal();
   }
 });
+setNoteModal.addEventListener("click", (event) => {
+  if (event.target === setNoteModal) {
+    closeSetNoteModal();
+  }
+});
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !repsModal.classList.contains("is-hidden")) {
     closeRepsModal();
@@ -1348,6 +1407,10 @@ document.addEventListener("keydown", (event) => {
 
   if (event.key === "Escape" && !weightModal.classList.contains("is-hidden")) {
     closeWeightModal();
+  }
+
+  if (event.key === "Escape" && !setNoteModal.classList.contains("is-hidden")) {
+    closeSetNoteModal();
   }
 });
 weightControls.addEventListener("dblclick", (event) => {

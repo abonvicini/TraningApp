@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Training App</title>
-    <link rel="stylesheet" href="styles.css?v=0.27.0-beta" />
+    <link rel="stylesheet" href="styles.css?v=0.28.0-beta" />
   </head>
   <body>
     <main class="app-shell">
@@ -175,6 +175,9 @@
             </div>
           </section>
 
+          <button class="set-note-button" id="openSetNoteModalButton" type="button" aria-label="Agregar observacion a la serie">
+            <span id="setNoteButtonLabel">+ Nota</span>
+          </button>
         </section>
 
         <section class="history-panel" aria-label="Series completadas">
@@ -257,6 +260,23 @@
       </div>
     </div>
 
-    <script src="app.js?v=0.27.0-beta"></script>
+    <div class="modal-backdrop is-hidden" id="setNoteModal" role="dialog" aria-modal="true" aria-labelledby="setNoteModalTitle">
+      <div class="modal-card">
+        <div class="modal-heading">
+          <p class="eyebrow">Serie actual</p>
+          <h2 id="setNoteModalTitle">Observacion</h2>
+        </div>
+        <label class="set-note-field">
+          <span>Nota de la serie</span>
+          <textarea id="setNoteInput" rows="4" maxlength="240" placeholder="Ej: molestia leve, tecnica, energia..."></textarea>
+        </label>
+        <div class="modal-actions">
+          <button class="secondary-action" id="cancelSetNoteModalButton" type="button">Cancelar</button>
+          <button class="primary-action" id="saveSetNoteModalButton" type="button">Guardar</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js?v=0.28.0-beta"></script>
   </body>
 </html>

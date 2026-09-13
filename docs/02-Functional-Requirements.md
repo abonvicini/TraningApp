@@ -44,6 +44,8 @@
 - Los controles tactiles de peso deben evitar zoom accidental por doble tap o taps repetidos.
 - El usuario puede modificar las repeticiones realizadas de la serie actual durante el entrenamiento.
 - Modificar las repeticiones realizadas durante el entrenamiento no debe alterar la rutina base.
+- El usuario puede agregar una observacion libre opcional a cada serie durante el entrenamiento.
+- Las observaciones de serie deben guardarse solo en el entrenamiento realizado y no deben modificar la rutina base.
 - Al iniciar una nueva serie del mismo ejercicio, el peso debe precargarse con el valor usado en la serie anterior.
 - La referencia de ultima sesion debe salir del historial del mismo dia, mismo ejercicio y misma serie.
 - El usuario puede tocar la referencia de ultima sesion para usar ese peso como peso actual de la serie en curso.
@@ -59,6 +61,7 @@
 - El historial muestra todos los entrenamientos disponibles del dia seleccionado.
 - Cada entrenamiento guardado del historial se muestra colapsado inicialmente con fecha y hora.
 - Al tocar un entrenamiento del historial, se despliega el detalle completo de ejercicios y series.
+- Si una serie tiene observacion, el historial debe mostrarla junto al detalle de esa serie.
 - El usuario puede editar la fecha y hora de un entrenamiento guardado.
 - La edicion de fecha y hora debe actualizar solo `completedAt`, sin modificar ejercicios, series, pesos ni repeticiones.
 - El usuario puede cancelar la edicion de fecha y hora sin guardar cambios.

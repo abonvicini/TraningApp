@@ -1,6 +1,6 @@
 # Roadmap
 
-## Version actual: `v0.27.0-beta`
+## Version actual: `v0.28.0-beta`
 
 - Soporte para pesos decimales.
 - Edicion de fecha y hora de entrenamientos guardados en historial.
@@ -20,6 +20,7 @@
 - Header y footer fijos en modo entrenamiento, con navegacion de series mediante flechas.
 - Modificacion de repeticiones realizadas durante el entrenamiento sin alterar la rutina base.
 - Modal de repeticiones ajustable solo con botones tactiles para evitar abrir el teclado.
+- Observaciones libres opcionales por serie durante el entrenamiento, guardadas en historial.
 - Navegacion principal seccionada en `Home`, `Rutinas` e `Historial` con footer interactivo.
 - CTA principal de Home ubicado cerca del footer para mejorar alcance con el pulgar en mobile.
 - Entrenamientos del historial colapsados por fecha y hora, con despliegue del detalle al tocar.

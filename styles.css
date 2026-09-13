@@ -27,7 +27,8 @@ body {
 }
 
 button,
-input {
+input,
+textarea {
   font: inherit;
 }
 
@@ -877,6 +878,58 @@ h3 {
   color: var(--muted);
   font-size: 0.76em;
   line-height: 1;
+}
+
+.set-note-button {
+  justify-self: center;
+  width: min(100%, 220px);
+  min-height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0 16px;
+  background: var(--surface-strong);
+  color: var(--muted);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.set-note-button.has-note {
+  border-color: rgba(240, 90, 56, 0.42);
+  color: var(--accent-strong);
+}
+
+.set-note-field {
+  display: grid;
+  gap: 8px;
+}
+
+.set-note-field span {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.set-note-field textarea {
+  min-height: 112px;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  outline: 0;
+  padding: 12px;
+  background: var(--surface-strong);
+  color: var(--text);
+  resize: vertical;
+}
+
+.set-note-field textarea:focus {
+  border-color: var(--accent);
+}
+
+.set-note-summary {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
 }
 
 .modal-backdrop {
