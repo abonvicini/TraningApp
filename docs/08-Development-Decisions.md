@@ -523,3 +523,26 @@ Consecuencias:
 - El toast expira automaticamente luego de 10 segundos para no dejar una accion temporal visible indefinidamente.
 - El deshacer no sobrevive a recargar la app.
 - Si se borra todo el historial del dia, se limpia el deshacer pendiente.
+
+## Guardar observaciones como dato de serie realizada
+
+Contexto:
+
+El usuario puede necesitar registrar informacion puntual de una serie, como tecnica, molestias, energia o cualquier observacion del entrenamiento real. Esa informacion no representa un cambio en la rutina objetivo.
+
+Decision:
+
+La app guarda la observacion opcional como `note` dentro del objeto de la serie realizada en `training-app-history`. Durante el entrenamiento activo se mantiene temporalmente en memoria y se persiste solo cuando el usuario completa la serie.
+
+Motivo:
+
+- Mantener separadas la rutina base y el entrenamiento realizado.
+- Evitar modificar `training-app-routines`.
+- Mantener compatibilidad con historiales antiguos donde las series no tienen `note`.
+- Permitir mostrar la observacion en resumen e historial sin migraciones.
+
+Consecuencias:
+
+- Las series sin observacion no agregan el campo `note`.
+- Al volver a una serie anterior durante el entrenamiento, la nota se recupera junto con reps y peso.
+- Los registros antiguos siguen visualizandose normalmente.

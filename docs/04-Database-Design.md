@@ -62,7 +62,8 @@ Guarda sesiones completadas.
         "sets": [
           {
             "reps": 8,
-            "weight": 22.5
+            "weight": 22.5,
+            "note": "Molestia leve en rodilla"
           }
         ]
       }
@@ -75,6 +76,7 @@ Guarda sesiones completadas.
 
 - No asumir que todos los registros tienen la forma mas nueva.
 - Mantener soporte para historial previo con pesos como string.
+- Mantener soporte para series sin `note`, ya que las observaciones son opcionales.
 - Mantener soporte para claves antiguas de dias si existen.
 - Agregar migraciones defensivas cuando cambie el modelo.
 

@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.28.0-beta` - 2026-09-13
+
+### 2026-09-13 - Observaciones por serie
+
+- Version: `v0.28.0-beta`.
+- Funcionalidad: agregar observaciones libres opcionales en cada serie del entrenamiento.
+- Resumen: se agrega una accion secundaria `+ Nota` en modo entrenamiento, un modal para cargar la observacion y persistencia del campo opcional `note` dentro de cada serie realizada; resumen e historial muestran la nota cuando existe sin modificar la rutina base.
+- Pull Request: pendiente.
+
 ## `v0.27.0-beta` - 2026-09-13
 
 ### 2026-09-13 - Historial completo por dia
