@@ -334,8 +334,7 @@ function escapeHtml(value) {
 function renderSavedSessions() {
   const sessionsForDay = state.sessions
     .map((session, index) => ({ session, index }))
-    .filter(({ session }) => session.day === state.selectedDay)
-    .slice(0, 5);
+    .filter(({ session }) => session.day === state.selectedDay);
   renderDeletedSessionUndoToast();
 
   clearHistoryButton.disabled = sessionsForDay.length === 0;
@@ -978,7 +977,6 @@ function saveCompletedSession() {
   };
 
   state.sessions.unshift(session);
-  state.sessions = state.sessions.slice(0, 100);
   state.currentSessionSaved = true;
   saveSessions();
 }

@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.27.0-beta` - 2026-09-13
+
+### 2026-09-13 - Historial completo por dia
+
+- Version: `v0.27.0-beta`.
+- Funcionalidad: mostrar todos los entrenamientos disponibles del dia seleccionado en historial.
+- Resumen: se elimina el limite visual de 5 registros por dia y el recorte global de 100 sesiones guardadas; el historial sigue filtrando por dia, conserva el comportamiento colapsable y no modifica el modelo de datos.
+- Pull Request: pendiente.
+
 ## `v0.26.0-beta` - 2026-07-22
 
 ### 2026-07-22 - Diferenciacion visual de pesos en entrenamiento

@@ -81,5 +81,6 @@ Guarda sesiones completadas.
 ## Limites actuales
 
 - Los datos son locales al navegador.
+- La cantidad de historial disponible depende de la capacidad de `localStorage` del navegador.
 - No hay sincronizacion entre dispositivos.
 - Si el usuario borra datos del navegador, se pierde la informacion.

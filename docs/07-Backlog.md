@@ -5,7 +5,7 @@
 - Editar el nombre de ejercicios.
 - Editar cualquier serie completada desde la lista de `Completado`.
 - Agregar observaciones o notas libres en cada serie del entrenamiento.
-- Historial completo con filtros, busqueda y ordenamiento.
+- Filtros, busqueda y ordenamiento para el historial.
 - Importar rutina e historial desde la pantalla inicial cuando la app se usa por primera vez.
 - Exportar rutina e historial cuando ya existen datos guardados.
 
@@ -41,6 +41,7 @@
 - Modificar repeticiones realizadas durante el entrenamiento sin alterar la rutina base.
 - Componente `TrainingProgressCard` para priorizar serie, ultima sesion, reps y peso actual en modo entrenamiento.
 - Colapsar cada entrenamiento del historial para mostrar inicialmente solo fecha y hora, y desplegar el detalle completo al hacer tap.
+- Mostrar todos los entrenamientos disponibles del dia seleccionado en historial.
 - Permitir borrar individualmente cada entrenamiento guardado en historial, manteniendo tambien la opcion de borrar todo el historial del dia.
 - Agregar opcion de deshacer durante 10 segundos luego de borrar un entrenamiento del historial.
 - Ocultar el input general de reps cuando se seleccionan diferentes reps por serie al cargar una rutina.

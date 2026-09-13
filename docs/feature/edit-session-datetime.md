@@ -103,6 +103,6 @@ Los registros existentes continuan funcionando porque:
 
 ## Mejora adicional detectada
 
-El historial actualmente muestra solo los ultimos 5 entrenamientos por dia y no tiene una vista completa ni filtros avanzados. Tambien podria ser util ordenar explicitamente el historial por la fecha editada.
+El historial ahora muestra todos los entrenamientos disponibles del dia seleccionado. Sigue pendiente sumar filtros, busqueda y ordenamiento avanzado. Tambien podria ser util ordenar explicitamente el historial por la fecha editada.
 
 Estas mejoras futuras quedaron registradas en `docs/07-Backlog.md`.
