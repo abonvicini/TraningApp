@@ -1,6 +1,7 @@
 const STORAGE_KEY = "training-app-routines";
 const HISTORY_STORAGE_KEY = "training-app-history";
 const CONFIG_STORAGE_KEY = "training-app-config";
+const ACTIVE_WORKOUT_STORAGE_KEY = "training-app-active-workout";
 const DEFAULT_TRAINING_DAY_COUNT = 4;
 const MAX_TRAINING_DAYS = 7;
 const UNDO_HISTORY_DELETE_TIMEOUT = 10000;
@@ -30,6 +31,7 @@ const state = {
   weightModalValue: "",
   currentSetNote: "",
   completedSetDraft: null,
+  activeWorkout: false,
 };
 
 const setupView = document.querySelector("#setupView");
@@ -208,6 +210,81 @@ function loadSessions(trainingDayCount) {
 
 function saveSessions() {
   localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(state.sessions));
+}
+
+function saveActiveWorkoutDraft() {
+  if (!state.activeWorkout || state.workoutPlan.length === 0 || state.currentSessionSaved) {
+    return;
+  }
+
+  const draft = {
+    version: 1,
+    selectedDay: state.selectedDay,
+    workoutPlan: state.workoutPlan,
+    exerciseIndex: state.exerciseIndex,
+    setIndex: state.setIndex,
+    log: state.log,
+    currentWeight: weightInput.value,
+    currentReps: parseCurrentRepsInput(),
+    currentSetNote: state.currentSetNote,
+  };
+
+  localStorage.setItem(ACTIVE_WORKOUT_STORAGE_KEY, JSON.stringify(draft));
+}
+
+function clearActiveWorkoutDraft() {
+  state.activeWorkout = false;
+  localStorage.removeItem(ACTIVE_WORKOUT_STORAGE_KEY);
+}
+
+function loadActiveWorkoutDraft() {
+  const saved = localStorage.getItem(ACTIVE_WORKOUT_STORAGE_KEY);
+
+  if (!saved) {
+    return null;
+  }
+
+  try {
+    const draft = JSON.parse(saved);
+    const hasValidIndexes =
+      Array.isArray(draft.workoutPlan) &&
+      draft.workoutPlan.length > 0 &&
+      draft.workoutPlan.every((exercise) => exercise && Number.isFinite(Number(exercise.sets)) && Number(exercise.sets) > 0) &&
+      Array.isArray(draft.log) &&
+      draft.log.length === draft.workoutPlan.length &&
+      draft.log.every((exercise) => exercise && Array.isArray(exercise.sets)) &&
+      Number.isInteger(draft.exerciseIndex) &&
+      draft.exerciseIndex >= 0 &&
+      draft.exerciseIndex < draft.workoutPlan.length &&
+      Number.isInteger(draft.setIndex) &&
+      draft.setIndex >= 0 &&
+      draft.setIndex < Number(draft.workoutPlan[draft.exerciseIndex]?.sets);
+
+    if (
+      !hasValidIndexes ||
+      typeof draft.selectedDay !== "string" ||
+      getDayNumber(draft.selectedDay) > state.trainingDayCount
+    ) {
+      clearActiveWorkoutDraft();
+      return null;
+    }
+
+    return draft;
+  } catch {
+    clearActiveWorkoutDraft();
+    return null;
+  }
+}
+
+function restoreActiveWorkoutDraft(draft) {
+  state.selectedDay = draft.selectedDay;
+  state.workoutPlan = draft.workoutPlan;
+  state.exerciseIndex = draft.exerciseIndex;
+  state.setIndex = draft.setIndex;
+  state.log = draft.log;
+  state.currentSessionSaved = false;
+  state.currentSetNote = normalizeSetNote(draft.currentSetNote);
+  state.activeWorkout = true;
 }
 
 function getSelectedRoutine() {
@@ -588,6 +665,7 @@ function showView(view) {
 }
 
 function resetWorkout() {
+  clearActiveWorkoutDraft();
   state.workoutPlan = getSelectedRoutine().map((exercise) => ({ ...exercise }));
   state.exerciseIndex = 0;
   state.setIndex = 0;
@@ -598,6 +676,7 @@ function resetWorkout() {
     reps: exercise.reps,
     sets: [],
   }));
+  state.activeWorkout = true;
 }
 
 function getTotalSets() {
@@ -648,6 +727,7 @@ function renderWorkout(weightValue = "", repsValue = null, noteValue = "") {
     targetReps,
     currentReps: repsValue,
   });
+  saveActiveWorkoutDraft();
 }
 
 function formatWeight(weight) {
@@ -739,6 +819,7 @@ function useLastSessionWeightReference() {
   }
 
   setWeightInputValue(reference.weight);
+  saveActiveWorkoutDraft();
 }
 
 function formatLoggedSet(set, index) {
@@ -792,6 +873,7 @@ function completeSet() {
 
   if (state.exerciseIndex >= state.workoutPlan.length) {
     renderSummary();
+    clearActiveWorkoutDraft();
     showView("summary");
     return;
   }
@@ -871,6 +953,7 @@ function saveRepsModalValue() {
   }
 
   setCurrentRepsValue(reps);
+  saveActiveWorkoutDraft();
   closeRepsModal();
 }
 
@@ -906,6 +989,7 @@ function adjustWeightModalValue(step) {
 
 function saveWeightModalValue() {
   setWeightInputValue(state.weightModalValue);
+  saveActiveWorkoutDraft();
   closeWeightModal();
 }
 
@@ -937,6 +1021,7 @@ function closeSetNoteModal() {
 function saveSetNoteModalValue() {
   state.currentSetNote = normalizeSetNote(setNoteInput.value);
   renderSetNoteButton();
+  saveActiveWorkoutDraft();
   closeSetNoteModal();
 }
 
@@ -1491,10 +1576,12 @@ backButton.addEventListener("click", () => {
     }
   }
 
+  clearActiveWorkoutDraft();
   renderPlan();
   showView("home");
 });
 restartButton.addEventListener("click", () => {
+  clearActiveWorkoutDraft();
   renderPlan();
   showView("home");
 });
@@ -1603,8 +1690,27 @@ completedSetWeightControls.addEventListener("dblclick", (event) => {
   event.preventDefault();
 });
 
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "hidden") {
+    saveActiveWorkoutDraft();
+  }
+});
+window.addEventListener("pagehide", saveActiveWorkoutDraft);
+
 renderDaySelectors();
 renderExerciseFormMode();
 renderPlan();
 showAppSection("home");
-showView(state.hasConfiguredTrainingDays ? "home" : "setup");
+const activeWorkoutDraft = loadActiveWorkoutDraft();
+
+if (activeWorkoutDraft && state.hasConfiguredTrainingDays) {
+  restoreActiveWorkoutDraft(activeWorkoutDraft);
+  renderDaySelectors();
+  renderWorkout(activeWorkoutDraft.currentWeight, activeWorkoutDraft.currentReps, activeWorkoutDraft.currentSetNote);
+  showView("workout");
+} else {
+  if (activeWorkoutDraft) {
+    clearActiveWorkoutDraft();
+  }
+  showView(state.hasConfiguredTrainingDays ? "home" : "setup");
+}

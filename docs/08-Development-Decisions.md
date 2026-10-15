@@ -570,3 +570,26 @@ Consecuencias:
 - El historial guarda la version corregida al finalizar.
 - La rutina base no cambia.
 - Los botones tactiles mantienen la misma logica de validacion de reps enteras y pesos en pasos de `0.25 kg`.
+
+## Persistir y recuperar el entrenamiento activo
+
+Contexto:
+
+En dispositivos moviles, el navegador puede suspender una pestaña cuando el usuario cambia de aplicacion o bloquea la pantalla. Si el entrenamiento activo solo vive en memoria, el usuario vuelve a `Home` y puede perder el punto exacto de la sesion.
+
+Decision:
+
+La app guarda un borrador del entrenamiento activo en `training-app-active-workout`. El borrador contiene el plan usado para esa sesion, ejercicio y serie actuales, series completadas y los valores temporales de peso, reps y nota. Se actualiza durante los cambios relevantes y cuando la pestaña pasa a estado oculto.
+
+Motivo:
+
+- Recuperar la sesion sin depender de que el navegador conserve memoria.
+- Mantener el historial final separado del entrenamiento todavia no completado.
+- Restaurar tambien cambios de la serie actual que aun no fueron confirmados.
+- Mantener compatibilidad sin migrar `training-app-history`.
+
+Consecuencias:
+
+- Al reabrir o volver a la app, el usuario retoma directamente el entrenamiento pendiente.
+- Salir con el boton de volver, finalizar la sesion o iniciar un nuevo entrenamiento elimina el borrador.
+- Si el usuario borra los datos del sitio, tambien pierde el borrador local.

@@ -44,6 +44,7 @@ Claves actuales:
 - `training-app-config`
 - `training-app-routines`
 - `training-app-history`
+- `training-app-active-workout`
 
 ## Renderizado
 

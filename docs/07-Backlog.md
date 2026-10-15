@@ -39,6 +39,7 @@
 - Modificar repeticiones realizadas durante el entrenamiento sin alterar la rutina base.
 - Agregar observaciones o notas libres en cada serie del entrenamiento.
 - Editar cualquier serie completada desde la lista de `Completado`.
+- Recuperar el estado del entrenamiento activo al volver desde otra app o despues de una recarga del navegador.
 - Componente `TrainingProgressCard` para priorizar serie, ultima sesion, reps y peso actual en modo entrenamiento.
 - Colapsar cada entrenamiento del historial para mostrar inicialmente solo fecha y hora, y desplegar el detalle completo al hacer tap.
 - Mostrar todos los entrenamientos disponibles del dia seleccionado en historial.

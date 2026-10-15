@@ -54,6 +54,9 @@
 - El usuario puede volver a la serie anterior durante el entrenamiento para corregir el peso registrado.
 - Las acciones de avanzar y volver serie deben estar disponibles en un footer fijo con controles de flecha.
 - Al volver a la serie anterior, la app debe corregir el registro de la sesion actual sin alterar la rutina base.
+- Si el navegador suspende o recarga la pestaña durante un entrenamiento, la app debe recuperar la sesion activa desde el estado temporal guardado localmente.
+- La recuperacion debe restaurar ejercicio actual, serie actual, series completadas, peso, reps y nota de la serie en curso.
+- Salir intencionalmente del entrenamiento o finalizarlo debe descartar el estado temporal activo.
 
 ## Historial
 
