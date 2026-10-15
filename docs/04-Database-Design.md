@@ -72,6 +72,26 @@ Guarda sesiones completadas.
 ]
 ```
 
+### `training-app-active-workout`
+
+Guarda temporalmente el entrenamiento en curso para recuperarlo si el navegador suspende o recarga la pestaña.
+
+```json
+{
+  "version": 1,
+  "selectedDay": "day1",
+  "workoutPlan": [],
+  "exerciseIndex": 0,
+  "setIndex": 1,
+  "log": [],
+  "currentWeight": "40",
+  "currentReps": 10,
+  "currentSetNote": ""
+}
+```
+
+Este borrador se elimina al salir intencionalmente, completar el entrenamiento o iniciar una nueva sesion.
+
 ## Reglas de compatibilidad
 
 - No asumir que todos los registros tienen la forma mas nueva.

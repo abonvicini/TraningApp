@@ -1,5 +1,14 @@
 # Changelog
 
+## `v0.30.0-beta` - 2026-10-15
+
+### 2026-10-15 - Recuperacion del entrenamiento activo
+
+- Version: `v0.30.0-beta`.
+- Funcionalidad: conservar el estado del entrenamiento al cambiar de aplicacion o cuando el navegador suspende o recarga la pestaña.
+- Resumen: se agrega un borrador local del entrenamiento activo que restaura ejercicio, serie, series completadas, peso, reps y nota; salir intencionalmente o finalizar el entrenamiento limpia el borrador.
+- Pull Request: pendiente.
+
 ## `v0.29.0-beta` - 2026-09-13
 
 ### 2026-09-13 - Edicion de series completadas
