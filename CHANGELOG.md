@@ -1,5 +1,23 @@
 # Changelog
 
+## `v0.32.0-beta` - 2026-10-16
+
+### 2026-10-16 - Compartir rutinas sin instalar la app
+
+- Version: `v0.32.0-beta`.
+- Funcionalidad: compartir la rutina del dia seleccionado en texto legible.
+- Resumen: se agrega el menu nativo de compartir, copia al portapapeles y descarga `.txt` como alternativas, sin incluir historial ni modificar datos locales.
+- Pull Request: pendiente.
+
+## `v0.31.0-beta` - 2026-10-16
+
+### 2026-10-16 - Importacion y exportacion de datos
+
+- Version: `v0.31.0-beta`.
+- Funcionalidad: importar y exportar rutinas, configuracion e historial mediante un respaldo JSON.
+- Resumen: se agrega exportacion desde Rutinas, importacion desde la configuracion inicial o Rutinas, validacion del formato `training-app-backup` version `1` y confirmacion antes de reemplazar los datos actuales.
+- Pull Request: pendiente.
+
 ## `v0.30.0-beta` - 2026-10-15
 
 ### 2026-10-15 - Recuperacion del entrenamiento activo

@@ -92,6 +92,14 @@ Guarda temporalmente el entrenamiento en curso para recuperarlo si el navegador 
 
 Este borrador se elimina al salir intencionalmente, completar el entrenamiento o iniciar una nueva sesion.
 
+## Respaldo JSON
+
+La app puede exportar `training-app-config`, `training-app-routines` y `training-app-history` en un unico archivo JSON con formato `training-app-backup`, version `1`. El entrenamiento activo no se incluye porque representa una sesion incompleta.
+
+La importacion valida el formato, la version, la cantidad de dias, las rutinas y el historial antes de reemplazar los datos actuales. La escritura se realiza sobre las tres claves existentes, por lo que no se modifica la estructura de almacenamiento local.
+
+Compartir una rutina es una operacion de lectura: formatea la rutina seleccionada como texto y no agrega claves ni altera el modelo de datos.
+
 ## Reglas de compatibilidad
 
 - No asumir que todos los registros tienen la forma mas nueva.

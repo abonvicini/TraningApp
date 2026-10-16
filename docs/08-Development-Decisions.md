@@ -69,6 +69,46 @@ Consecuencias:
 - Las ideas futuras detectadas durante el trabajo quedan en backlog, no en memoria de chat.
 - Ningun Pull Request se considera terminado hasta que codigo y documentacion esten sincronizados.
 
+## Respaldo JSON completo con reemplazo confirmado
+
+Contexto:
+
+La app guarda rutinas, configuracion e historial exclusivamente en `localStorage`, por lo que el usuario necesita una forma portable de conservar o trasladar sus datos.
+
+Decision:
+
+Se utiliza un archivo JSON versionado con identificador `training-app-backup` que agrupa la configuracion, las rutinas y el historial. La primera version importa reemplazando los datos actuales luego de mostrar un resumen y pedir confirmacion. El entrenamiento activo queda excluido.
+
+Motivo:
+
+El formato es transparente, funciona sin backend y permite agregar migraciones futuras. El reemplazo completo evita duplicados y reduce la complejidad de combinar historiales.
+
+Consecuencias:
+
+La importacion es simple y predecible, pero no combina datos existentes. Una version futura podria incorporar importacion parcial o fusion con deteccion de duplicados.
+
+## Compartir rutinas como texto legible
+
+Contexto:
+
+Un archivo JSON sirve para respaldar datos en la app, pero no es practico para compartir una rutina con una persona que no la tiene instalada.
+
+Decision:
+
+La rutina del dia seleccionado se comparte como texto plano con nombre del dia, ejercicios, series y repeticiones. Se prioriza el menu nativo `navigator.share`; el portapapeles y un archivo `.txt` funcionan como alternativas.
+
+Motivo:
+
+- El formato puede leerse y pegarse en cualquier aplicacion de mensajes.
+- No requiere backend ni una cuenta.
+- Mantiene separado el respaldo tecnico JSON de la comunicacion entre personas.
+
+Consecuencias:
+
+- La accion no incluye historial ni altera `localStorage`.
+- El resultado depende de las capacidades del navegador y del dispositivo.
+- Una mejora futura podria permitir compartir tambien un resumen del historial.
+
 ## Incrementar la version beta por cada mejora
 
 Contexto:

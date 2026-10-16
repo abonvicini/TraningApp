@@ -75,6 +75,20 @@
 - El usuario puede borrar el historial del dia seleccionado.
 - Los registros antiguos deben seguir visualizandose correctamente.
 
+## Respaldo de datos
+
+- El usuario puede exportar configuracion, rutinas e historial en un archivo JSON versionado.
+- El usuario puede importar un respaldo desde la configuracion inicial o desde Rutinas.
+- La importacion valida el archivo y solicita confirmacion antes de reemplazar los datos actuales.
+- El entrenamiento activo no forma parte del respaldo exportado.
+
+## Compartir rutinas
+
+- El usuario puede compartir la rutina del dia seleccionado en un formato de texto legible sin instalar la app.
+- En dispositivos compatibles se utiliza el menu nativo de compartir.
+- Si el navegador no ofrece compartir, la app copia el texto al portapapeles o descarga un archivo `.txt` como alternativa.
+- Compartir una rutina no incluye el historial ni modifica los datos guardados.
+
 ## Compatibilidad
 
 - Los cambios funcionales deben evitar romper datos previos de `localStorage`.

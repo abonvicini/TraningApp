@@ -4,8 +4,6 @@
 
 - Editar el nombre de ejercicios.
 - Filtros, busqueda y ordenamiento para el historial.
-- Importar rutina e historial desde la pantalla inicial cuando la app se usa por primera vez.
-- Exportar rutina e historial cuando ya existen datos guardados.
 
 ## Prioridad media
 
@@ -49,3 +47,11 @@
 - Primer uso sin rutina precargada en Dia 1.
 - Documentacion modular base.
 - Revision de backlog por prioridad.
+- Importar rutina e historial desde la pantalla inicial cuando la app se usa por primera vez.
+- Exportar rutina e historial cuando ya existen datos guardados.
+- Compartir la rutina del dia seleccionado como texto para personas que no tienen la app.
+
+## Mejoras futuras relacionadas
+
+- Importar combinando datos sin reemplazar el historial actual.
+- Compartir historial en un formato legible para personas que no tienen la app.

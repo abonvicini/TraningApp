@@ -46,6 +46,10 @@ Claves actuales:
 - `training-app-history`
 - `training-app-active-workout`
 
+El identificador `training-app-backup` corresponde al formato JSON versionado de importacion y exportacion; no es una clave de `localStorage`.
+
+La opcion `Compartir rutina` genera texto desde la rutina del dia seleccionado. Usa `navigator.share` cuando esta disponible, con fallback a portapapeles y descarga `.txt`; no crea ni modifica datos persistidos.
+
 ## Renderizado
 
 El renderizado se realiza mediante funciones que actualizan el DOM con strings HTML y listeners de eventos delegados o directos.
