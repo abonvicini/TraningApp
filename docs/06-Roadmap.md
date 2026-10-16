@@ -1,6 +1,6 @@
 # Roadmap
 
-## Version actual: `v0.30.0-beta`
+## Version actual: `v0.32.0-beta`
 
 - Soporte para pesos decimales.
 - Edicion de fecha y hora de entrenamientos guardados en historial.
@@ -35,13 +35,17 @@
 - Documentacion modular base en `docs/`.
 - Revision de backlog por prioridad.
 - Auditoria y sincronizacion general de documentacion.
+- Importacion y exportacion de rutinas e historial mediante respaldo JSON versionado.
+- Compartir la rutina del dia seleccionado como texto para personas que no tienen la app.
 
 ## Corto plazo
 
 - Editar el nombre de ejercicios.
 - Filtros, busqueda y ordenamiento para el historial.
-- Importar rutina e historial desde la pantalla inicial cuando la app se usa por primera vez.
-- Exportar rutina e historial cuando ya existen datos guardados.
+
+## Mejoras futuras relacionadas
+
+- Compartir historial en un formato legible para personas que no tienen la app.
 
 ## Mediano plazo
 

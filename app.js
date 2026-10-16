@@ -2,6 +2,8 @@ const STORAGE_KEY = "training-app-routines";
 const HISTORY_STORAGE_KEY = "training-app-history";
 const CONFIG_STORAGE_KEY = "training-app-config";
 const ACTIVE_WORKOUT_STORAGE_KEY = "training-app-active-workout";
+const BACKUP_FORMAT = "training-app-backup";
+const BACKUP_VERSION = 1;
 const DEFAULT_TRAINING_DAY_COUNT = 4;
 const MAX_TRAINING_DAYS = 7;
 const UNDO_HISTORY_DELETE_TIMEOUT = 10000;
@@ -105,6 +107,7 @@ const progressFill = document.querySelector("#progressFill");
 const summaryText = document.querySelector("#summaryText");
 const summaryLog = document.querySelector("#summaryLog");
 const savedSessionsList = document.querySelector("#savedSessionsList");
+const backupFileInput = document.querySelector("#backupFileInput");
 
 function loadConfig() {
   const saved = localStorage.getItem(CONFIG_STORAGE_KEY);
@@ -212,6 +215,274 @@ function saveSessions() {
   localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(state.sessions));
 }
 
+function getBackupFileName() {
+  return `training-app-backup-${new Date().toISOString().slice(0, 10)}.json`;
+}
+
+function exportBackup() {
+  const backup = {
+    format: BACKUP_FORMAT,
+    version: BACKUP_VERSION,
+    exportedAt: new Date().toISOString(),
+    config: {
+      trainingDayCount: state.trainingDayCount,
+    },
+    routines: state.routines,
+    history: state.sessions,
+  };
+  const blob = new Blob([JSON.stringify(backup, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = getBackupFileName();
+  document.body.append(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 0);
+}
+
+function formatRoutineForSharing() {
+  const routine = getSelectedRoutine();
+
+  if (routine.length === 0) {
+    return null;
+  }
+
+  const lines = [`Training App - ${getDayLabel(state.selectedDay)}`, ""];
+
+  routine.forEach((exercise, index) => {
+    lines.push(`${index + 1}. ${exercise.name}`);
+    lines.push(`   ${exercise.sets} series`);
+
+    if (Array.isArray(exercise.repsBySet)) {
+      lines.push(`   Repeticiones: ${exercise.repsBySet.join(", ")}`);
+    } else {
+      lines.push(`   Repeticiones: ${exercise.reps}`);
+    }
+
+    lines.push("");
+  });
+
+  return lines.join("\n").trim();
+}
+
+async function shareSelectedRoutine() {
+  const text = formatRoutineForSharing();
+
+  if (!text) {
+    window.alert(`No hay una rutina cargada en ${getDayLabel(state.selectedDay)}.`);
+    return;
+  }
+
+  if (typeof navigator.share === "function") {
+    try {
+      await navigator.share({
+        title: `Rutina - ${getDayLabel(state.selectedDay)}`,
+        text,
+      });
+      return;
+    } catch (error) {
+      if (error?.name === "AbortError") {
+        return;
+      }
+    }
+  }
+
+  if (navigator.clipboard?.writeText) {
+    try {
+      await navigator.clipboard.writeText(text);
+      window.alert("Rutina copiada. Ya podes pegarla para compartirla.");
+      return;
+    } catch {
+      // Continue with a downloadable text file when clipboard access is unavailable.
+    }
+  }
+
+  const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `rutina-${state.selectedDay}.txt`;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 0);
+}
+
+function normalizeImportedExercise(exercise) {
+  if (!exercise || typeof exercise.name !== "string") {
+    return null;
+  }
+
+  const name = exercise.name.trim();
+  const sets = Number(exercise.sets);
+  const hasVariableReps = Array.isArray(exercise.repsBySet);
+  const reps = Number(exercise.reps);
+
+  if (!name || !Number.isInteger(sets) || sets < 1) {
+    return null;
+  }
+
+  if (hasVariableReps) {
+    const repsBySet = exercise.repsBySet.map(Number);
+
+    if (
+      repsBySet.length !== sets ||
+      repsBySet.some((value) => !Number.isInteger(value) || value < 1)
+    ) {
+      return null;
+    }
+
+    return { name, sets, repsBySet };
+  }
+
+  if (!Number.isInteger(reps) || reps < 1) {
+    return null;
+  }
+
+  return { name, sets, reps };
+}
+
+function normalizeImportedRoutines(routines, trainingDayCount) {
+  if (!routines || typeof routines !== "object" || Array.isArray(routines)) {
+    return null;
+  }
+
+  const migrated = hasLegacyRoutineKeys(routines) ? migrateLegacyRoutines(routines) : routines;
+  const normalized = createEmptyRoutines(trainingDayCount);
+
+  for (const dayKey of getTrainingDayKeysForCount(trainingDayCount)) {
+    const dayRoutine = migrated[dayKey] ?? [];
+
+    if (!Array.isArray(dayRoutine)) {
+      return null;
+    }
+
+    const exercises = dayRoutine.map(normalizeImportedExercise);
+
+    if (exercises.some((exercise) => exercise === null)) {
+      return null;
+    }
+
+    normalized[dayKey] = exercises;
+  }
+
+  return normalized;
+}
+
+function normalizeImportedSet(set) {
+  if (set === null || set === undefined || typeof set !== "object" || Array.isArray(set)) {
+    return set;
+  }
+
+  return {
+    ...set,
+    note: normalizeSetNote(set.note),
+  };
+}
+
+function normalizeImportedSession(session, trainingDayCount) {
+  if (
+    !session ||
+    typeof session !== "object" ||
+    typeof session.day !== "string" ||
+    !getTrainingDayKeysForCount(trainingDayCount).includes(session.day) ||
+    Number.isNaN(Date.parse(session.completedAt)) ||
+    !Array.isArray(session.exercises)
+  ) {
+    return null;
+  }
+
+  const exercises = session.exercises.map((exercise) => {
+    if (!exercise || typeof exercise.name !== "string" || !Array.isArray(exercise.sets)) {
+      return null;
+    }
+
+    return {
+      name: exercise.name,
+      sets: exercise.sets.map(normalizeImportedSet),
+    };
+  });
+
+  if (exercises.some((exercise) => exercise === null)) {
+    return null;
+  }
+
+  return {
+    ...session,
+    dayName: getDayLabel(session.day),
+    totalSets: exercises.reduce((total, exercise) => total + exercise.sets.length, 0),
+    totalExercises: exercises.length,
+    exercises,
+  };
+}
+
+function normalizeImportedSessions(sessions, trainingDayCount) {
+  if (!Array.isArray(sessions)) {
+    return null;
+  }
+
+  const migrated = migrateLegacySessions(sessions, trainingDayCount);
+  const normalized = migrated.map((session) => normalizeImportedSession(session, trainingDayCount));
+
+  return normalized.some((session) => session === null) ? null : normalized;
+}
+
+function parseBackupFile(contents) {
+  const backup = JSON.parse(contents);
+
+  if (backup?.format !== BACKUP_FORMAT || backup?.version !== BACKUP_VERSION) {
+    throw new Error("El archivo no pertenece a una version compatible de Training App.");
+  }
+
+  const trainingDayCount = clampTrainingDayCount(backup.config?.trainingDayCount);
+  const routines = normalizeImportedRoutines(backup.routines, trainingDayCount);
+  const sessions = normalizeImportedSessions(backup.history, trainingDayCount);
+
+  if (!routines || !sessions) {
+    throw new Error("El archivo contiene datos incompletos o invalidos.");
+  }
+
+  return { trainingDayCount, routines, sessions };
+}
+
+async function importBackupFile(file) {
+  try {
+    const imported = parseBackupFile(await file.text());
+    const exerciseCount = Object.values(imported.routines).reduce((total, routine) => total + routine.length, 0);
+    const confirmed = window.confirm(
+      `El archivo contiene ${imported.trainingDayCount} dias, ${exerciseCount} ejercicios y ${imported.sessions.length} entrenamientos.\n\nImportar reemplazara las rutinas y el historial actuales.`,
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    clearActiveWorkoutDraft();
+    state.trainingDayCount = imported.trainingDayCount;
+    state.hasConfiguredTrainingDays = true;
+    state.selectedDay = "day1";
+    state.routines = imported.routines;
+    state.sessions = imported.sessions;
+    state.isEditingRoutine = false;
+    state.editingSessionIndex = null;
+    state.expandedSessionIndexes.clear();
+    saveConfig();
+    saveRoutines();
+    saveSessions();
+    renderDaySelectors();
+    renderPlan();
+    showAppSection("home");
+    showView("home");
+    window.alert("Datos importados correctamente.");
+  } catch (error) {
+    window.alert(error instanceof Error ? error.message : "No se pudo importar el archivo.");
+  } finally {
+    backupFileInput.value = "";
+  }
+}
+
 function saveActiveWorkoutDraft() {
   if (!state.activeWorkout || state.workoutPlan.length === 0 || state.currentSessionSaved) {
     return;
@@ -301,6 +572,10 @@ function getDayNumber(dayKey) {
 
 function getTrainingDayKeys() {
   return Array.from({ length: state.trainingDayCount }, (_, index) => `day${index + 1}`);
+}
+
+function getTrainingDayKeysForCount(trainingDayCount) {
+  return Array.from({ length: trainingDayCount }, (_, index) => `day${index + 1}`);
 }
 
 function getDaySelectorMarkup() {
@@ -1459,9 +1734,21 @@ document.addEventListener("click", (event) => {
   const dayButton = clickedElement?.closest("[data-day]");
   const sectionButton = clickedElement?.closest("[data-app-section]");
   const undoDeleteButton = clickedElement?.closest("[data-undo-session-delete]");
+  const backupAction = clickedElement?.closest("[data-backup-action]");
 
   if (undoDeleteButton) {
     undoDeletedSession();
+    return;
+  }
+
+  if (backupAction) {
+    if (backupAction.dataset.backupAction === "export") {
+      exportBackup();
+    } else if (backupAction.dataset.backupAction === "share-routine") {
+      shareSelectedRoutine();
+    } else {
+      backupFileInput.click();
+    }
     return;
   }
 
@@ -1535,6 +1822,13 @@ savedSessionsList.addEventListener("submit", (event) => {
 
   if (!saved) {
     form.reportValidity();
+  }
+});
+backupFileInput.addEventListener("change", () => {
+  const [file] = backupFileInput.files;
+
+  if (file) {
+    importBackupFile(file);
   }
 });
 planList.addEventListener("click", (event) => {

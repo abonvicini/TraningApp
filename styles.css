@@ -127,6 +127,40 @@ button:disabled {
   margin-top: 16px;
 }
 
+.setup-import-action {
+  display: grid;
+  gap: 10px;
+  max-width: 360px;
+  margin-top: 28px;
+}
+
+.data-transfer-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 22px 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(36, 44, 38, 0.5);
+}
+
+.data-transfer-actions .eyebrow {
+  margin-bottom: 4px;
+}
+
+.data-transfer-actions .panel-actions {
+  align-items: stretch;
+}
+
+.data-transfer-hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
 .setup-form label,
 .training-days-form label {
   display: grid;
@@ -1245,6 +1279,7 @@ h3 {
 
   .panel-heading,
   .panel-actions,
+  .data-transfer-actions,
   .today-plan li,
   .history-heading,
   .saved-session-meta,

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Training App</title>
-    <link rel="stylesheet" href="styles.css?v=0.30.0-beta" />
+    <link rel="stylesheet" href="styles.css?v=0.31.0-beta" />
   </head>
   <body>
     <main class="app-shell">
@@ -22,6 +22,10 @@
             </label>
             <button class="primary-action" type="submit">Guardar configuracion</button>
           </form>
+          <div class="setup-import-action">
+            <p class="data-transfer-hint">Si ya tenes un respaldo, podes cargarlo ahora.</p>
+            <button class="secondary-action" type="button" data-backup-action="import">Importar respaldo</button>
+          </div>
         </div>
       </section>
 
@@ -49,6 +53,17 @@
             <button class="secondary-action" type="submit">Actualizar</button>
           </form>
           <div class="day-selector" aria-label="Seleccionar dia de rutina" id="routineDaySelector"></div>
+          <div class="data-transfer-actions" aria-label="Gestionar datos">
+            <div>
+              <p class="eyebrow">Datos</p>
+              <p class="data-transfer-hint">Guarda o recupera tus rutinas e historial.</p>
+            </div>
+            <div class="panel-actions">
+              <button class="secondary-action" type="button" data-backup-action="import">Importar</button>
+              <button class="secondary-action" type="button" data-backup-action="export">Exportar</button>
+              <button class="secondary-action" type="button" data-backup-action="share-routine">Compartir rutina</button>
+            </div>
+          </div>
           <div class="panel-heading">
             <div>
               <p class="eyebrow">Rutina seleccionada</p>
@@ -321,6 +336,8 @@
       </div>
     </div>
 
-    <script src="app.js?v=0.30.0-beta"></script>
+    <input id="backupFileInput" type="file" accept="application/json,.json" hidden />
+
+    <script src="app.js?v=0.31.0-beta"></script>
   </body>
 </html>
